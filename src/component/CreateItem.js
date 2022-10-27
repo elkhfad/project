@@ -73,8 +73,9 @@ const CreateItem = ({ data, setData }) => {
             <div className="input-group">
               <label htmlFor="title">title</label>
               <input className="form-control" id="title" name="title" type="text" value={title} onChange={handleTitle} required maxLength={50} placeholder="Title" />
-
-              <ChooseIcon value={title} min={5} />
+              <div className="input-group-addon">
+                <ChooseIcon value={title} min={10} />
+              </div>
             </div>
             <div className="errorHandle"> {<ErrorHandler min={5} value={title} text="Title length is too short !  required 5 characters" />}</div>
             <div className="input-group">
