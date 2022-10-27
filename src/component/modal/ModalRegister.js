@@ -43,21 +43,10 @@ const ModalRegister = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const signUpData = {
-      id: 1,
-      firstName: signUp.firstName,
-      lastName: signUp.lastName,
-      email: signUp.email,
-      password: signUp.password,
-      street: signUp.street,
-      postalCode: signUp.postalCode,
-      city: signUp.city,
-    };
-
     if (valid) {
       setSuccess(null);
       services
-        .create(url, signUpData)
+        .create(url, signUp)
         .then((res) => {
           if (!res.status === 'Created') {
             throw Error('could not add data');

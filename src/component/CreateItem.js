@@ -25,16 +25,11 @@ const CreateItem = ({ data, setData }) => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    const item = {
-      id: data.length + 1 + addItem.title,
-      title: addItem.title,
-      content: addItem.content,
-    };
     if (valid) {
       setSuccess(null);
       if (!data.map((da) => da.title).includes(addItem.title)) {
         service
-          .create(url, item)
+          .create(url, addItem)
           .then((res) => {
             if (!res.status === 'Created') {
               throw Error('could not add data');

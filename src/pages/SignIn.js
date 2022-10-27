@@ -26,15 +26,10 @@ const SignIn = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newSignIn = {
-      id: 1,
-      email: singIn.email,
-      password: singIn.password,
-    };
 
     if (valid) {
       services
-        .create(url, newSignIn)
+        .create(url, singIn)
         .then((res) => {
           if (!res.status === 'Created') {
             throw Error('could not add data');
