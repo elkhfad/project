@@ -8,92 +8,83 @@ import { useEffect } from 'react';
 import services from '../../services/services';
 
 const ModalRegister = () => {
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
   const [success, setSuccess] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPaswword] = useState('');
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
-  const [street, setStreet] = useState('');
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [show, setShow] = useState(false);
 
+  const [signUp, setSignUp] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    street: '',
+    postalCode: '',
+    city: '',
+  });
   const url = 'http://localhost:3001/registers';
 
   useEffect(() => {
     const validation = () => {
-      if (firstName.length > 2 && lastName.length > 4 && email.length > 4 && password.length > 7) {
+      if (
+        signUp.firstName.length > 2 &&
+        signUp.lastName.length > 4 &&
+        signUp.email.length > 4 &&
+        signUp.password.length > 7 &&
+        signUp.street.length > 3 &&
+        signUp.postalCode.length > 3 &&
+        signUp.city.length > 3
+      ) {
         setValid(true);
       }
     };
     validation();
-  }, [firstName, lastName, email, password, city, postalCode, street, error]);
+  }, [signUp, error]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const address = {
-      street: street,
-      postalCode: postalCode,
-      city: city,
-    };
-    const register = {
+
+    const signUpData = {
       id: 1,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-      address: address,
+      firstName: signUp.firstName,
+      lastName: signUp.lastName,
+      email: signUp.email,
+      password: signUp.password,
+      street: signUp.street,
+      postalCode: signUp.postalCode,
+      city: signUp.city,
     };
+
     if (valid) {
       setSuccess(null);
       services
-        .create(url, register)
+        .create(url, signUpData)
         .then((res) => {
-          console.log(res.status);
           if (!res.status === 'Created') {
             throw Error('could not add data');
           }
-          setFirstName('');
-          setLastName('');
-          setEmail('');
-          setPaswword('');
+          setSignUp({
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            street: '',
+            postalCode: '',
+            city: '',
+          });
           setError(null);
           setValid(false);
-          setPostalCode('');
-          setCity('');
-          setStreet('');
-          setSuccess(`${firstName} Has been added successfully`);
+          setSuccess(`${signUp.firstName} Has been added successfully`);
         })
         .catch((err) => {
           setError(err.message);
         });
     }
   };
-
-  const handleFirstName = (e) => {
-    setFirstName(e.target.value);
+  const handleChange = (e) => {
+    setSignUp({ ...signUp, [e.target.name]: e.target.value });
   };
-  const handleLastName = (e) => {
-    setLastName(e.target.value);
-  };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPaswword(e.target.value);
-  };
-  const handleCity = (e) => {
-    setCity(e.target.value);
-  };
-  const handleStreet = (e) => {
-    setStreet(e.target.value);
-  };
-  const handlePostalCode = (e) => {
-    setPostalCode(e.target.value);
-  };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div>
@@ -123,71 +114,91 @@ const ModalRegister = () => {
                     id="firstName"
                     name="firstName"
                     type="text"
-                    value={firstName}
-                    onChange={handleFirstName}
+                    value={signUp.firstName}
+                    onChange={handleChange}
                     required
                     maxLength={50}
                     placeholder="Write your first name"
                   />
                   <div className="input-group-addon">
-                    <ChooseIcon value={firstName} min={3} />
+                    <ChooseIcon value={signUp.firstName} min={3} />
                   </div>
                 </div>
-                {<ErrorHandler min={3} value={firstName} text="First length is too short !  required 3 characters" />}
+                {<ErrorHandler min={3} value={signUp.firstName} text="First length is too short !  required 3 characters" />}
 
                 <div className="input-group">
                   <label htmlFor="lastName">Last name</label>
-                  <input className="form-control" id="lastName" name="lastName" type="text" value={lastName} onChange={handleLastName} required maxLength={50} placeholder="Write your last name" />
+                  <input
+                    className="form-control"
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    value={signUp.lastName}
+                    onChange={handleChange}
+                    required
+                    maxLength={50}
+                    placeholder="Write your last name"
+                  />
                   <div className="input-group-addon">
-                    <ChooseIcon value={lastName} min={5} />
+                    <ChooseIcon value={signUp.lastName} min={5} />
                   </div>
                 </div>
-                {<ErrorHandler min={5} value={lastName} text="First length is too short !  required 5 characters" />}
+                {<ErrorHandler min={5} value={signUp.lastName} text="First length is too short !  required 5 characters" />}
 
                 <div className="input-group">
                   <label htmlFor="email">email</label>
-                  <input className="form-control" id="email" name="email" type="email" value={email} onChange={handleEmail} required maxLength={50} placeholder="Your_email@email.com" />
+                  <input className="form-control" id="email" name="email" type="email" value={signUp.email} onChange={handleChange} required maxLength={50} placeholder="Your_email@email.com" />
                   <div className="input-group-addon">
-                    <ChooseIcon value={email} min={5} />
+                    <ChooseIcon value={signUp.email} min={5} />
                   </div>
                 </div>
-                {<ErrorHandler min={5} value={email} text="Title length is too short !  required 5 characters" />}
+                {<ErrorHandler min={5} value={signUp.email} text="Title length is too short !  required 5 characters" />}
 
                 <div className="input-group">
                   <label htmlFor="password">password</label>
-                  <input className="form-control" id="password" name="password" type="password" value={password} onChange={handlePassword} required maxLength={50} placeholder="Password" />
+                  <input className="form-control" id="password" name="password" type="password" value={signUp.password} onChange={handleChange} required maxLength={50} placeholder="Password" />
                   <div className="input-group-addon">
-                    <ChooseIcon value={password} min={8} />
+                    <ChooseIcon value={signUp.password} min={8} />
                   </div>
                 </div>
-                {<ErrorHandler min={8} value={password} text="Password length is too short !  required 8 characters" />}
+                {<ErrorHandler min={8} value={signUp.password} text="Password length is too short !  required 8 characters" />}
 
                 <div className="input-group">
                   <label htmlFor="city">City</label>
-                  <input className="form-control" id="city" name="city" type="text" value={city} onChange={handleCity} required maxLength={50} placeholder="City" />
+                  <input className="form-control" id="city" required name="city" type="text" value={signUp.city} onChange={handleChange} maxLength={50} placeholder="City" />
                   <div className="input-group-addon">
-                    <ChooseIcon value={city} min={4} />
+                    <ChooseIcon value={signUp.city} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={4} value={city} text="City length is too short !  required 4 characters" />}
+                {<ErrorHandler min={4} value={signUp.city} text="City length is too short !  required 4 characters" />}
 
                 <div className="input-group">
                   <label htmlFor="street">Street</label>
-                  <input className="form-control" id="city" name="street" type="text" value={street} onChange={handleStreet} required maxLength={50} placeholder="Street" />
+                  <input className="form-control" id="street" name="street" type="text" required value={signUp.street} onChange={handleChange} maxLength={50} placeholder="Street" />
                   <div className="input-group-addon">
-                    <ChooseIcon value={street} min={5} />
+                    <ChooseIcon value={signUp.street} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={5} value={street} text="Street length is too short !  required 5 characters" />}
+                {<ErrorHandler min={4} value={signUp.street} text="Street length is too short !  required 4 characters" />}
 
                 <div className="input-group">
                   <label htmlFor="postalCode">Postal code</label>
-                  <input className="form-control" id="postalCode" name="postalCode" type="number" value={postalCode} onChange={handlePostalCode} required maxLength={50} placeholder="postalCode" />
+                  <input
+                    className="form-control"
+                    id="postalCode"
+                    name="postalCode"
+                    type="number"
+                    required
+                    value={signUp.postalCode}
+                    onChange={handleChange}
+                    maxLength={10}
+                    placeholder="Numbers only"
+                  />
                   <div className="input-group-addon">
-                    <ChooseIcon value={postalCode} min={4} />
+                    <ChooseIcon value={signUp.postalCode} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={4} value={postalCode} text="Postal code length is too short !  required 4 characters" />}
+                {<ErrorHandler min={4} value={signUp.postalCode} text="Postal code length is too short !  required 4 characters" />}
               </div>
 
               <button className="addNewItem" type="submit">

@@ -6,16 +6,18 @@ import ErrorHandler from './Alert/ErrorHandler';
 import ChooseIcon from './Alert/ChooseIcon';
 
 const CreateItem = ({ data, setData }) => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
   const [success, setSuccess] = useState(null);
+  const [addItem, setAddItem] = useState({
+    title: '',
+    content: '',
+  });
   const url = 'http://localhost:3001/items';
 
   useEffect(() => {
     const validation = () => {
-      if (title.length > 4 && content.length > 9) {
+      if (addItem.title.length > 4 && addItem.content.length > 9) {
         setValid(true);
       }
     };
@@ -24,13 +26,13 @@ const CreateItem = ({ data, setData }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const item = {
-      id: data.length + 1 + title,
-      title: title,
-      content: content,
+      id: data.length + 1 + addItem.title,
+      title: addItem.title,
+      content: addItem.content,
     };
     if (valid) {
       setSuccess(null);
-      if (!data.map((da) => da.title).includes(title)) {
+      if (!data.map((da) => da.title).includes(addItem.title)) {
         service
           .create(url, item)
           .then((res) => {
@@ -38,28 +40,26 @@ const CreateItem = ({ data, setData }) => {
               throw Error('could not add data');
             }
             setData(data.concat(res.data));
-            setTitle('');
-            setContent('');
+            setAddItem({
+              title: '',
+              content: '',
+            });
             setError(null);
             setValid(false);
-            setSuccess(`${title} Has been added successfully`);
+            setSuccess(`${addItem.title} Has been added successfully`);
           })
           .catch((err) => {
             setError(err.message);
           });
       } else {
-        setError(`${title} exist`);
+        setError(`${addItem.title} exist`);
       }
     }
   };
 
-  const handleTitle = (e) => {
-    setTitle(e.target.value);
+  const handleChange = (e) => {
+    setAddItem({ ...addItem, [e.target.name]: e.target.value });
   };
-  const handleContent = (e) => {
-    setContent(e.target.value);
-  };
-
   return (
     <div>
       <div>
@@ -72,21 +72,21 @@ const CreateItem = ({ data, setData }) => {
             <header>Add items</header>
             <div className="input-group">
               <label htmlFor="title">title</label>
-              <input className="form-control" id="title" name="title" type="text" value={title} onChange={handleTitle} required maxLength={50} placeholder="Title" />
+              <input className="form-control" id="title" name="title" type="text" value={addItem.title} onChange={handleChange} required maxLength={50} placeholder="Title" />
               <div className="input-group-addon">
-                <ChooseIcon value={title} min={10} />
+                <ChooseIcon value={addItem.title} min={5} />
               </div>
             </div>
-            <div className="errorHandle"> {<ErrorHandler min={5} value={title} text="Title length is too short !  required 5 characters" />}</div>
+            <div className="errorHandle"> {<ErrorHandler min={5} value={addItem.title} text="Title length is too short !  required 5 characters" />}</div>
             <div className="input-group">
               <label htmlFor="content">comment</label>
-              <textarea className="form-control" id="content" name="content" type="text" value={content} onChange={handleContent} required maxLength={1500} placeholder="Write something" />
+              <textarea className="form-control" id="content" name="content" type="text" value={addItem.content} onChange={handleChange} required maxLength={1500} placeholder="Write something" />
               <div className="input-group-addon">
-                <ChooseIcon value={content} min={10} />
+                <ChooseIcon value={addItem.content} min={10} />
               </div>
             </div>
 
-            <ErrorHandler min={10} value={content} text="Comment is too short ! required 10 characters" />
+            <ErrorHandler min={10} value={addItem.content} text="Comment is too short ! required 10 characters" />
           </div>
           <button className="addNewItem" type="submit">
             Submit

@@ -7,15 +7,18 @@ import ErrorHandler from '../component/Alert/ErrorHandler';
 import services from '../services/services';
 
 const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPaswword] = useState('');
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
+  const [singIn, setSignIn] = useState({
+    email: '',
+    password: '',
+  });
+
   const url = 'http://localhost:3001/items';
 
   useEffect(() => {
     const validation = () => {
-      if (email.length > 4 && password.length > 7) {
+      if (singIn.email.length > 4 && singIn.password.length > 7) {
         setValid(true);
       }
     };
@@ -23,21 +26,24 @@ const SignIn = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    const item = {
+    const newSignIn = {
       id: 1,
-      email: email,
-      password: password,
+      email: singIn.email,
+      password: singIn.password,
     };
+
     if (valid) {
       services
-        .create(url, item)
+        .create(url, newSignIn)
         .then((res) => {
           if (!res.status === 'Created') {
             throw Error('could not add data');
           }
 
-          setEmail('');
-          setPaswword('');
+          setSignIn({
+            email: '',
+            password: '',
+          });
           setError(null);
           setValid(false);
         })
@@ -47,11 +53,8 @@ const SignIn = () => {
     }
   };
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPaswword(e.target.value);
+  const handleChange = (e) => {
+    setSignIn({ ...singIn, [e.target.name]: e.target.value });
   };
 
   return (
@@ -63,22 +66,21 @@ const SignIn = () => {
             <header>Sign in</header>
             <div className="input-group">
               <label htmlFor="email">email</label>
-              <input className="form-control" id="email" name="email" type="email" value={email} onChange={handleEmail} required maxLength={50} placeholder="Title" />
+              <input className="form-control" id="email" name="email" type="email" value={singIn.email} onChange={handleChange} required maxLength={50} placeholder="Title" />
               <div className="input-group-addon">
-                {' '}
-                <ChooseIcon value={email} min={5} />
+                <ChooseIcon value={singIn.email} min={5} />
               </div>
             </div>
-            {<ErrorHandler min={5} value={email} text="Title length is too short !  required 5 characters" />}
+            {<ErrorHandler min={5} value={singIn.email} text="Title length is too short !  required 5 characters" />}
 
             <div className="input-group">
               <label htmlFor="password">password</label>
-              <input className="form-control" id="password" name="password" type="password" value={password} onChange={handlePassword} required maxLength={50} placeholder="Password" />
+              <input className="form-control" id="password" name="password" type="password" value={singIn.password} onChange={handleChange} required maxLength={50} placeholder="Password" />
               <div className="input-group-addon">
-                <ChooseIcon value={password} min={8} />
+                <ChooseIcon value={singIn.password} min={8} />
               </div>
             </div>
-            {<ErrorHandler min={8} value={password} text="Password length is too short !  required 8 characters" />}
+            {<ErrorHandler min={8} value={singIn.password} text="Password length is too short !  required 8 characters" />}
           </div>
 
           <button className="addNewItem" type="submit">

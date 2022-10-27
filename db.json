@@ -1,28 +1,21 @@
 {
   "items": [
     {
-      "id": "1sdfsdfsdf",
-      "title": "sdfsdfsdf",
-      "content": "drfsdfsdfsdfsd"
-    },
-    {
       "id": 1,
-      "email": "asdsad",
-      "password": "asdads"
+      "email": "elkhfad@dasdasd",
+      "password": "Phu6gohy!"
     }
   ],
   "registers": [
     {
       "id": 1,
-      "firstName": "sasdasdas",
-      "lastName": "sssadasda",
+      "firstName": "asdsadasd",
+      "lastName": "asdasdasda",
       "email": "elkhfad@dasdasd",
       "password": "Phu6gohy!",
-      "address": {
-        "street": "sasdasdas",
-        "postalCode": "732423",
-        "city": "sasdasd"
-      }
+      "street": "asdasdadasd",
+      "postalCode": "123123123",
+      "city": "dasdasdasd"
     }
   ]
 }
