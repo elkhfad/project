@@ -56,9 +56,7 @@ const SignIn = () => {
 
   return (
     <div>
-      <div>
-        <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
-      </div>
+      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div className="sigInForm">
         <Form id="sigInForm" onSubmit={handleSubmit}>
           <div>

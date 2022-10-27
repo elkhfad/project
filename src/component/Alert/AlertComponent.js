@@ -12,9 +12,11 @@ function AlertComponent({ variant, header, text }) {
 
   if (show) {
     return (
-      <Alert variant={variant} onClose={() => setShow(false)} dismissible>
-        {header} {text}
-      </Alert>
+      <div className="small">
+        <Alert variant={variant} onClose={() => setShow(false)} dismissible>
+          {header} {text}
+        </Alert>
+      </div>
     );
   }
 }

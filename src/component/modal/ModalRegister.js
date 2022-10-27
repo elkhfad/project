@@ -98,8 +98,6 @@ const ModalRegister = () => {
   return (
     <div>
       <div>
-        <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
-        <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
         <button className="addNewItem" style={{ fontSize: '10px' }} onClick={handleShow}>
           Do you want to register ?
         </button>
@@ -107,16 +105,17 @@ const ModalRegister = () => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <header>Sign up</header>
           <div>
-            <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
+            <header>Sign up</header>
           </div>
         </Modal.Header>
         <Modal.Body>
-          <div className="createForm">
-            <Form id="form" onSubmit={handleSubmit}>
+          <div className="registerForm">
+            <Form id="registerform" onSubmit={handleSubmit}>
               <div>
-                <header></header>
+                <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
+                <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
+
                 <div className="input-group">
                   <label htmlFor="firstName">first name</label>
                   <input
@@ -168,28 +167,28 @@ const ModalRegister = () => {
                   <label htmlFor="city">City</label>
                   <input className="form-control" id="city" name="city" type="text" value={city} onChange={handleCity} required maxLength={50} placeholder="City" />
                   <div className="input-group-addon">
-                    <ChooseIcon value={city} min={8} />
+                    <ChooseIcon value={city} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={8} value={city} text="City length is too short !  required 8 characters" />}
+                {<ErrorHandler min={4} value={city} text="City length is too short !  required 4 characters" />}
                 <br />
                 <div className="input-group">
                   <label htmlFor="street">Street</label>
                   <input className="form-control" id="city" name="street" type="text" value={street} onChange={handleStreet} required maxLength={50} placeholder="Street" />
                   <div className="input-group-addon">
-                    <ChooseIcon value={street} min={8} />
+                    <ChooseIcon value={street} min={5} />
                   </div>
                 </div>
-                {<ErrorHandler min={8} value={street} text="Street length is too short !  required 8 characters" />}
+                {<ErrorHandler min={5} value={street} text="Street length is too short !  required 5 characters" />}
                 <br />
                 <div className="input-group">
                   <label htmlFor="postalCode">Postal code</label>
-                  <input className="form-control" id="postalCode" name="postalCode" type="text" value={postalCode} onChange={handlePostalCode} required maxLength={50} placeholder="postalCode" />
+                  <input className="form-control" id="postalCode" name="postalCode" type="number" value={postalCode} onChange={handlePostalCode} required maxLength={50} placeholder="postalCode" />
                   <div className="input-group-addon">
-                    <ChooseIcon value={postalCode} min={8} />
+                    <ChooseIcon value={postalCode} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={8} value={postalCode} text="Postal code length is too short !  required 8 characters" />}
+                {<ErrorHandler min={4} value={postalCode} text="Postal code length is too short !  required 4 characters" />}
                 <br />
               </div>
               <br />
