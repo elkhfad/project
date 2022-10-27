@@ -1,23 +1,4 @@
 {
-  "items": [
-    {
-      "id": 1,
-      "email": "elkhfad@dasdasd",
-      "password": "Phu6gohy!"
-    }
-  ],
-  "registers": [
-    {
-      "id": 1,
-      "firstName": "asdasdasdsad",
-      "lastName": "asdasdasdasd",
-      "email": "elkhfad@dasdasd",
-      "password": "Phu6gohy!",
-      "address": {
-        "street": "asdasdasdsd",
-        "postalCode": "00730",
-        "city": "gggggggasdasd"
-      }
-    }
-  ]
+  "items": [],
+  "registers": []
 }
