@@ -70,7 +70,6 @@ const SignIn = () => {
               </div>
             </div>
             {<ErrorHandler min={5} value={email} text="Title length is too short !  required 5 characters" />}
-            <br />
 
             <div className="input-group">
               <label htmlFor="password">password</label>
@@ -80,9 +79,8 @@ const SignIn = () => {
               </div>
             </div>
             {<ErrorHandler min={8} value={password} text="Password length is too short !  required 8 characters" />}
-            <br />
           </div>
-          <br />
+
           <button className="addNewItem" type="submit">
             Submit
           </button>

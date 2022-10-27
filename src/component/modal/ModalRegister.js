@@ -134,7 +134,7 @@ const ModalRegister = () => {
                   </div>
                 </div>
                 {<ErrorHandler min={3} value={firstName} text="First length is too short !  required 3 characters" />}
-                <br />
+
                 <div className="input-group">
                   <label htmlFor="lastName">Last name</label>
                   <input className="form-control" id="lastName" name="lastName" type="text" value={lastName} onChange={handleLastName} required maxLength={50} placeholder="Write your last name" />
@@ -143,7 +143,7 @@ const ModalRegister = () => {
                   </div>
                 </div>
                 {<ErrorHandler min={5} value={lastName} text="First length is too short !  required 5 characters" />}
-                <br />
+
                 <div className="input-group">
                   <label htmlFor="email">email</label>
                   <input className="form-control" id="email" name="email" type="email" value={email} onChange={handleEmail} required maxLength={50} placeholder="Your_email@email.com" />
@@ -152,7 +152,6 @@ const ModalRegister = () => {
                   </div>
                 </div>
                 {<ErrorHandler min={5} value={email} text="Title length is too short !  required 5 characters" />}
-                <br />
 
                 <div className="input-group">
                   <label htmlFor="password">password</label>
@@ -162,7 +161,7 @@ const ModalRegister = () => {
                   </div>
                 </div>
                 {<ErrorHandler min={8} value={password} text="Password length is too short !  required 8 characters" />}
-                <br />
+
                 <div className="input-group">
                   <label htmlFor="city">City</label>
                   <input className="form-control" id="city" name="city" type="text" value={city} onChange={handleCity} required maxLength={50} placeholder="City" />
@@ -171,7 +170,7 @@ const ModalRegister = () => {
                   </div>
                 </div>
                 {<ErrorHandler min={4} value={city} text="City length is too short !  required 4 characters" />}
-                <br />
+
                 <div className="input-group">
                   <label htmlFor="street">Street</label>
                   <input className="form-control" id="city" name="street" type="text" value={street} onChange={handleStreet} required maxLength={50} placeholder="Street" />
@@ -180,7 +179,7 @@ const ModalRegister = () => {
                   </div>
                 </div>
                 {<ErrorHandler min={5} value={street} text="Street length is too short !  required 5 characters" />}
-                <br />
+
                 <div className="input-group">
                   <label htmlFor="postalCode">Postal code</label>
                   <input className="form-control" id="postalCode" name="postalCode" type="number" value={postalCode} onChange={handlePostalCode} required maxLength={50} placeholder="postalCode" />
@@ -189,9 +188,8 @@ const ModalRegister = () => {
                   </div>
                 </div>
                 {<ErrorHandler min={4} value={postalCode} text="Postal code length is too short !  required 4 characters" />}
-                <br />
               </div>
-              <br />
+
               <button className="addNewItem" type="submit">
                 Save Changes
               </button>

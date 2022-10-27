@@ -73,12 +73,10 @@ const CreateItem = ({ data, setData }) => {
             <div className="input-group">
               <label htmlFor="title">title</label>
               <input className="form-control" id="title" name="title" type="text" value={title} onChange={handleTitle} required maxLength={50} placeholder="Title" />
-              <div className="input-group-addon">
-                <ChooseIcon value={title} min={5} />
-              </div>
+
+              <ChooseIcon value={title} min={5} />
             </div>
-            {<ErrorHandler min={5} value={title} text="Title length is too short !  required 5 characters" />}
-            <br />
+            <div className="errorHandle"> {<ErrorHandler min={5} value={title} text="Title length is too short !  required 5 characters" />}</div>
             <div className="input-group">
               <label htmlFor="content">comment</label>
               <textarea className="form-control" id="content" name="content" type="text" value={content} onChange={handleContent} required maxLength={1500} placeholder="Write something" />
@@ -86,9 +84,9 @@ const CreateItem = ({ data, setData }) => {
                 <ChooseIcon value={content} min={10} />
               </div>
             </div>
+
             <ErrorHandler min={10} value={content} text="Comment is too short ! required 10 characters" />
           </div>
-          <br />
           <button className="addNewItem" type="submit">
             Submit
           </button>
