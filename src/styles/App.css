@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  color: #7c7c7c;
+
+}
+
+.navbar .links {
+  margin-bottom: 0.5em;
+
+
+}
+
+.navBarBtn {
+  outline: none;
+  border: 2px solid #ffffff;
+}
+
+.navBarBtn:hover {
+  background-color: #ececec;
+}
+
+.offcanvas-backdrop {
+  background-color: #808080
+}
+
+.navbar a {
+
+  text-decoration: none;
+  padding: 6px;
+
+}
+
+.navbar a:hover {
+  text-shadow: 0px 3px 3px #1dfe04;
+}
+
+.content {
+  text-align: center;
+}
+
+.navbar a {
+  color: #b7b7b7;
+  -webkit-text-stroke: 1px #b7b7b7;
+  text-shadow: 0px 3px 3px #a19efc;
+}

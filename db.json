@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "email": "elkhfad",
+      "password": "Phu6gohy!"
+    }
+  ],
+  "registers": [
+    {
+      "id": 1,
+      "firstName": "asdasdasd",
+      "lastName": "asdasdasd",
+      "email": "elkhfad@dasdasd",
+      "password": "Phu6gohy!",
+      "address": {
+        "street": "asdasdasd",
+        "postalCode": "asdasdasdasd",
+        "city": "sasdasdasadasdadsasd"
+      }
+    }
+  ]
+}
