@@ -4,9 +4,10 @@ import CreateItem from '../component/CreateItem';
 import '../styles/itemlist.css';
 import { BsTrash } from 'react-icons/bs';
 import Spinner from 'react-bootstrap/Spinner';
-
 import Confirm from '../component/modal/Confirm';
 import AlertComponent from '../component/Alert/AlertComponent';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 const ItemList = () => {
   const [datas, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
@@ -58,27 +59,36 @@ const ItemList = () => {
         <CreateItem data={datas} setData={setData} />
       </div>
       <div className="contain">
-        {datas.map((data, index) => {
+        {datas.map((data) => {
           return (
-            <div key={data.id}>
-              <div className="title">
-                {data.title} {index}
-              </div>
-              <div className="content">{data.content}</div>
-              <Confirm
-                icon={<BsTrash />}
-                title="Are you sure?"
-                body="You won't be able to revert this!"
-                confirm="Yes delete it"
-                cancelColor="success"
-                confirmColor="danger"
-                buttonName="Delete"
-                buttonColor="danger"
-                handleClick={() => {
-                  handleDelete(data.id, data.title);
-                }}
-              />
-            </div>
+            <Card key={data.id} style={{ width: '10rem' }}>
+              <Card.Img variant="top" src={data.pic} alt="" />
+              <Card.Body>
+                <Card.Title>{data.title}</Card.Title>
+                <Card.Text>{data.content}</Card.Text>
+              </Card.Body>
+              <ListGroup className="list-group-flush">
+                <ListGroup.Item>
+                  <div style={{ display: 'flex' }}>Price: {data.price}</div>
+                </ListGroup.Item>
+                <ListGroup.Item>Amount: {data.amount}</ListGroup.Item>
+              </ListGroup>
+              <Card.Body>
+                <Confirm
+                  icon={<BsTrash />}
+                  title="Are you sure?"
+                  body="You won't be able to revert this!"
+                  confirm="Yes delete it"
+                  cancelColor="success"
+                  confirmColor="danger"
+                  buttonName="Delete"
+                  buttonColor="danger"
+                  handleClick={() => {
+                    handleDelete(data.id, data.title);
+                  }}
+                />
+              </Card.Body>
+            </Card>
           );
         })}
       </div>

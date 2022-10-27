@@ -1,7 +1,7 @@
 .title {
   text-align: center;
   text-transform: capitalize;
-  font-size: 14px;
+  font-size: 12;
   margin: 5px;
 }
 
@@ -47,6 +47,7 @@ header {
   color: #b7b7b7;
   font-weight: 100 !important;
   text-transform: uppercase;
+  margin-left: -0.3em;
 }
 
 .offcanvas-title {
@@ -67,6 +68,10 @@ textarea {
 
 .input-group-addon {
   background-color: #b7b7b7
+}
+
+.input-group {
+  margin-bottom: 0.5em;
 }
 
 .iconStyle {
@@ -154,12 +159,12 @@ textarea {
 }
 
 textarea {
-  height: 150px !important
+  height: 100px !important
 }
 
 .contain {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   justify-content: center;
   gap: 10px;
   justify-items: center;

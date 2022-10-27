@@ -12,7 +12,7 @@ const Confirm = ({ title, body, handleClick, confirm, confirmColor, cancelColor,
   return (
     <>
       <Button variant={buttonColor} onClick={handleShow}>
-        {buttonName} {icon}
+        {icon}
       </Button>
 
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>

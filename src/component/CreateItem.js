@@ -9,9 +9,13 @@ const CreateItem = ({ data, setData }) => {
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
   const [success, setSuccess] = useState(null);
+  const [image, setImage] = useState(null);
   const [addItem, setAddItem] = useState({
     title: '',
     content: '',
+    price: '',
+    amount: '',
+    pic: '',
   });
   const url = 'http://localhost:3001/items';
 
@@ -25,11 +29,18 @@ const CreateItem = ({ data, setData }) => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newItem = {
+      title: addItem.title,
+      content: addItem.content,
+      price: addItem.price,
+      amount: addItem.amount,
+      pic: image,
+    };
     if (valid) {
       setSuccess(null);
       if (!data.map((da) => da.title).includes(addItem.title)) {
         service
-          .create(url, addItem)
+          .create(url, newItem)
           .then((res) => {
             if (!res.status === 'Created') {
               throw Error('could not add data');
@@ -38,10 +49,14 @@ const CreateItem = ({ data, setData }) => {
             setAddItem({
               title: '',
               content: '',
+              price: '',
+              amount: '',
+              pic: '',
             });
+            setImage('');
             setError(null);
             setValid(false);
-            setSuccess(`${addItem.title} Has been added successfully`);
+            setSuccess(`${addItem.title} Has been added successfully ${image.name}`);
           })
           .catch((err) => {
             setError(err.message);
@@ -54,6 +69,15 @@ const CreateItem = ({ data, setData }) => {
 
   const handleChange = (e) => {
     setAddItem({ ...addItem, [e.target.name]: e.target.value });
+  };
+  const handleImage = (e) => {
+    if (e.target.files[0]) {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        setImage(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
   };
   return (
     <div>
@@ -82,6 +106,25 @@ const CreateItem = ({ data, setData }) => {
             </div>
 
             <ErrorHandler min={10} value={addItem.content} text="Comment is too short ! required 10 characters" />
+            <div className="input-group">
+              <label htmlFor="price">Price</label>
+              <input className="form-control" id="price" name="price" type="text" value={addItem.price} onChange={handleChange} required placeholder="How much it cost" />
+              <div className="input-group-addon">
+                <ChooseIcon value={addItem.price} min={1} />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="amount">Amount</label>
+              <input className="form-control" id="amount" name="amount" type="number" value={addItem.amount} onChange={handleChange} required placeholder="Write something" />
+              <div className="input-group-addon">
+                <ChooseIcon value={addItem.amount} min={1} />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <input className="form-control" type="file" onChange={handleImage} />
+            </div>
           </div>
           <button className="addNewItem" type="submit">
             Submit
