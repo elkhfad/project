@@ -10,7 +10,7 @@ import services from '../../services/services';
 
 const EditItem = () => {
   const { id } = useParams();
-  const [datas, setData] = useState([]);
+  const [item, setItem] = useState({});
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -24,7 +24,7 @@ const EditItem = () => {
           throw Error('could not load data');
         }
         setIsPending(false);
-        setData(res.data);
+        setItem(res.data);
         setError(null);
       })
       .catch((err) => {
@@ -38,11 +38,10 @@ const EditItem = () => {
       .deleteItem(url, id)
       .then((res) => {
         if (!res.status === 'OK') {
-          throw Error(`could not delete ${datas.title}`);
+          throw Error(`could not delete ${item.title}`);
         }
-        setData(datas.filter((n) => n.id !== id));
         setError(null);
-        setSuccess(`${datas.title} Has been removed successfully`);
+        setSuccess(`${item.title} Has been removed successfully`);
       })
       .catch((err) => {
         setError(err.message);
@@ -54,7 +53,7 @@ const EditItem = () => {
       <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
 
-      <div className={`${datas.length > 0 && 'contain'}`}>
+      <div className={`${item.length > 0 && 'contain'}`}>
         <div>
           <Card key={id} style={{ width: '12rem' }}>
             <div style={{ display: 'flex' }}>
@@ -70,21 +69,21 @@ const EditItem = () => {
                   buttonColor="danger"
                   itemDeleteBtn="itemDeleteBtn"
                   handleClick={() => {
-                    handleDelete(datas.id, datas.title);
+                    handleDelete(item.id, item.title);
                   }}
                 />
               </div>
             </div>
-            <Card.Img variant="top" src={datas.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
+            <Card.Img variant="top" src={item.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
             <Card.Body>
-              <Card.Title>{datas.title}</Card.Title>
-              <Card.Text>{datas.content}</Card.Text>
+              <Card.Title>{item.title}</Card.Title>
+              <Card.Text>{item.content}</Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
               <ListGroup.Item>
-                <div style={{ display: 'flex' }}>Price: {`${datas.price} \u20AC`}</div>
+                <div style={{ display: 'flex' }}>Price: {`${item.price} \u20AC`}</div>
               </ListGroup.Item>
-              <ListGroup.Item>Amount: {datas.amount}</ListGroup.Item>
+              <ListGroup.Item>Amount: {item.amount}</ListGroup.Item>
             </ListGroup>
             <Card.Body></Card.Body>
           </Card>

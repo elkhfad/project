@@ -3,7 +3,7 @@ import AlertComponent from '../Alert/AlertComponent';
 import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
 
-const CreateItemForm = ({ success, error, handleSubmit, addItem, handleChange, handleImage }) => {
+const CreateItemForm = ({ success, error, handleSubmit, addItem, handleChange, handleImage, image }) => {
   return (
     <div>
       <div>
@@ -48,7 +48,7 @@ const CreateItemForm = ({ success, error, handleSubmit, addItem, handleChange, h
             </div>
 
             <div className="input-group">
-              <input className="form-control" type="file" onChange={handleImage} accept="image/*" />
+              <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />
             </div>
           </div>
           <button className="addNewItem" type="submit">

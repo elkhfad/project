@@ -49,7 +49,7 @@ const CreateItem = ({ data, setData }) => {
               amount: '',
               pic: '',
             });
-            setImage('');
+            setImage(null);
             setError(null);
             setValid(false);
             setSuccess(`${addItem.title} Has been added successfully ${image.name}`);

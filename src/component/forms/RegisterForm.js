@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import AlertComponent from '../Alert/AlertComponent';
 import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
+import Button from 'react-bootstrap/Button';
 
 const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, handleClose, show, newSuccess }) => {
   return (
@@ -119,12 +120,12 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 {<ErrorHandler min={4} value={signUp.postalCode} text="Postal code length is too short !  required 4 characters" />}
               </div>
 
-              <button className="addNewItem" type="submit">
+              <Button className="addNewItem" type="submit">
                 Save Changes
-              </button>
-              <button className="addNewItem" onClick={handleClose}>
+              </Button>
+              <Button className="addNewItem" onClick={handleClose}>
                 Close
-              </button>
+              </Button>
             </Form>
           </div>
         </Modal.Body>
