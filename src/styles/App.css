@@ -6,8 +6,6 @@ body {
 
 .navbar .links {
   margin-bottom: 0.5em;
-
-
 }
 
 .navBarBtn {
@@ -28,6 +26,9 @@ body {
 
   text-decoration: none;
   padding: 6px;
+  color: #b7b7b7;
+  -webkit-text-stroke: 1px #b7b7b7;
+  text-shadow: 0px 3px 3px #a19efc;
 
 }
 
@@ -37,10 +38,4 @@ body {
 
 .content {
   text-align: center;
-}
-
-.navbar a {
-  color: #b7b7b7;
-  -webkit-text-stroke: 1px #b7b7b7;
-  text-shadow: 0px 3px 3px #a19efc;
 }

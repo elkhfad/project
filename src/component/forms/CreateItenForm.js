@@ -32,7 +32,7 @@ const CreateItemForm = ({ success, error, handleSubmit, addItem, handleChange, h
 
             <ErrorHandler min={10} value={addItem.content} text="Comment is too short ! required 10 characters" />
             <div className="input-group">
-              <label htmlFor="price">Price {'\u20A0'}</label>
+              <label htmlFor="price">Price {'\u20AC'}</label>
               <input className="form-control" id="price" name="price" type="text" value={addItem.price} onChange={handleChange} required placeholder="How much it cost" />
               <div className="input-group-addon">
                 <ChooseIcon value={addItem.price} min={1} />
