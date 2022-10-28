@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { BsExclamationCircle } from 'react-icons/bs';
 
-const Confirm = ({ title, body, handleClick, confirm, confirmColor, cancelColor, buttonName, buttonColor, icon }) => {
+const Confirm = ({ title, body, handleClick, confirm, confirmColor, cancelColor, buttonColor, icon, itemDeleteBtn }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -11,7 +11,7 @@ const Confirm = ({ title, body, handleClick, confirm, confirmColor, cancelColor,
 
   return (
     <>
-      <Button variant={buttonColor} onClick={handleShow}>
+      <Button className={itemDeleteBtn} variant={buttonColor} onClick={handleShow}>
         {icon}
       </Button>
 

@@ -8,6 +8,9 @@ import Confirm from '../component/modal/Confirm';
 import AlertComponent from '../component/Alert/AlertComponent';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Link } from 'react-router-dom';
+import { CiEdit } from 'react-icons/ci';
+
 const ItemList = () => {
   const [datas, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
@@ -61,35 +64,43 @@ const ItemList = () => {
       <div className={`${datas.length > 0 && 'contain'}`}>
         {datas.map((data) => {
           return (
-            <Card key={data.id} style={{ width: '12rem' }}>
-              <div style={{ textAlign: 'left' }}>
-                <Confirm
-                  icon={<BsTrash />}
-                  title="Are you sure?"
-                  body="You won't be able to revert this!"
-                  confirm="Yes delete it"
-                  cancelColor="success"
-                  confirmColor="danger"
-                  buttonName="Delete"
-                  buttonColor="danger"
-                  handleClick={() => {
-                    handleDelete(data.id, data.title);
-                  }}
-                />
-              </div>
-              <Card.Img variant="top" src={data.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
-              <Card.Body>
-                <Card.Title>{data.title}</Card.Title>
-                <Card.Text>{data.content}</Card.Text>
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroup.Item>
-                  <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
-                </ListGroup.Item>
-                <ListGroup.Item>Amount: {data.amount}</ListGroup.Item>
-              </ListGroup>
-              <Card.Body></Card.Body>
-            </Card>
+            <div key={data.id}>
+              <Card style={{ width: '12rem' }}>
+                <div style={{ display: 'flex' }}>
+                  <div style={{ textAlign: 'left' }}>
+                    <Confirm
+                      icon={<BsTrash color={'red'} />}
+                      title="Are you sure?"
+                      body="You won't be able to revert this!"
+                      confirm="Yes delete it"
+                      cancelColor="success"
+                      confirmColor="danger"
+                      buttonName="Delete"
+                      buttonColor="danger"
+                      itemDeleteBtn="itemDeleteBtn"
+                      handleClick={() => {
+                        handleDelete(data.id, data.title);
+                      }}
+                    />
+                    <Link to={`/items/${data.id}`}>
+                      <CiEdit />
+                    </Link>
+                  </div>
+                </div>
+                <Card.Img variant="top" src={data.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
+                <Card.Body>
+                  <Card.Title>{data.title}</Card.Title>
+                  <Card.Text>{data.content}</Card.Text>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                  <ListGroup.Item>
+                    <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
+                  </ListGroup.Item>
+                  <ListGroup.Item>Amount: {data.amount}</ListGroup.Item>
+                </ListGroup>
+                <Card.Body></Card.Body>
+              </Card>
+            </div>
           );
         })}
       </div>

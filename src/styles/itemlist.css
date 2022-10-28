@@ -33,6 +33,18 @@ label {
 
 }
 
+.itemDeleteBtn:hover {
+  background-color: #d4d4d4 !important;
+
+}
+
+.itemDeleteBtn {
+  padding: 0px !important;
+  border: none !important;
+  background-color: #ffffff !important;
+}
+
+
 header {
   color: #b7b7b7 !;
   font-weight: 600 !important;
