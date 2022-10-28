@@ -8,7 +8,6 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom';
 import { CiEdit } from 'react-icons/ci';
-
 const ItemList = () => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
@@ -48,7 +47,7 @@ const ItemList = () => {
                 <div style={{ display: 'flex' }}>
                   <div style={{ textAlign: 'left' }}>
                     <Link to={`/items/${data.id}`}>
-                      <CiEdit />
+                      <CiEdit style={{ color: '#023d01' }} />
                     </Link>
                   </div>
                 </div>

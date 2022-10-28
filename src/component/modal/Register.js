@@ -4,7 +4,7 @@ import services from '../../services/services';
 import RegisterForm from '../forms/RegisterForm';
 
 const Register = () => {
-  const [success, setSuccess] = useState(null);
+  const [success, setSuccess] = useState('');
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
   const [show, setShow] = useState(false);
@@ -38,24 +38,15 @@ const Register = () => {
   }, [signUp, error]);
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setSuccess('');
     if (valid) {
-      setSuccess(null);
       services
         .create(url, signUp)
         .then((res) => {
           if (!res.status === 'Created') {
             throw Error('could not add data');
           }
-          setSignUp({
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            street: '',
-            postalCode: '',
-            city: '',
-          });
+          handleClose();
           setError(null);
           setValid(false);
           setSuccess(`${signUp.firstName} Has been added successfully`);
@@ -68,7 +59,18 @@ const Register = () => {
   const handleChange = (e) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
   };
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setSignUp({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      street: '',
+      postalCode: '',
+      city: '',
+    });
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   return (

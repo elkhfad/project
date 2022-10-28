@@ -6,6 +6,7 @@ const CreateItem = ({ data, setData }) => {
   const [valid, setValid] = useState(false);
   const [success, setSuccess] = useState(null);
   const [image, setImage] = useState(null);
+  const [show, setShow] = useState(false);
   const [addItem, setAddItem] = useState({
     title: '',
     content: '',
@@ -23,6 +24,17 @@ const CreateItem = ({ data, setData }) => {
     };
     validation();
   });
+  const handleClose = () => {
+    setAddItem({
+      title: '',
+      content: '',
+      price: '',
+      amount: '',
+      pic: '',
+    });
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
   const handleSubmit = (e) => {
     e.preventDefault();
     const newItem = {
@@ -42,13 +54,7 @@ const CreateItem = ({ data, setData }) => {
               throw Error('could not add data');
             }
             setData(data.concat(res.data));
-            setAddItem({
-              title: '',
-              content: '',
-              price: '',
-              amount: '',
-              pic: '',
-            });
+            handleClose();
             setImage(null);
             setError(null);
             setValid(false);
@@ -77,7 +83,17 @@ const CreateItem = ({ data, setData }) => {
   };
   return (
     <div>
-      <CreateItemForm handleChange={handleChange} addItem={addItem} error={error} success={success} handleSubmit={handleSubmit} handleImage={handleImage} />
+      <CreateItemForm
+        handleChange={handleChange}
+        addItem={addItem}
+        error={error}
+        success={success}
+        handleSubmit={handleSubmit}
+        handleImage={handleImage}
+        handleClose={handleClose}
+        handleShow={handleShow}
+        show={show}
+      />
     </div>
   );
 };

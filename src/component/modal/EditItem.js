@@ -7,14 +7,14 @@ import Confirm from './Confirm';
 import { BsTrash } from 'react-icons/bs';
 import ListGroup from 'react-bootstrap/ListGroup';
 import services from '../../services/services';
-
+import { useNavigate } from 'react-router-dom';
 const EditItem = () => {
   const { id } = useParams();
   const [item, setItem] = useState({});
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-
+  const navigate = useNavigate();
   const url = `http://localhost:3001/items/`;
   useEffect(() => {
     services
@@ -42,6 +42,7 @@ const EditItem = () => {
         }
         setError(null);
         setSuccess(`${item.title} Has been removed successfully`);
+        navigate('/');
       })
       .catch((err) => {
         setError(err.message);
@@ -60,7 +61,7 @@ const EditItem = () => {
               <div style={{ textAlign: 'left' }}>
                 <Confirm
                   icon={<BsTrash color={'red'} />}
-                  title="Are you sure?"
+                  title={`Are you sure you want to delete ${item.title} ?`}
                   body="You won't be able to revert this!"
                   confirm="Yes delete it"
                   cancelColor="success"

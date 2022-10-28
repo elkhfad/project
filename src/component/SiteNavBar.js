@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { VscListFlat } from 'react-icons/vsc';
-import { AiOutlineHome } from 'react-icons/ai';
-import { AiOutlineLock } from 'react-icons/ai';
+import { FaTasks } from 'react-icons/fa';
 
-const NavBar = () => {
+const SiteNavBar = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -15,7 +14,7 @@ const NavBar = () => {
       <button className="navBarBtn" onClick={handleShow}>
         <VscListFlat style={{ color: '#b7b7b7' }} />
       </button>
-      <Offcanvas show={show} onHide={handleClose} style={{ width: '8em' }}>
+      <Offcanvas show={show} onHide={handleClose} style={{ width: '10em' }}>
         <Offcanvas.Header>
           <Offcanvas.Title>
             <header className="navBar-header">MyProject</header>
@@ -24,13 +23,8 @@ const NavBar = () => {
         <Offcanvas.Body>
           <nav className="navbar">
             <div className="links">
-              <Link to="/" onClick={handleClose}>
-                Home <AiOutlineHome style={{ color: '#b7b7b7' }} />
-              </Link>
-            </div>
-            <div className="links">
-              <Link to="/signIn" onClick={handleClose}>
-                Sign in <AiOutlineLock style={{ color: '#ff0000' }} />
+              <Link to="/itemList" onClick={handleClose}>
+                My items <FaTasks />
               </Link>
             </div>
           </nav>
@@ -40,4 +34,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default SiteNavBar;

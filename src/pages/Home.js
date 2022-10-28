@@ -1,11 +1,5 @@
-import ItemList from './ItemList';
-
 const Home = () => {
-  return (
-    <div>
-      <ItemList />
-    </div>
-  );
+  return <div>Home</div>;
 };
 
 export default Home;
