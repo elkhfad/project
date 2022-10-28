@@ -1,80 +1,10 @@
-import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import ErrorHandler from '../Alert/ErrorHandler';
 import AlertComponent from '../Alert/AlertComponent';
 import ChooseIcon from '../Alert/ChooseIcon';
-import { useEffect } from 'react';
-import services from '../../services/services';
+import ErrorHandler from '../Alert/ErrorHandler';
 
-const ModalRegister = () => {
-  const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
-  const [valid, setValid] = useState(false);
-  const [show, setShow] = useState(false);
-
-  const [signUp, setSignUp] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    street: '',
-    postalCode: '',
-    city: '',
-  });
-  const url = 'http://localhost:3001/registers';
-
-  useEffect(() => {
-    const validation = () => {
-      if (
-        signUp.firstName.length > 2 &&
-        signUp.lastName.length > 4 &&
-        signUp.email.length > 4 &&
-        signUp.password.length > 7 &&
-        signUp.street.length > 3 &&
-        signUp.postalCode.length > 3 &&
-        signUp.city.length > 3
-      ) {
-        setValid(true);
-      }
-    };
-    validation();
-  }, [signUp, error]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (valid) {
-      setSuccess(null);
-      services
-        .create(url, signUp)
-        .then((res) => {
-          if (!res.status === 'Created') {
-            throw Error('could not add data');
-          }
-          setSignUp({
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            street: '',
-            postalCode: '',
-            city: '',
-          });
-          setError(null);
-          setValid(false);
-          setSuccess(`${signUp.firstName} Has been added successfully`);
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
-    }
-  };
-  const handleChange = (e) => {
-    setSignUp({ ...signUp, [e.target.name]: e.target.value });
-  };
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, handleClose, show, newSuccess }) => {
   return (
     <div>
       <div>
@@ -82,7 +12,6 @@ const ModalRegister = () => {
           Do you want to register ?
         </button>
       </div>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <div>
@@ -94,7 +23,7 @@ const ModalRegister = () => {
             <Form id="registerform" onSubmit={handleSubmit}>
               <div>
                 <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
-                <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
+                <div>{newSuccess && <AlertComponent variant="success" header="" text={newSuccess} />}</div>
 
                 <div className="input-group">
                   <label htmlFor="firstName">first name</label>
@@ -204,4 +133,4 @@ const ModalRegister = () => {
   );
 };
 
-export default ModalRegister;
+export default RegisterForm;

@@ -58,22 +58,11 @@ const ItemList = () => {
       <div className="addItem">
         <CreateItem data={datas} setData={setData} />
       </div>
-      <div className="contain">
+      <div className={`${datas.length > 0 && 'contain'}`}>
         {datas.map((data) => {
           return (
-            <Card key={data.id} style={{ width: '10rem' }}>
-              <Card.Img variant="top" src={data.pic} alt="" />
-              <Card.Body>
-                <Card.Title>{data.title}</Card.Title>
-                <Card.Text>{data.content}</Card.Text>
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroup.Item>
-                  <div style={{ display: 'flex' }}>Price: {data.price}</div>
-                </ListGroup.Item>
-                <ListGroup.Item>Amount: {data.amount}</ListGroup.Item>
-              </ListGroup>
-              <Card.Body>
+            <Card key={data.id} style={{ width: '12rem' }}>
+              <div style={{ textAlign: 'left' }}>
                 <Confirm
                   icon={<BsTrash />}
                   title="Are you sure?"
@@ -87,7 +76,19 @@ const ItemList = () => {
                     handleDelete(data.id, data.title);
                   }}
                 />
+              </div>
+              <Card.Img variant="top" src={data.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
+              <Card.Body>
+                <Card.Title>{data.title}</Card.Title>
+                <Card.Text>{data.content}</Card.Text>
               </Card.Body>
+              <ListGroup className="list-group-flush">
+                <ListGroup.Item>
+                  <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
+                </ListGroup.Item>
+                <ListGroup.Item>Amount: {data.amount}</ListGroup.Item>
+              </ListGroup>
+              <Card.Body></Card.Body>
             </Card>
           );
         })}
