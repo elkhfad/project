@@ -121,7 +121,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
               </div>
 
               <Button className="addNewItem" type="submit">
-                Save Changes
+                Send
               </Button>
               <Button className="addNewItem" onClick={handleClose}>
                 Close

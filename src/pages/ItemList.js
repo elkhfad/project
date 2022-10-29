@@ -28,15 +28,12 @@ const ItemList = () => {
         setError(err.message);
         setIsPending(false);
       });
-  });
+  }, []);
 
   return (
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
-      <div>
-        {error && <AlertComponent variant="danger" header="You got an error!" text={error} />}
-        <div>{data.length === 0 && <AlertComponent variant="warning" header="Your list is empty!" text="Start adding some items" />}</div>
-      </div>
+      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
 
       <div className="addItem">
         <CreateItem data={data} setData={setData} />

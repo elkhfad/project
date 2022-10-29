@@ -101,6 +101,7 @@ const EditItem = ({ id }) => {
         setItem(updateItem);
         handleClose();
         setError(null);
+        window.location.reload();
       })
       .catch((err) => {
         setError(err.message);
@@ -201,7 +202,7 @@ const EditItem = ({ id }) => {
                   </div>
                 </div>
                 <button className="addNewItem" type="submit">
-                  Submit
+                  Save changes
                 </button>
               </Form>
             </div>

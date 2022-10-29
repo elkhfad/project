@@ -86,6 +86,7 @@ const CreateItem = ({ data, setData }) => {
       <CreateItemForm
         handleChange={handleChange}
         addItem={addItem}
+        image={image}
         error={error}
         success={success}
         handleSubmit={handleSubmit}

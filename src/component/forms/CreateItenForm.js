@@ -3,7 +3,7 @@ import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
 import Modal from 'react-bootstrap/Modal';
 import { IoAddCircleOutline } from 'react-icons/io5';
-const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, handleShow, handleClose, show }) => {
+const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, handleShow, handleClose, show, image }) => {
   return (
     <div>
       <div>
@@ -53,7 +53,9 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
                     <ChooseIcon value={addItem.amount} min={1} />
                   </div>
                 </div>
-
+                <div className="input-group">
+                  <img src={image} alt="It is empty !" style={{ width: '8rem', margin: '0 auto' }} />
+                </div>
                 <div className="input-group">
                   <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />
                 </div>
