@@ -34,7 +34,10 @@ const ItemList = () => {
   return (
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
-      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
+      <div>
+        {error && <AlertComponent variant="danger" header="You got an error!" text={error} />}
+        <div>{data.length === 0 && <AlertComponent variant="warning" header="Your list is empty!" text="Start adding some items" />}</div>
+      </div>
 
       <div className="addItem">
         <CreateItem data={data} setData={setData} />
@@ -43,26 +46,24 @@ const ItemList = () => {
         {data.map((data) => {
           return (
             <div key={data.id}>
-              <Card style={{ width: '12rem' }}>
+              <Card className="cardStyle">
                 <div style={{ display: 'flex' }}>
                   <div style={{ textAlign: 'left' }}>
                     <Link to={`/items/${data.id}`}>
-                      <CiEdit style={{ color: '#023d01' }} />
+                      <CiEdit className="editPen" />
                     </Link>
                   </div>
                 </div>
                 <Card.Img variant="top" src={data.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
                 <Card.Body>
-                  <Card.Title>{data.title}</Card.Title>
-                  <Card.Text>{data.content}</Card.Text>
+                  <Card.Title className="cardTitleStyle">{data.title}</Card.Title>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
-                  <ListGroup.Item>
+                  <ListGroup.Item className="listGroupItem">
                     <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
                   </ListGroup.Item>
-                  <ListGroup.Item>Amount: {data.amount}</ListGroup.Item>
+                  <ListGroup.Item className="listGroupItem">Amount: {data.amount}</ListGroup.Item>
                 </ListGroup>
-                <Card.Body></Card.Body>
               </Card>
             </div>
           );

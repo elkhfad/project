@@ -21,18 +21,42 @@ body {
   color: #b7b7b7;
 }
 
+.listGroupItem {
+  background-color: #6c96b8 !important;
+  color: #b7b7b7 !important;
+  text-align: left;
+}
+
+.cardStyle {
+  border: 2px solid #808080 !important;
+  background-color: #6c96b8 !important;
+  color: #b7b7b7 !important;
+  font-size: 12px;
+  padding: 5px;
+  width: 10rem
+}
+
+.cardTitleStyle {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
 .offcanvas-backdrop {
   background-color: #808080
 }
 
 .navbar a {
-
   text-decoration: none;
   padding: 6px;
   color: #023d01;
-
-
 }
+
+.modalCenter,
+.itemCenter {
+  width: 20rem;
+  margin: 0 auto;
+}
+
 
 .navbar a:hover {
   background-color: #145713;

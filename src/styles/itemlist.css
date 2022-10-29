@@ -15,6 +15,11 @@ label {
 
 }
 
+
+.editPen {
+  color: #023d01;
+}
+
 .modal-content {
   width: fit-content !important;
   margin: 0 auto;
@@ -29,12 +34,6 @@ label {
   padding: 4px;
   margin: 0 auto !important;
   color: #8f8f8f;
-
-}
-
-.itemDeleteBtn:hover {
-  background-color: #023d01 !important;
-  color: #ffffff !important;
 
 }
 
@@ -95,6 +94,9 @@ textarea {
   border: 2px solid #b7b7b7 !important;
 }
 
+
+.addNewItem:hover,
+.editPen:hover,
 .btn-outline-success:hover {
   background-color: #023d01 !important;
   color: #b7b7b7 !important;
@@ -105,6 +107,13 @@ textarea {
   padding: 2px
 }
 
+.deleteBtn:hover {
+  background-color: #c30303 !important;
+  color: #b7b7b7 !important;
+  padding: 2px !important;
+}
+
+.deleteBtn,
 .danger {
   color: #c30303;
 }
@@ -162,10 +171,6 @@ textarea {
   height: 180px
 }
 
-.addNewItem:hover {
-  background-color: #023d01 !important;
-  color: #b7b7b7 !important;
-}
 
 .newContent {
   text-align: left;
@@ -184,7 +189,7 @@ textarea {
   justify-content: center;
   gap: 10px;
   justify-items: center;
-  background-color: #a9a5a5;
+  background-color: #ffffff;
   margin: 10px;
   height: fit-content;
   padding: 20px;

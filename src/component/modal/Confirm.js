@@ -15,9 +15,9 @@ const Confirm = ({ title, body, handleClick, confirm, confirmColor, cancelColor,
         {icon}
       </Button>
 
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} className="modalCenter">
         <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
+          <Modal.Title style={{ margin: '0 auto' }}>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="iconStyle danger">

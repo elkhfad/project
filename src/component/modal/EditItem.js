@@ -42,7 +42,7 @@ const EditItem = () => {
         }
         setError(null);
         setSuccess(`${item.title} Has been removed successfully`);
-        navigate('/');
+        navigate('/itemList');
       })
       .catch((err) => {
         setError(err.message);
@@ -54,41 +54,39 @@ const EditItem = () => {
       <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
 
-      <div className={`${item.length > 0 && 'contain'}`}>
-        <div>
-          <Card key={id} style={{ width: '12rem' }}>
-            <div style={{ display: 'flex' }}>
-              <div style={{ textAlign: 'left' }}>
-                <Confirm
-                  icon={<BsTrash color={'red'} />}
-                  title={`Are you sure you want to delete ${item.title} ?`}
-                  body="You won't be able to revert this!"
-                  confirm="Yes delete it"
-                  cancelColor="success"
-                  confirmColor="danger"
-                  buttonName="Delete"
-                  buttonColor="danger"
-                  itemDeleteBtn="itemDeleteBtn"
-                  handleClick={() => {
-                    handleDelete(item.id, item.title);
-                  }}
-                />
-              </div>
+      <div className="itemCenter">
+        <Card key={id} className="itemCenter">
+          <div style={{ display: 'flex' }}>
+            <div style={{ textAlign: 'left' }}>
+              <Confirm
+                icon={<BsTrash className="deleteBtn" />}
+                title={`Are you sure ?`}
+                body={`You won't be able to revert deleted ${item.title} item!`}
+                confirm="Yes delete it"
+                cancelColor="success"
+                confirmColor="danger"
+                buttonName="Delete"
+                buttonColor="danger"
+                itemDeleteBtn="itemDeleteBtn"
+                handleClick={() => {
+                  handleDelete(item.id, item.title);
+                }}
+              />
             </div>
-            <Card.Img variant="top" src={item.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
-            <Card.Body>
-              <Card.Title>{item.title}</Card.Title>
-              <Card.Text>{item.content}</Card.Text>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-              <ListGroup.Item>
-                <div style={{ display: 'flex' }}>Price: {`${item.price} \u20AC`}</div>
-              </ListGroup.Item>
-              <ListGroup.Item>Amount: {item.amount}</ListGroup.Item>
-            </ListGroup>
-            <Card.Body></Card.Body>
-          </Card>
-        </div>
+          </div>
+          <Card.Img variant="top" src={item.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
+          <Card.Body>
+            <Card.Title>{item.title}</Card.Title>
+            <Card.Text>{item.content}</Card.Text>
+          </Card.Body>
+          <ListGroup className="list-group-flush">
+            <ListGroup.Item>
+              <div style={{ display: 'flex' }}>Price: {`${item.price} \u20AC`}</div>
+            </ListGroup.Item>
+            <ListGroup.Item>Amount: {item.amount}</ListGroup.Item>
+          </ListGroup>
+          <Card.Body></Card.Body>
+        </Card>
       </div>
     </div>
   );
