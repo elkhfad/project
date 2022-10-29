@@ -21,7 +21,6 @@ const EditItem = ({ id }) => {
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [image, setImage] = useState('');
   const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
@@ -68,7 +67,13 @@ const EditItem = ({ id }) => {
     if (e.target.files[0]) {
       const reader = new FileReader();
       reader.addEventListener('load', () => {
-        setImage(reader.result);
+        setItem({
+          title: item.title,
+          content: item.content,
+          price: item.price,
+          amount: item.amount,
+          pic: reader.result,
+        });
       });
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -81,7 +86,7 @@ const EditItem = ({ id }) => {
       content: item.content,
       price: item.price,
       amount: item.amount,
-      pic: image || item.pic,
+      pic: item.pic,
     };
 
     setSuccess(null);
@@ -95,7 +100,6 @@ const EditItem = ({ id }) => {
 
         setItem(updateItem);
         handleClose();
-        setImage(null);
         setError(null);
       })
       .catch((err) => {

@@ -14,24 +14,21 @@ const ItemList = () => {
   const url = 'http://localhost:3001/items';
 
   useEffect(() => {
-    const getList = () => {
-      service
-        .getAll(url)
-        .then((res) => {
-          if (!res.status === 'OK') {
-            throw Error('could not load data');
-          }
-          setIsPending(false);
-          setData(res.data);
-          setError(null);
-        })
-        .catch((err) => {
-          setError(err.message);
-          setIsPending(false);
-        });
-    };
-    getList();
-  }, [data]);
+    service
+      .getAll(url)
+      .then((res) => {
+        if (!res.status === 'OK') {
+          throw Error('could not load data');
+        }
+        setIsPending(false);
+        setData(res.data);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setIsPending(false);
+      });
+  });
 
   return (
     <div>
