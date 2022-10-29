@@ -31,7 +31,7 @@ const SignInForm = ({ error, handleSubmit, handleChange, singIn }) => {
           </div>
 
           <button className="addNewItem" type="submit">
-            Submit
+            Send
           </button>
           <Register />
         </Form>
