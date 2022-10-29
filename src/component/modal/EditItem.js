@@ -18,6 +18,13 @@ const EditItem = ({ id }) => {
     amount: '',
     pic: '',
   });
+  const [itemOriginal, setItemOriginal] = useState({
+    title: '',
+    content: '',
+    price: '',
+    amount: '',
+    pic: '',
+  });
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -35,6 +42,7 @@ const EditItem = ({ id }) => {
         }
         setIsPending(false);
         setItem(res.data);
+        setItemOriginal(res.data);
         setError(null);
       })
       .catch((err) => {
@@ -108,6 +116,13 @@ const EditItem = ({ id }) => {
       });
   };
   const handleClose = () => {
+    setItem({
+      title: itemOriginal.title,
+      content: itemOriginal.content,
+      price: itemOriginal.price,
+      amount: itemOriginal.amount,
+      pic: itemOriginal.pic,
+    });
     setShow(false);
   };
   return (

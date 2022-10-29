@@ -32,6 +32,7 @@ const CreateItem = ({ data, setData }) => {
       amount: '',
       pic: '',
     });
+    setImage('');
     setShow(false);
   };
   const handleShow = () => setShow(true);
@@ -58,7 +59,7 @@ const CreateItem = ({ data, setData }) => {
             setImage(null);
             setError(null);
             setValid(false);
-            setSuccess(`${addItem.title} Has been added successfully ${image.name}`);
+            setSuccess(`${addItem.title} Has been added successfully`);
           })
           .catch((err) => {
             setError(err.message);
