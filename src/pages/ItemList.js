@@ -6,8 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import AlertComponent from '../component/Alert/AlertComponent';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link } from 'react-router-dom';
-import { CiEdit } from 'react-icons/ci';
+import EditItem from '../component/modal/EditItem';
 const ItemList = () => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
@@ -15,21 +14,24 @@ const ItemList = () => {
   const url = 'http://localhost:3001/items';
 
   useEffect(() => {
-    service
-      .getAll(url)
-      .then((res) => {
-        if (!res.status === 'OK') {
-          throw Error('could not load data');
-        }
-        setIsPending(false);
-        setData(res.data);
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setIsPending(false);
-      });
-  }, []);
+    const getList = () => {
+      service
+        .getAll(url)
+        .then((res) => {
+          if (!res.status === 'OK') {
+            throw Error('could not load data');
+          }
+          setIsPending(false);
+          setData(res.data);
+          setError(null);
+        })
+        .catch((err) => {
+          setError(err.message);
+          setIsPending(false);
+        });
+    };
+    getList();
+  }, [data]);
 
   return (
     <div>
@@ -49,9 +51,7 @@ const ItemList = () => {
               <Card className="cardStyle">
                 <div style={{ display: 'flex' }}>
                   <div style={{ textAlign: 'left' }}>
-                    <Link to={`/items/${data.id}`}>
-                      <CiEdit className="editPen" />
-                    </Link>
+                    <EditItem id={data.id} />
                   </div>
                 </div>
                 <Card.Img variant="top" src={data.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />

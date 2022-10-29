@@ -33,7 +33,7 @@ body {
   color: #b7b7b7 !important;
   font-size: 12px;
   padding: 5px;
-  width: 10rem
+  width: 10rem !important;
 }
 
 .cardTitleStyle {
