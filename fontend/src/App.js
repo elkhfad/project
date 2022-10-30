@@ -21,6 +21,7 @@ function App() {
           </Routes>
         </div>
       </div>
+      <footer> &copy; {new Date().getFullYear()} Copyright: </footer>
     </BrowserRouter>
   );
 }

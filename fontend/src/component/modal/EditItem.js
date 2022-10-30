@@ -4,13 +4,13 @@ import { Spinner } from 'react-bootstrap';
 import Confirm from './Confirm';
 import { BsTrash } from 'react-icons/bs';
 import services from '../../services/services';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
 import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
-import { CiEdit } from 'react-icons/ci';
-const EditItem = ({ id, data, setData }) => {
+import Button from 'react-bootstrap/Button';
+import { IoReturnDownBackOutline } from 'react-icons/io5';
+const EditItem = () => {
   const [item, setItem] = useState({
     title: '',
     comment: '',
@@ -25,10 +25,10 @@ const EditItem = ({ id, data, setData }) => {
     amount: '',
     pic: '',
   });
+  const { id } = useParams();
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
   const url = `http://localhost:3001/api/items`;
@@ -61,14 +61,11 @@ const EditItem = ({ id, data, setData }) => {
         }
         setError(null);
         setSuccess(`${item.title} Has been removed successfully`);
-        setShow(false);
-        setData(data.concat(data.filter((da) => id !== da.id)));
         navigate('/itemList');
       })
       .catch((err) => {
         setError(err.message);
       });
-    window.location.reload();
   };
 
   const handleChange = (e) => {
@@ -89,7 +86,6 @@ const EditItem = ({ id, data, setData }) => {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  const handleShow = () => setShow(true);
   const handleSubmit = (e) => {
     e.preventDefault();
     const updateItem = {
@@ -112,7 +108,7 @@ const EditItem = ({ id, data, setData }) => {
         setItem(updateItem);
         handleClose();
         setError(null);
-        window.location.reload();
+        navigate('/itemList');
       })
       .catch((err) => {
         setError(err.message);
@@ -126,7 +122,6 @@ const EditItem = ({ id, data, setData }) => {
       amount: itemOriginal.amount,
       pic: itemOriginal.pic,
     });
-    setShow(false);
   };
   return (
     <div>
@@ -135,97 +130,95 @@ const EditItem = ({ id, data, setData }) => {
       <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
 
       <div>
-        <div>
-          <button className="addNewItem" style={{ fontSize: '10px' }} onClick={handleShow}>
-            <CiEdit className="editPen" />
-          </button>
-        </div>
-
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
+        <div className="editItemForm">
+          <Form id="editItemForm" onSubmit={handleSubmit}>
+            <div style={{ textAlign: 'left' }}>
+              <Confirm
+                icon={<BsTrash />}
+                title={`Are you sure ?`}
+                body={`You won't be able to revert deleted item!`}
+                confirm="Yes delete it"
+                cancelColor="success"
+                confirmColor="danger"
+                buttonName="Delete"
+                itemDeleteBtn="itemDeleteBtn"
+                handleClick={() => {
+                  handleDelete(item.id, item.title);
+                }}
+              />
+              <Button style={{ float: 'right' }} className="returnToList" onClick={() => navigate('/itemList')}>
+                Return <IoReturnDownBackOutline />
+              </Button>
+              <header style={{ textAlign: 'center' }}>Edit Item</header>
+            </div>
             <div>
-              <header>
-                Add item
-                <div style={{ textAlign: 'left' }}>
-                  <Confirm
-                    icon={<BsTrash className="deleteBtn" />}
-                    title={`Are you sure ?`}
-                    body={`You won't be able to revert deleted item!`}
-                    confirm="Yes delete it"
-                    cancelColor="success"
-                    confirmColor="danger"
-                    buttonName="Delete"
-                    buttonColor="danger"
-                    itemDeleteBtn="itemDeleteBtn"
-                    handleClick={() => {
-                      handleDelete(item.id, item.title);
-                    }}
-                  />
+              <div className="input-group">
+                <label htmlFor="title">title</label>
+                <input className="form-control" id="title" name="title" type="text" value={item.title} onChange={handleChange} required maxLength={50} placeholder="Title" minLength={5} />
+                <div className="input-group-addon">
+                  <ChooseIcon value={item.title} min={5} />
                 </div>
-              </header>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="createItemForm">
-              <Form id="createItemForm" onSubmit={handleSubmit}>
-                <div>
-                  <div className="input-group">
-                    <label htmlFor="title">title</label>
-                    <input className="form-control" id="title" name="title" type="text" value={item.title} onChange={handleChange} required maxLength={50} placeholder="Title" minLength={5} />
-                    <div className="input-group-addon">
-                      <ChooseIcon value={item.title} min={5} />
-                    </div>
-                  </div>
-                  <div className="errorHandle"> {<ErrorHandler min={5} value={item.title} text="Title length is too short !  required 5 characters" />}</div>
-                  <div className="input-group">
-                    <label htmlFor="comment">comment</label>
-                    <textarea
-                      className="form-control"
-                      id="comment"
-                      name="comment"
-                      type="text"
-                      value={item.comment}
-                      onChange={handleChange}
-                      required
-                      minLength={10}
-                      maxLength={1500}
-                      placeholder="Write something"
-                    />
-                    <div className="input-group-addon">
-                      <ChooseIcon value={item.comment} min={10} />
-                    </div>
-                  </div>
-
-                  <ErrorHandler min={10} value={item.comment} text="Comment is too short ! required 10 characters" />
-                  <div className="input-group">
-                    <label htmlFor="price">Price {'\u20AC'}</label>
-                    <input className="form-control" id="price" name="price" type="number" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
-                    <div className="input-group-addon">
-                      <ChooseIcon value={item.price} min={1} />
-                    </div>
-                  </div>
-
-                  <div className="input-group">
-                    <label htmlFor="amount">Amount</label>
-                    <input className="form-control" id="amount" name="amount" type="number" value={item.amount} onChange={handleChange} required placeholder="How many pieces do you have" />
-                    <div className="input-group-addon">
-                      <ChooseIcon value={item.amount} min={1} />
-                    </div>
-                  </div>
-                  <div className="input-group">
-                    <img src={item.pic} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
-                  </div>
-                  <div className="input-group">
-                    <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />
-                  </div>
+              </div>
+              <div className="errorHandle"> {<ErrorHandler min={5} value={item.title} text="Title length is too short !  required 5 characters" />}</div>
+              <div className="input-group">
+                <label htmlFor="comment">comment</label>
+                <textarea
+                  className="form-control"
+                  id="comment"
+                  name="comment"
+                  type="text"
+                  value={item.comment}
+                  onChange={handleChange}
+                  required
+                  minLength={10}
+                  maxLength={1500}
+                  placeholder="Write something"
+                />
+                <div className="input-group-addon">
+                  <ChooseIcon value={item.comment} min={10} />
                 </div>
-                <button className="addNewItem" type="submit">
-                  Save changes
-                </button>
-              </Form>
+              </div>
+
+              <ErrorHandler min={10} value={item.comment} text="Comment is too short ! required 10 characters" />
+              <div className="input-group">
+                <label htmlFor="price">Price {'\u20AC'}</label>
+                <input className="form-control" id="price" name="price" type="number" min="0" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
+                <div className="input-group-addon">
+                  <ChooseIcon value={item.price} min={1} />
+                </div>
+              </div>
+
+              <div className="input-group">
+                <label htmlFor="amount">Amount</label>
+                <input
+                  className="form-control"
+                  id="amount"
+                  style={{ width: '12px' }}
+                  name="amount"
+                  type="number"
+                  min="0"
+                  value={item.amount}
+                  onChange={handleChange}
+                  required
+                  placeholder="How many pieces do you have"
+                />
+                <div className="input-group-addon">
+                  <ChooseIcon value={item.amount} min={1} />
+                </div>
+              </div>
+              <div className="input-group">
+                {console.log(item.pic)}
+                <img src={item.pic} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
+              </div>
+              <div className="input-group">
+                <input className="form-control" type="file" name="image" value={item.pic.name} onChange={handleImage} accept="image/*" />
+              </div>
             </div>
-          </Modal.Body>
-        </Modal>
+            <Button className="addNewItem" type="submit">
+              Save changes
+            </Button>
+          </Form>
+        </div>
       </div>
     </div>
   );

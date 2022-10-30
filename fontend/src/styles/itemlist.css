@@ -38,11 +38,16 @@ label {
 }
 
 .itemDeleteBtn {
-  padding: 0px !important;
-  border: none !important;
-  background-color: #ffffff !important;
+  background-color: #750000 !important;
+  font-size: 12px !important;
+  outline: none;
+  border: 1px solid #750000 !important;
 }
 
+.itemDeleteBtn:hover {
+  background-color: #af0505 !important;
+  border: 1px solid #af0505 !important;
+}
 
 header {
   color: #145713;
@@ -118,6 +123,7 @@ textarea {
   color: #c30303;
 }
 
+
 .success {
   color: #00a10d;
 
@@ -144,15 +150,36 @@ textarea {
   margin-bottom: 1em;
 }
 
+
+
+.returnToList {
+  background-color: #114100 !important;
+  font-size: 12px !important;
+  outline: none;
+  border: 1px solid #114100 !important;
+
+}
+
+.returnToList:hover {
+  background-color: #237704 !important;
+  border: 1px solid #237704 !important;
+}
+
 #registerForm {
   margin: 0 auto;
   padding: 5px;
   margin-top: 0.2em;
-  margin-bottom: 0.5em;
-
-
+  margin-bottom: 0.5em
 }
 
+#editItemForm {
+  max-width: 24em;
+  margin: 0 auto;
+  background-color: #0a2a44;
+  padding: 2em;
+  border: 4px solid #1f5079;
+  border-radius: 10px 10px 10px 10px
+}
 
 .addNewItem {
   background-color: #b7b7b7 !important;
@@ -162,7 +189,6 @@ textarea {
   border: 2px solid #b7b7b7 !important;
   margin-bottom: 0.5em;
   margin-left: 0.5em;
-
 }
 
 textarea {

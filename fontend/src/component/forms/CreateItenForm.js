@@ -40,7 +40,7 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
                 <ErrorHandler min={10} value={addItem.comment} text="Comment is too short ! required 10 characters" />
                 <div className="input-group">
                   <label htmlFor="price">Price {'\u20AC'}</label>
-                  <input className="form-control" id="price" name="price" type="number" value={addItem.price} onChange={handleChange} required placeholder="How much it cost" />
+                  <input className="form-control" id="price" name="price" type="number" value={addItem.price} onChange={handleChange} required placeholder="How much it cost" min="0" />
                   <div className="input-group-addon">
                     <ChooseIcon value={addItem.price} min={1} />
                   </div>
@@ -48,7 +48,7 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
 
                 <div className="input-group">
                   <label htmlFor="amount">Amount</label>
-                  <input className="form-control" id="amount" name="amount" type="number" value={addItem.amount} onChange={handleChange} required placeholder="How many pieces do you have" />
+                  <input className="form-control" id="amount" name="amount" type="number" value={addItem.amount} onChange={handleChange} required placeholder="How many pieces do you have" min="0" />
                   <div className="input-group-addon">
                     <ChooseIcon value={addItem.amount} min={1} />
                   </div>

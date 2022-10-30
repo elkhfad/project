@@ -6,7 +6,9 @@ import Spinner from 'react-bootstrap/Spinner';
 import AlertComponent from '../component/Alert/AlertComponent';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import EditItem from '../component/modal/EditItem';
+import { CiEdit } from 'react-icons/ci';
+
+import { Link } from 'react-router-dom';
 const ItemList = () => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
@@ -44,9 +46,13 @@ const ItemList = () => {
             <div key={data.id}>
               <Card className="cardStyle">
                 <div style={{ display: 'flex' }}>
-                  <div style={{ textAlign: 'left' }}>
-                    <EditItem id={data.id} />
-                  </div>
+                  <Link to={`/items/${data.id}`}>
+                    <div>
+                      <button className="addNewItem" style={{ fontSize: '10px' }}>
+                        <CiEdit className="editPen" />
+                      </button>
+                    </div>
+                  </Link>
                 </div>
                 <Card.Img variant="top" src={data.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
                 <Card.Body>

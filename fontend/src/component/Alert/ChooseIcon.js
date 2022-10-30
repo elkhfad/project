@@ -7,7 +7,13 @@ const ChooseIcon = ({ value, min }) => {
         <AiOutlineClose />
       </div>
     );
-  } else if (value.length >= min) {
+  } else if (value.length > min) {
+    return (
+      <div className="success">
+        <AiOutlineCheck />
+      </div>
+    );
+  } else if (value.length !== 0) {
     return (
       <div className="success">
         <AiOutlineCheck />
