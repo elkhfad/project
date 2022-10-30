@@ -9,16 +9,16 @@ const CreateItem = ({ data, setData }) => {
   const [show, setShow] = useState(false);
   const [addItem, setAddItem] = useState({
     title: '',
-    content: '',
+    comment: '',
     price: '',
     amount: '',
     pic: '',
   });
-  const url = 'http://localhost:3001/items';
+  const url = 'http://localhost:3001/api/items';
 
   useEffect(() => {
     const validation = () => {
-      if (addItem.title.length > 4 && addItem.content.length > 9) {
+      if (addItem.title.length > 4 && addItem.comment.length > 9) {
         setValid(true);
       }
     };
@@ -27,7 +27,7 @@ const CreateItem = ({ data, setData }) => {
   const handleClose = () => {
     setAddItem({
       title: '',
-      content: '',
+      comment: '',
       price: '',
       amount: '',
       pic: '',
@@ -40,7 +40,7 @@ const CreateItem = ({ data, setData }) => {
     e.preventDefault();
     const newItem = {
       title: addItem.title,
-      content: addItem.content,
+      comment: addItem.comment,
       price: addItem.price,
       amount: addItem.amount,
       pic: image,

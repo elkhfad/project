@@ -11,7 +11,7 @@ const ItemList = () => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
-  const url = 'http://localhost:3001/items';
+  const url = 'http://localhost:3001/api/items';
 
   useEffect(() => {
     service

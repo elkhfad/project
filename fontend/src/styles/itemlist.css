@@ -165,17 +165,6 @@ textarea {
 
 }
 
-.form-floating.newContent {
-  height: 180px
-}
-
-.newContent {
-  text-align: left;
-  color: #8f8f8f;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 textarea {
   height: 100px !important
 }

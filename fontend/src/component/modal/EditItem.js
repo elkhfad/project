@@ -10,17 +10,17 @@ import Modal from 'react-bootstrap/Modal';
 import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
 import { CiEdit } from 'react-icons/ci';
-const EditItem = ({ id }) => {
+const EditItem = ({ id, data, setData }) => {
   const [item, setItem] = useState({
     title: '',
-    content: '',
+    comment: '',
     price: '',
     amount: '',
     pic: '',
   });
   const [itemOriginal, setItemOriginal] = useState({
     title: '',
-    content: '',
+    comment: '',
     price: '',
     amount: '',
     pic: '',
@@ -31,7 +31,7 @@ const EditItem = ({ id }) => {
   const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
-  const url = `http://localhost:3001/items/`;
+  const url = `http://localhost:3001/api/items`;
 
   useEffect(() => {
     services
@@ -56,11 +56,15 @@ const EditItem = ({ id }) => {
     services
       .deleteItem(url, id)
       .then((res) => {
-        if (!res.status === 'OK') {
+        console.log(res.status);
+        console.log(res.status !== 200);
+        if (res.status !== 200) {
           throw Error(`could not delete ${item.title}`);
         }
         setError(null);
         setSuccess(`${item.title} Has been removed successfully`);
+        setShow(false);
+        setData(data.concat(data.filter((da) => id !== da.id)));
         navigate('/itemList');
       })
       .catch((err) => {
@@ -77,7 +81,7 @@ const EditItem = ({ id }) => {
       reader.addEventListener('load', () => {
         setItem({
           title: item.title,
-          content: item.content,
+          comment: item.comment,
           price: item.price,
           amount: item.amount,
           pic: reader.result,
@@ -91,7 +95,7 @@ const EditItem = ({ id }) => {
     e.preventDefault();
     const updateItem = {
       title: item.title,
-      content: item.content,
+      comment: item.comment,
       price: item.price,
       amount: item.amount,
       pic: item.pic,
@@ -102,7 +106,7 @@ const EditItem = ({ id }) => {
     services
       .update(url, id, updateItem)
       .then((res) => {
-        if (!res.status === 'OK') {
+        if (res.status !== 200) {
           throw Error('could not add data');
         }
 
@@ -118,7 +122,7 @@ const EditItem = ({ id }) => {
   const handleClose = () => {
     setItem({
       title: itemOriginal.title,
-      content: itemOriginal.content,
+      comment: itemOriginal.comment,
       price: itemOriginal.price,
       amount: itemOriginal.amount,
       pic: itemOriginal.pic,
@@ -175,13 +179,13 @@ const EditItem = ({ id }) => {
                   </div>
                   <div className="errorHandle"> {<ErrorHandler min={5} value={item.title} text="Title length is too short !  required 5 characters" />}</div>
                   <div className="input-group">
-                    <label htmlFor="content">comment</label>
+                    <label htmlFor="comment">comment</label>
                     <textarea
                       className="form-control"
-                      id="content"
-                      name="content"
+                      id="comment"
+                      name="comment"
                       type="text"
-                      value={item.content}
+                      value={item.comment}
                       onChange={handleChange}
                       required
                       minLength={10}
@@ -189,14 +193,14 @@ const EditItem = ({ id }) => {
                       placeholder="Write something"
                     />
                     <div className="input-group-addon">
-                      <ChooseIcon value={item.content} min={10} />
+                      <ChooseIcon value={item.comment} min={10} />
                     </div>
                   </div>
 
-                  <ErrorHandler min={10} value={item.content} text="Comment is too short ! required 10 characters" />
+                  <ErrorHandler min={10} value={item.comment} text="Comment is too short ! required 10 characters" />
                   <div className="input-group">
                     <label htmlFor="price">Price {'\u20AC'}</label>
-                    <input className="form-control" id="price" name="price" type="text" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
+                    <input className="form-control" id="price" name="price" type="number" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
                     <div className="input-group-addon">
                       <ChooseIcon value={item.price} min={1} />
                     </div>

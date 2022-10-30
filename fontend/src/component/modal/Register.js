@@ -18,7 +18,7 @@ const Register = () => {
     postalCode: '',
     city: '',
   });
-  const url = 'http://localhost:3001/registers';
+  const url = 'http://localhost:3001/api/registers';
 
   useEffect(() => {
     const validation = () => {

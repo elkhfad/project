@@ -10,7 +10,7 @@ const SignIn = () => {
     password: '',
   });
 
-  const url = 'http://localhost:3001/items';
+  const url = 'http://localhost:3001/api/items';
 
   useEffect(() => {
     const validation = () => {
