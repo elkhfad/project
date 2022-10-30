@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 
 function AlertComponent({ variant, header, text }) {
   const [show, setShow] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShow(false);
-    }, 10000);
-  });
+  setTimeout(() => {
+    setShow(false);
+  }, 10000);
 
   if (show) {
     return (

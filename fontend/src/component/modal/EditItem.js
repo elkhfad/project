@@ -56,8 +56,6 @@ const EditItem = ({ id, data, setData }) => {
     services
       .deleteItem(url, id)
       .then((res) => {
-        console.log(res.status);
-        console.log(res.status !== 200);
         if (res.status !== 200) {
           throw Error(`could not delete ${item.title}`);
         }
@@ -70,6 +68,7 @@ const EditItem = ({ id, data, setData }) => {
       .catch((err) => {
         setError(err.message);
       });
+    window.location.reload();
   };
 
   const handleChange = (e) => {
