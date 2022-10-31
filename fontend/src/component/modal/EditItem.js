@@ -207,11 +207,10 @@ const EditItem = () => {
                 </div>
               </div>
               <div className="input-group">
-                {console.log(item.pic)}
                 <img src={item.pic} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
               </div>
               <div className="input-group">
-                <input className="form-control" type="file" name="image" value={item.pic.name} onChange={handleImage} accept="image/*" />
+                <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />
               </div>
             </div>
             <Button className="addNewItem" type="submit">

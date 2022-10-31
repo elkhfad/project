@@ -1,5 +1,3 @@
-import service from '../services/services';
-import { useState, useEffect } from 'react';
 import CreateItem from '../component/CreateItem';
 import '../styles/itemlist.css';
 import Spinner from 'react-bootstrap/Spinner';
@@ -9,39 +7,22 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { CiEdit } from 'react-icons/ci';
 
 import { Link } from 'react-router-dom';
+import { useGetAllItems } from '../component/controlla/itemsControll';
 const ItemList = () => {
-  const [data, setData] = useState([]);
-  const [isPending, setIsPending] = useState(true);
-  const [error, setError] = useState(null);
   const url = 'http://localhost:3001/api/items';
 
-  useEffect(() => {
-    service
-      .getAll(url)
-      .then((res) => {
-        if (!res.status === 'OK') {
-          throw Error('could not load data');
-        }
-        setIsPending(false);
-        setData(res.data);
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setIsPending(false);
-      });
-  }, []);
+  const getAllItems = useGetAllItems(url);
 
   return (
     <div>
-      <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
-      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
+      <div>{getAllItems.isPending && <Spinner animation="border" variant="primary" />}</div>
+      <div>{getAllItems.error && <AlertComponent variant="danger" header="You got an error!" text={getAllItems.error} />}</div>
 
       <div className="addItem">
-        <CreateItem data={data} setData={setData} />
+        <CreateItem data={getAllItems.data} setData={getAllItems.setData} />
       </div>
-      <div className={`${data.length > 0 && 'contain'}`}>
-        {data.map((data) => {
+      <div className={`${getAllItems.data.length > 0 && 'contain'}`}>
+        {getAllItems.data.map((data) => {
           return (
             <div key={data.id}>
               <Card className="cardStyle">
