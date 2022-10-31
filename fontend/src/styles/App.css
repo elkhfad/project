@@ -30,16 +30,13 @@ body {
 }
 
 footer {
-  background-color: #adbfcd;
-  width: 100%;
-  padding: 0.5rem;
-  color: #145713;
-  font-weight: 600;
-  font-size: 14px;
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
-  right: 0;
+  width: 100%;
+  background-color: #adbfcd;
+  color: #145713;
+  text-align: center;
 }
 
 .cardStyle {
