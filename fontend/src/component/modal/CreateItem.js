@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import services from '../../services/services';
 import CreateItemForm from '../forms/CreateItenForm';
+
 const CreateItem = ({ data, setData }) => {
-  const [error, setError] = useState(null);
-  const [valid, setValid] = useState(false);
-  const [success, setSuccess] = useState(null);
-  const [image, setImage] = useState(null);
+  const [success, setSuccess] = useState('');
+  const [image, setImage] = useState('');
   const [show, setShow] = useState(false);
   const [addItem, setAddItem] = useState({
     title: '',
@@ -16,14 +15,6 @@ const CreateItem = ({ data, setData }) => {
   });
   const url = 'http://localhost:3001/api/items';
 
-  useEffect(() => {
-    const validation = () => {
-      if (addItem.title.length > 4 && addItem.comment.length > 9) {
-        setValid(true);
-      }
-    };
-    validation();
-  });
   const handleClose = () => {
     setAddItem({
       title: '',
@@ -35,7 +26,9 @@ const CreateItem = ({ data, setData }) => {
     setImage('');
     setShow(false);
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const newItem = {
@@ -45,28 +38,23 @@ const CreateItem = ({ data, setData }) => {
       amount: addItem.amount,
       pic: image,
     };
-    if (valid) {
-      setSuccess(null);
-      if (!data.map((da) => da.title).includes(addItem.title)) {
-        services
-          .create(url, newItem)
-          .then((res) => {
-            if (!res.status === 'Created') {
-              throw Error('could not add data');
-            }
-            setData(data.concat(res.data));
-            handleClose();
-            setImage(null);
-            setError(null);
-            setValid(false);
-            setSuccess(`${addItem.title} Has been added successfully`);
-          })
-          .catch((err) => {
-            setError(err.message);
-          });
-      } else {
-        setError(`${addItem.title} exist`);
-      }
+
+    if (addItem.title.length > 4 && addItem.comment.length > 9) {
+      services
+        .create(url, newItem)
+        .then((res) => {
+          if (res.status !== 'Created') {
+            throw Error('could not add data');
+          }
+          setData(data.concat(res.data));
+          handleClose();
+          setImage('');
+          setValid(false);
+          setSuccess(`${addItem.title} Has been added successfully`);
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
     }
   };
 
@@ -88,7 +76,6 @@ const CreateItem = ({ data, setData }) => {
         handleChange={handleChange}
         addItem={addItem}
         image={image}
-        error={error}
         success={success}
         handleSubmit={handleSubmit}
         handleImage={handleImage}

@@ -7,22 +7,41 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { CiEdit } from 'react-icons/ci';
 
 import { Link } from 'react-router-dom';
-import { useGetAllItems } from '../component/controlla/itemsControll';
+import { useEffect, useState } from 'react';
+import services from '../services/services';
 const ItemList = () => {
+  const [data, setData] = useState([]);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
   const url = 'http://localhost:3001/api/items';
 
-  const getAllItems = useGetAllItems(url);
+  useEffect(() => {
+    services
+      .getAll(url)
+      .then((res) => {
+        if (!res.status === 'OK') {
+          throw Error('could not load data');
+        }
+        setIsPending(false);
+        setData(res.data);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setIsPending(false);
+      });
+  }, []);
 
   return (
     <div>
-      <div>{getAllItems.isPending && <Spinner animation="border" variant="primary" />}</div>
-      <div>{getAllItems.error && <AlertComponent variant="danger" header="You got an error!" text={getAllItems.error} />}</div>
+      <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
+      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
 
       <div className="addItem">
-        <CreateItem data={getAllItems.data} setData={getAllItems.setData} />
+        <CreateItem data={data} setData={setData} />
       </div>
-      <div className={`${getAllItems.data.length > 0 && 'contain'}`}>
-        {getAllItems.data.map((data) => {
+      <div className={`${data.length > 0 && 'contain'}`}>
+        {data.map((data) => {
           return (
             <div key={data.id}>
               <Card className="cardStyle">

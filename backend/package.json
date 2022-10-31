@@ -17,6 +17,7 @@
     "mongoose": "^6.7.0"
   },
   "devDependencies": {
+    "json-server": "^0.17.0",
     "nodemon": "2.0.20"
   },
   "resolutions": {

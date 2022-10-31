@@ -2,10 +2,15 @@ import Form from 'react-bootstrap/Form';
 import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
 import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner';
+
 import { IoAddCircleOutline } from 'react-icons/io5';
-const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, handleShow, handleClose, show, image }) => {
+import AlertComponent from '../Alert/AlertComponent';
+const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, handleShow, handleClose, show, image, success, isPending }) => {
   return (
     <div>
+      <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
+      <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
       <div>
         <button className="addNewItem" style={{ fontSize: '10px' }} onClick={handleShow}>
           Add item <IoAddCircleOutline />
@@ -23,7 +28,7 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
               <div>
                 <div className="input-group">
                   <label htmlFor="title">title</label>
-                  <input className="form-control" id="title" name="title" type="text" value={addItem.title} onChange={handleChange} required maxLength={50} placeholder="Title" />
+                  <input className="form-control" id="title" name="title" type="text" value={addItem.title} onChange={handleChange} required maxLength={50} minLength={5} placeholder="Title" />
                   <div className="input-group-addon">
                     <ChooseIcon value={addItem.title} min={5} />
                   </div>

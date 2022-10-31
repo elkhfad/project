@@ -5,7 +5,6 @@ import { BsExclamationCircle } from 'react-icons/bs';
 
 const Confirm = ({ title, body, handleClick, confirm, confirmColor, cancelColor, buttonColor, icon, itemDeleteBtn }) => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
