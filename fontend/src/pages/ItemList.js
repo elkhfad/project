@@ -5,32 +5,11 @@ import AlertComponent from '../component/Alert/AlertComponent';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { CiEdit } from 'react-icons/ci';
-
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import services from '../services/services';
+import { useGetAllItems } from '../component/controlla/itemsControll';
 const ItemList = () => {
-  const [data, setData] = useState([]);
-  const [isPending, setIsPending] = useState(true);
-  const [error, setError] = useState(null);
   const url = 'http://localhost:3001/api/items';
-
-  useEffect(() => {
-    services
-      .getAll(url)
-      .then((res) => {
-        if (!res.status === 'OK') {
-          throw Error('could not load data');
-        }
-        setIsPending(false);
-        setData(res.data);
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setIsPending(false);
-      });
-  }, []);
+  const { data, error, isPending, setData } = useGetAllItems(url);
 
   return (
     <div>
