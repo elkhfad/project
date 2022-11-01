@@ -192,7 +192,7 @@ textarea {
 }
 
 textarea {
-  height: 100px !important
+  max-height: 300px;
 }
 
 .contain {
