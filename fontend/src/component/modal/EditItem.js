@@ -200,7 +200,7 @@ const EditItem = () => {
                   value={item.amount}
                   onChange={handleChange}
                   required
-                  placeholder="How many pieces do you have"
+                  placeholder="Amount of pieces"
                 />
                 <div className="input-group-addon">
                   <ChooseIcon value={item.amount} min={1} />
