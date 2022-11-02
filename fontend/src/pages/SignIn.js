@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import services from '../services/services';
-import SignInForm from '../component/forms/SignUpForm';
+import SignInForm from '../component/forms/SignInForm';
 
 const SignIn = () => {
   const [error, setError] = useState(null);

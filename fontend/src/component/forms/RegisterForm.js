@@ -26,8 +26,8 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
                 <div>{newSuccess && <AlertComponent variant="success" header="" text={newSuccess} />}</div>
 
+                <label htmlFor="firstName">first name *</label>
                 <div className="input-group">
-                  <label htmlFor="firstName">first name</label>
                   <input
                     className="form-control"
                     id="firstName"
@@ -45,8 +45,8 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 </div>
                 {<ErrorHandler min={3} value={signUp.firstName} text="First length is too short !  required 3 characters" />}
 
+                <label htmlFor="lastName">Last name *</label>
                 <div className="input-group">
-                  <label htmlFor="lastName">Last name</label>
                   <input
                     className="form-control"
                     id="lastName"
@@ -64,8 +64,8 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 </div>
                 {<ErrorHandler min={5} value={signUp.lastName} text="First length is too short !  required 5 characters" />}
 
+                <label htmlFor="email">email *</label>
                 <div className="input-group">
-                  <label htmlFor="email">email</label>
                   <input className="form-control" id="email" name="email" type="email" value={signUp.email} onChange={handleChange} required maxLength={50} placeholder="Your_email@email.com" />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.email} min={5} />
@@ -73,8 +73,8 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 </div>
                 {<ErrorHandler min={5} value={signUp.email} text="Title length is too short !  required 5 characters" />}
 
+                <label htmlFor="password">password *</label>
                 <div className="input-group">
-                  <label htmlFor="password">password</label>
                   <input className="form-control" id="password" name="password" type="password" value={signUp.password} onChange={handleChange} required maxLength={50} placeholder="Password" />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.password} min={8} />
@@ -82,8 +82,8 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 </div>
                 {<ErrorHandler min={8} value={signUp.password} text="Password length is too short !  required 8 characters" />}
 
+                <label htmlFor="city">City *</label>
                 <div className="input-group">
-                  <label htmlFor="city">City</label>
                   <input className="form-control" id="city" required name="city" type="text" value={signUp.city} onChange={handleChange} maxLength={50} placeholder="City" />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.city} min={4} />
@@ -91,8 +91,8 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 </div>
                 {<ErrorHandler min={4} value={signUp.city} text="City length is too short !  required 4 characters" />}
 
+                <label htmlFor="street">Street *</label>
                 <div className="input-group">
-                  <label htmlFor="street">Street</label>
                   <input className="form-control" id="street" name="street" type="text" required value={signUp.street} onChange={handleChange} maxLength={50} placeholder="Street" />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.street} min={4} />
@@ -100,8 +100,8 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 </div>
                 {<ErrorHandler min={4} value={signUp.street} text="Street length is too short !  required 4 characters" />}
 
+                <label htmlFor="postalCode">Postal code *</label>
                 <div className="input-group">
-                  <label htmlFor="postalCode">Postal code</label>
                   <input
                     className="form-control"
                     id="postalCode"

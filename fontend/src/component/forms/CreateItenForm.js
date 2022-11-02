@@ -26,40 +26,51 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
           <div className="createItemForm">
             <Form id="createItemForm" onSubmit={handleSubmit}>
               <div>
+                <label htmlFor="title">title *</label>
                 <div className="input-group">
-                  <label htmlFor="title">title</label>
                   <input className="form-control" id="title" name="title" type="text" value={addItem.title} onChange={handleChange} required maxLength={50} minLength={5} placeholder="Title" />
                   <div className="input-group-addon">
                     <ChooseIcon value={addItem.title} min={5} />
                   </div>
                 </div>
                 <div className="errorHandle"> {<ErrorHandler min={5} value={addItem.title} text="Title length is too short !  required 5 characters" />}</div>
+                <label htmlFor="comment">comment *</label>
                 <div className="input-group">
-                  <label htmlFor="comment">comment</label>
-                  <textarea className="form-control" id="comment" name="comment" type="text" value={addItem.comment} onChange={handleChange} required maxLength={1500} placeholder="Write something" />
+                  <textarea
+                    className="form-control"
+                    id="comment"
+                    name="comment"
+                    type="text"
+                    value={addItem.comment}
+                    onChange={handleChange}
+                    required
+                    maxLength={1500}
+                    minLength={10}
+                    placeholder="Write something"
+                  />
                   <div className="input-group-addon">
                     <ChooseIcon value={addItem.comment} min={10} />
                   </div>
                 </div>
 
                 <ErrorHandler min={10} value={addItem.comment} text="Comment is too short ! required 10 characters" />
+                <label htmlFor="price">Price {'\u20AC'} *</label>
                 <div className="input-group">
-                  <label htmlFor="price">Price {'\u20AC'}</label>
                   <input className="form-control" id="price" name="price" type="number" value={addItem.price} onChange={handleChange} required placeholder="How much it cost" min="0" />
                   <div className="input-group-addon">
                     <ChooseIcon value={addItem.price} min={1} />
                   </div>
                 </div>
 
+                <label htmlFor="amount">Amount *</label>
                 <div className="input-group">
-                  <label htmlFor="amount">Amount</label>
                   <input className="form-control" id="amount" name="amount" type="number" value={addItem.amount} onChange={handleChange} required placeholder="How many pieces do you have" min="0" />
                   <div className="input-group-addon">
                     <ChooseIcon value={addItem.amount} min={1} />
                   </div>
                 </div>
                 <div className="input-group">
-                  <img src={image} alt="It is empty !" style={{ width: '8rem', margin: '0 auto' }} />
+                  <img src={image} alt="" style={{ width: '8rem', margin: '0 auto' }} />
                 </div>
                 <div className="input-group">
                   <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />

@@ -11,8 +11,10 @@ const SignInForm = ({ error, handleSubmit, handleChange, singIn }) => {
         <Form id="sigInForm" onSubmit={handleSubmit}>
           <div>
             <header>Sign in</header>
+            <div className="email">
+              <label htmlFor="email">email *</label>
+            </div>
             <div className="input-group">
-              <label htmlFor="email">email</label>
               <input className="form-control" id="email" name="email" type="email" value={singIn.email} onChange={handleChange} required maxLength={50} placeholder="Title" />
               <div className="input-group-addon">
                 <ChooseIcon value={singIn.email} min={5} />
@@ -20,8 +22,10 @@ const SignInForm = ({ error, handleSubmit, handleChange, singIn }) => {
             </div>
             {<ErrorHandler min={5} value={singIn.email} text="Title length is too short !  required 5 characters" />}
 
+            <div className="email">
+              <label htmlFor="password">password *</label>
+            </div>
             <div className="input-group">
-              <label htmlFor="password">password</label>
               <input className="form-control" id="password" name="password" type="password" value={singIn.password} onChange={handleChange} required maxLength={50} placeholder="Password" />
               <div className="input-group-addon">
                 <ChooseIcon value={singIn.password} min={8} />

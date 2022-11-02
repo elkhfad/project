@@ -97,22 +97,23 @@ const EditItem = () => {
     };
 
     setSuccess(null);
+    if (updateItem.title.length > 4 && updateItem.comment.length > 9) {
+      services
+        .update(url, id, updateItem)
+        .then((res) => {
+          if (res.status !== 200) {
+            throw Error('could not add data');
+          }
 
-    services
-      .update(url, id, updateItem)
-      .then((res) => {
-        if (res.status !== 200) {
-          throw Error('could not add data');
-        }
-
-        setItem(updateItem);
-        handleClose();
-        setError(null);
-        navigate('/itemList');
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
+          setItem(updateItem);
+          handleClose();
+          setError(null);
+          navigate('/itemList');
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    }
   };
   const handleClose = () => {
     setItem({
@@ -152,16 +153,16 @@ const EditItem = () => {
               <header style={{ textAlign: 'center' }}>Edit Item</header>
             </div>
             <div>
+              <label htmlFor="title">title *</label>
               <div className="input-group">
-                <label htmlFor="title">title</label>
                 <input className="form-control" id="title" name="title" type="text" value={item.title} onChange={handleChange} required maxLength={50} placeholder="Title" minLength={5} />
                 <div className="input-group-addon">
                   <ChooseIcon value={item.title} min={5} />
                 </div>
               </div>
               <div className="errorHandle"> {<ErrorHandler min={5} value={item.title} text="Title length is too short !  required 5 characters" />}</div>
+              <label htmlFor="comment">comment *</label>
               <div className="input-group">
-                <label htmlFor="comment">comment</label>
                 <textarea
                   className="form-control"
                   id="comment"
@@ -170,8 +171,8 @@ const EditItem = () => {
                   value={item.comment}
                   onChange={handleChange}
                   required
+                  maxength={1500}
                   minLength={10}
-                  maxLength={1500}
                   placeholder="Write something"
                 />
                 <div className="input-group-addon">
@@ -180,16 +181,16 @@ const EditItem = () => {
               </div>
 
               <ErrorHandler min={10} value={item.comment} text="Comment is too short ! required 10 characters" />
+              <label htmlFor="price">Price {'\u20AC'} *</label>
               <div className="input-group">
-                <label htmlFor="price">Price {'\u20AC'}</label>
                 <input className="form-control" id="price" name="price" type="number" min="0" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
                 <div className="input-group-addon">
                   <ChooseIcon value={item.price} min={1} />
                 </div>
               </div>
 
+              <label htmlFor="amount">Amount *</label>
               <div className="input-group">
-                <label htmlFor="amount">Amount</label>
                 <input
                   className="form-control"
                   id="amount"
