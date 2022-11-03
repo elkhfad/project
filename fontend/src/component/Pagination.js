@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pagination = ({ postsPerPage, totalPosts, paginate,currentPage }) => {
+const Pagination = ({ postsPerPage, totalPosts, paginate,currentPage,nextLabel,handlePreviousLabel }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -15,12 +15,12 @@ const Pagination = ({ postsPerPage, totalPosts, paginate,currentPage }) => {
             <li className="page-item" key={number}>
               <a
                 onClick={(e) =>{ 
-                paginate(number); 
-                e.preventDefault();}
+                  paginate(number); 
+                  e.preventDefault();}
                 }
                 href="!#"
                 className={`page-link ${currentPage === number ? "active" : ""}`}
-              >
+                >
                 {number}
               </a>
             </li>

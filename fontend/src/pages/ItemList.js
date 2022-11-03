@@ -12,12 +12,18 @@ const ItemList = () => {
   const url = 'http://localhost:3001/api/items';
   const { data, error, isPending, setData } = useGetAllItems(url);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(12);
+  const [postsPerPage,setPostPerPage] = useState(12);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
+  const pageSizes = [3, 6, 9,12,20,50,100];
   const paginate = pageNumber => {
     setCurrentPage(pageNumber);
+  };
+ 
+
+  const handlePageSizeChange = (event) => {
+    setPostPerPage(event.target.value);
   };
 
   return (
@@ -31,11 +37,26 @@ const ItemList = () => {
       <div className="container mt-5">
       <h1 className="text-primary mn-3">My Items</h1>
       <Items data={currentPosts} isPending={isPending}currentPage={currentPage} />
-      <Pagination
+     
+      <div className="mt-3">
+          {"Items per Page: "}
+          <select onChange={handlePageSizeChange} value={postsPerPage}>
+            {pageSizes.map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+
+          <Pagination
         paginate={paginate}
         postsPerPage={postsPerPage}
         totalPosts={data.length}
+        nextLabel="next >"
+        pageRangeDisplayed={5}
       />
+        </div>
+    
     </div>
     </div>
   );
