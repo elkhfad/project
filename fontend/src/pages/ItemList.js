@@ -24,6 +24,7 @@ const ItemList = () => {
 
   const handlePageSizeChange = (event) => {
     setPostPerPage(event.target.value);
+    setCurrentPage(1);
   };
 
   return (
