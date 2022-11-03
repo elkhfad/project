@@ -52,8 +52,8 @@ const ItemList = () => {
         paginate={paginate}
         postsPerPage={postsPerPage}
         totalPosts={data.length}
-        nextLabel="next >"
-        pageRangeDisplayed={5}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
       />
         </div>
     
