@@ -9,12 +9,12 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
   return (
     <div>
       <div>
-        <button className="addNewItem" style={{ fontSize: '10px' }} onClick={handleShow}>
+        <button className="addNewItem" style={{ fontSize: '18px' }} onClick={handleShow}>
           Do you want to register ?
         </button>
       </div>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header >
           <div>
             <header>Sign up</header>
           </div>

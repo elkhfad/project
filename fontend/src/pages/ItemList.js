@@ -2,14 +2,23 @@ import CreateItem from '../component/CreateItem';
 import '../styles/itemlist.css';
 import Spinner from 'react-bootstrap/Spinner';
 import AlertComponent from '../component/Alert/AlertComponent';
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import { CiEdit } from 'react-icons/ci';
-import { Link } from 'react-router-dom';
 import { useGetAllItems } from '../component/controlla/itemsControll';
+import Pagination from '../component/Pagination';
+import { useState } from 'react';
+import Items from '../component/Items';
+
+
 const ItemList = () => {
   const url = 'http://localhost:3001/api/items';
   const { data, error, isPending, setData } = useGetAllItems(url);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(12);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = pageNumber => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div>
@@ -19,35 +28,15 @@ const ItemList = () => {
       <div className="addItem">
         <CreateItem data={data} setData={setData} />
       </div>
-      <div className={`${data.length > 0 && 'contain'}`}>
-        {data.map((data) => {
-          return (
-            <div key={data.id}>
-              <Card className="cardStyle">
-                <div style={{ display: 'flex' }}>
-                  <Link to={`/items/${data.id}`}>
-                    <div>
-                      <button className="addNewItem" style={{ fontSize: '10px' }}>
-                        <CiEdit className="editPen" />
-                      </button>
-                    </div>
-                  </Link>
-                </div>
-                <Card.Img variant="top" src={data.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
-                <Card.Body>
-                  <Card.Title className="cardTitleStyle">{data.title}</Card.Title>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                  <ListGroup.Item className="listGroupItem">
-                    <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
-                  </ListGroup.Item>
-                  <ListGroup.Item className="listGroupItem">Amount: {data.amount}</ListGroup.Item>
-                </ListGroup>
-              </Card>
-            </div>
-          );
-        })}
-      </div>
+      <div className="container mt-5">
+      <h1 className="text-primary mn-3">My Items</h1>
+      <Items data={currentPosts} isPending={isPending}currentPage={currentPage} />
+      <Pagination
+        paginate={paginate}
+        postsPerPage={postsPerPage}
+        totalPosts={data.length}
+      />
+    </div>
     </div>
   );
 };

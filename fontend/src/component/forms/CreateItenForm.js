@@ -12,7 +12,7 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
       <div>
-        <button className="addNewItem" style={{ fontSize: '10px' }} onClick={handleShow}>
+        <button className="addNewItem" style={{ fontSize: '18px' }} onClick={handleShow}>
           Add item <IoAddCircleOutline />
         </button>
       </div>

@@ -1,14 +1,15 @@
 .title {
   text-align: center;
   text-transform: capitalize;
-  font-size: 12;
+  font-size: 14;
   margin: 5px;
+  
 }
 
 
 label {
   text-transform: capitalize;
-  font-size: 10px;
+  font-size: 14px;
   padding-right: 4px;
   color: #8f8f8f;
   margin-top: 0.6em;
@@ -27,19 +28,24 @@ label {
 
 .modal-title {
   color: #b7b7b7;
+  
 }
+.modal-header{
+  background-color: #0a2a44;
+  font-size: 18px !important;
 
+}
 .modal-body {
-  width: fit-content;
-  padding: 4px;
+  width: 20em;
   margin: 0 auto !important;
   color: #8f8f8f;
+  background-color: #0a2a44;
 
 }
 
 .itemDeleteBtn {
   background-color: #750000 !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
   outline: none;
   border: 1px solid #750000 !important;
 }
@@ -50,10 +56,12 @@ label {
 }
 
 header {
-  color: #145713;
+  color: #b7b7b7;
   font-weight: 600 !important;
   text-transform: capitalize;
   margin-bottom: 0.5em;
+  font-size: 18px;
+  
 }
 
 .offcanvas-title header,
@@ -71,7 +79,7 @@ header {
 
 input,
 textarea {
-  font-size: 8px !important;
+  font-size: 14px !important;
   color: #8f8f8f !important;
   font-style: italic;
 }
@@ -108,7 +116,7 @@ textarea {
 }
 
 .small {
-  font-size: 8px !important;
+  font-size: 14px !important;
   padding: 2px
 }
 
@@ -141,13 +149,15 @@ textarea {
 
 #sigInForm,
 #form {
-  width: fit-content;
+  width: 20em;
   border: 2px solid #b7b7b7;
   border-radius: 10px 10px 10px 10px;
   margin: 0 auto;
   padding: 10px;
   margin-top: 0.2em;
   margin-bottom: 1em;
+  background-color: #0a2a44 ;
+
 }
 
 .email,
@@ -158,7 +168,7 @@ textarea {
 
 .returnToList {
   background-color: #114100 !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
   outline: none;
   border: 1px solid #114100 !important;
 
@@ -173,13 +183,14 @@ textarea {
   margin: 0 auto;
   padding: 5px;
   margin-top: 0.2em;
-  margin-bottom: 0.5em
+  margin-bottom: 0.5em;
+  
 }
 
 #editItemForm {
   max-width: 24em;
   margin: 0 auto;
-  background-color: #0a2a44;
+  background-color: #0a2a44 ;
   padding: 2em;
   border: 4px solid #1f5079;
   border-radius: 10px 10px 10px 10px;
@@ -211,5 +222,6 @@ textarea {
   height: fit-content;
   padding: 20px;
   margin: 0 auto;
+  
 
 }
