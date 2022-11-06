@@ -3,7 +3,7 @@
   text-transform: capitalize;
   font-size: 14;
   margin: 5px;
-  
+
 }
 
 
@@ -28,13 +28,15 @@ label {
 
 .modal-title {
   color: #b7b7b7;
-  
+
 }
-.modal-header{
+
+.modal-header {
   background-color: #0a2a44;
   font-size: 18px !important;
 
 }
+
 .modal-body {
   width: 20em;
   margin: 0 auto !important;
@@ -61,7 +63,7 @@ header {
   text-transform: capitalize;
   margin-bottom: 0.5em;
   font-size: 18px;
-  
+
 }
 
 .offcanvas-title header,
@@ -146,6 +148,17 @@ textarea {
 
 }
 
+#search {
+  outline: none;
+  border: 4px solid #0a2a44;
+  border-radius: 10px 10px 10px 10px;
+  padding: 5px;
+}
+
+#search:hover {
+  border: 4px solid #075493;
+}
+
 
 #sigInForm,
 #form {
@@ -156,7 +169,7 @@ textarea {
   padding: 10px;
   margin-top: 0.2em;
   margin-bottom: 1em;
-  background-color: #0a2a44 ;
+  background-color: #0a2a44;
 
 }
 
@@ -189,7 +202,7 @@ textarea {
 #editItemForm {
   max-width: 24em;
   margin: 0 auto;
-  background-color: #0a2a44 ;
+  background-color: #0a2a44;
   padding: 2em;
   border: 4px solid #1f5079;
   border-radius: 10px 10px 10px 10px;
@@ -221,6 +234,6 @@ textarea {
   height: fit-content;
   padding: 20px;
   margin: 0 auto;
-  
+
 
 }
