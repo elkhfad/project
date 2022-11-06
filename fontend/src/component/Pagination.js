@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage, setCurrentPage }) => {
   const pageNumbers = [];
-  const [offcet, setOffset] = useState(0);
   const pages = Math.ceil(totalPosts / postsPerPage);
   for (let i = 1; i <= pages; i++) {
     pageNumbers.push(i);
