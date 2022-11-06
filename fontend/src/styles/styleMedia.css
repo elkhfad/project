@@ -1,0 +1,23 @@
+@media only screen and (max-width: 700px) {
+  .cardStyle {
+    font-size: 10px;
+    padding: 1px;
+    width: 20rem !important;
+    height: 30em !important;
+  }
+
+  .cardTitleStyle {
+    font-size: 10px;
+  }
+
+  .contain {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5px;
+    height: fit-content;
+    padding: 2px;
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+
+  }
+}

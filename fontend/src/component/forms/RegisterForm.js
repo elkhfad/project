@@ -14,7 +14,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
         </button>
       </div>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header >
+        <Modal.Header>
           <div>
             <header>Sign up</header>
           </div>

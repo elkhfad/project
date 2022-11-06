@@ -2,7 +2,7 @@ import CreateItem from '../component/CreateItem';
 import '../styles/itemlist.css';
 import Spinner from 'react-bootstrap/Spinner';
 import AlertComponent from '../component/Alert/AlertComponent';
-import { useGetAllItems } from '../component/controlla/itemsControll';
+import { useGetAllItems } from '../component/control/itemsControll';
 import Pagination from '../component/Pagination';
 import { useState } from 'react';
 import Items from '../component/Items';
@@ -36,18 +36,14 @@ const ItemList = () => {
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
-
-      <div className="addItem">
-        <CreateItem data={data} setData={setData} />
-      </div>
       <div className="container mt-5">
-        <h1 className="text-primary mn-3">My Items</h1>
+        <div className="addItem" style={{ float: 'left' }}>
+          <CreateItem data={data} setData={setData} />
+        </div>
         <div className="search">
           <input id="search" name="search" placeholder="search by title" onChange={handleSearch} value={search} />
         </div>
-        <Items data={currentPosts} isPending={isPending} currentPage={currentPage} />
-
-        <div className="mt-3">
+        <div className="mt-3" style={{ float: 'right' }}>
           {'Items per Page: '}
           <select onChange={handlePageSizeChange} value={postsPerPage}>
             {pageSizes.map((size) => (
@@ -56,7 +52,13 @@ const ItemList = () => {
               </option>
             ))}
           </select>
-
+        </div>
+        <h1 className="listTitle">My Items</h1>
+        <div>
+          <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+        </div>
+        <Items data={currentPosts} isPending={isPending} currentPage={currentPage} />
+        <div>
           <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
         </div>
       </div>
