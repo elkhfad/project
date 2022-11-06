@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-
 const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage, setCurrentPage }) => {
-  const pageNumbers = [];
+  let pageNumbers = [];
   const pages = Math.ceil(totalPosts / postsPerPage);
   for (let i = 1; i <= pages; i++) {
     pageNumbers.push(i);
   }
+
+  pageNumbers = pageNumbers.slice(Math.max(0, currentPage - 2), Math.max(3, currentPage + 1));
   const nextPage = (e) => {
     e.preventDefault();
     if (currentPage !== pages) {
@@ -24,6 +24,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage, setCurren
       setCurrentPage(1);
     }
   };
+
   const lastPage = (e) => {
     e.preventDefault();
     if (currentPage !== pages) {
