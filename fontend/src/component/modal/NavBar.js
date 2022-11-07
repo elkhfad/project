@@ -11,7 +11,7 @@ function NewNavBar() {
     <Navbar bg="light" expand="sm">
       <SiteNavBar />
       <Container fluid>
-        <header className="navBar-header">MyProject</header>
+        <header className="navBar-header">Leebstore</header>
 
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">

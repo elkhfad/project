@@ -41,13 +41,12 @@ footer {
 
 .cardStyle {
   border: 2px solid #6c96b8 !important;
-  background-color:   #0a2a44
-  !important;
+  background-color: #0a2a44 !important;
   color: #b7b7b7 !important;
   font-size: 14px;
-  padding: 5px;
   width: 20rem !important;
-  height: 30em !important;
+  height: 30em fit-content;
+  padding: 1em;
 }
 
 .cardTitleStyle {
