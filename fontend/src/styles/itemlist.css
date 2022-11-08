@@ -11,7 +11,7 @@ label {
   text-transform: capitalize;
   font-size: 14px;
   padding-right: 4px;
-  color: #8f8f8f;
+  color: #cccccc;
   margin-top: 0.6em;
 
 }
@@ -28,6 +28,7 @@ label {
 
 .editPen {
   color: #023d01;
+  font-size: 2em;
 }
 
 .modal-content {
