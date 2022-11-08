@@ -54,13 +54,19 @@ const ItemList = () => {
           </select>
         </div>
         <h1 className="listTitle">My Items</h1>
-        <div>
-          <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
-        </div>
-        <Items data={currentPosts} isPending={isPending} currentPage={currentPage} />
-        <div>
-          <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
-        </div>
+        {data.length > 0 ? (
+          <div>
+            <div>
+              <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+            </div>
+            <Items data={currentPosts} isPending={isPending} currentPage={currentPage} />
+            <div>
+              <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+            </div>
+          </div>
+        ) : (
+          <div className="infoItems">Your Item list is empty</div>
+        )}
       </div>
     </div>
   );

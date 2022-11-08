@@ -16,6 +16,15 @@ label {
 
 }
 
+.infoItems {
+  color: #ffffff;
+  font-size: 20px;
+  background-color: #8f8f8f;
+  padding: 1em;
+  text-align: center;
+  border-radius: 10px 10px 10px 10px;
+
+}
 
 .editPen {
   color: #023d01;
@@ -133,19 +142,19 @@ textarea {
 }
 
 .page-link {
-  color: #b7b7b7 !important;
-  background-color: #0a2a44 !important;
+  color: #ffffff !important;
+  background-color: #757373 !important;
 }
 
 .page-link.active {
   color: #b7b7b7 !important;
-  background-color: #001faa !important;
+  background-color: #242323 !important;
 }
 
 
 
 .listTitle {
-  color: #0a2a44;
+  color: #757373;
   font-weight: 800;
   padding: 1em;
 }
@@ -165,7 +174,7 @@ textarea {
 
 #search {
   outline: none;
-  border: 4px solid #0a2a44;
+  border: 4px solid #757373;
   border-radius: 10px 10px 10px 10px;
   padding: 5px;
   text-transform: capitalize;
@@ -174,7 +183,7 @@ textarea {
 }
 
 #search:hover {
-  border: 4px solid #075493;
+  border: 4px solid #dad6d6;
 }
 
 
@@ -219,9 +228,9 @@ textarea {
 #editItemForm {
   max-width: 24em;
   margin: 0 auto;
-  background-color: #0a2a44;
+  background-color: #757373;
   padding: 2em;
-  border: 4px solid #1f5079;
+  border: 4px solid #ffffff;
   border-radius: 10px 10px 10px 10px;
   text-align: left;
 }
