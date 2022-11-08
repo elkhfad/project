@@ -3,7 +3,7 @@ import AlertComponent from '../Alert/AlertComponent';
 import { Spinner } from 'react-bootstrap';
 import Confirm from './Confirm';
 import { BsTrash } from 'react-icons/bs';
-import services from '../../services/services';
+import services from '../../services/itemservices';
 import { useNavigate, useParams } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import ChooseIcon from '../Alert/ChooseIcon';
@@ -42,7 +42,7 @@ const EditItem = () => {
         }
         setIsPending(false);
         setItem(res.data);
-        setItemOriginal(res.data);
+        setItemOriginal(res);
         setError(null);
       })
       .catch((err) => {
@@ -53,19 +53,10 @@ const EditItem = () => {
 
   const handleDelete = () => {
     setSuccess(null);
-    services
-      .deleteItem(url, id)
-      .then((res) => {
-        if (res.status !== 200) {
-          throw Error(`could not delete ${item.title}`);
-        }
-        setError(null);
-        setSuccess(`${item.title} Has been removed successfully`);
-        navigate('/itemList');
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
+    services.deleteItem(url, id).then((res) => {
+      setSuccess(`${item.title} Has been removed successfully`);
+      navigate('/itemList');
+    });
   };
 
   const handleChange = (e) => {
@@ -101,10 +92,6 @@ const EditItem = () => {
       services
         .update(url, id, updateItem)
         .then((res) => {
-          if (res.status !== 200) {
-            throw Error('could not add data');
-          }
-
           setItem(updateItem);
           handleClose();
           setError(null);

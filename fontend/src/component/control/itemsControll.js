@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 //import { useNavigate } from 'react-router-dom';
-import services from '../../services/services';
+import services from '../../services/itemservices';
 export const useGetAllItems = (url) => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
@@ -13,7 +13,7 @@ export const useGetAllItems = (url) => {
           throw Error('could not load data');
         }
         setIsPending(false);
-        setData(res.data);
+        setData(res);
         setError(null);
       })
       .catch((err) => {

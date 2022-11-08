@@ -1,56 +1,57 @@
 import { useState, useEffect } from 'react';
-import services from '../services/services';
+import itemService from '../services/itemservices';
+import logInService from '../services/login';
 import SignInForm from '../component/forms/SignInForm';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
-  const [singIn, setSignIn] = useState({
-    email: '',
-    password: '',
-  });
-
-  const url = 'http://localhost:3001/api/items';
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const validation = () => {
-      if (singIn.email.length > 4 && singIn.password.length > 7) {
+      if (email.length > 4 && password.length > 7) {
         setValid(true);
       }
     };
     validation();
   });
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (valid) {
-      services
-        .create(url, singIn)
-        .then((res) => {
-          if (!res.status === 'Created') {
-            throw Error('could not add data');
-          }
-
-          setSignIn({
-            email: '',
-            password: '',
-          });
-          setError(null);
-          setValid(false);
-        })
-        .catch((err) => {
-          setError(err.message);
+      try {
+        const newUser = await logInService.login({
+          email,
+          password,
         });
+        setEmail('');
+        setPassword('');
+        sessionStorage.setItem('currenUser', JSON.stringify(newUser));
+        itemService.setToken(newUser.token);
+        navigate('/itemList');
+      } catch (exception) {
+        setError('wrong credentials');
+        setTimeout(() => {
+          setError(null);
+        }, 5000);
+      }
     }
   };
 
-  const handleChange = (e) => {
-    setSignIn({ ...singIn, [e.target.name]: e.target.value });
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   return (
     <div>
-      <SignInForm handleChange={handleChange} singIn={singIn} error={error} handleSubmit={handleSubmit} />
+      <SignInForm handlePasswordChange={handlePasswordChange} handleEmailChange={handleEmailChange} email={email} password={password} error={error} handleLogin={handleLogin} />
     </div>
   );
 };

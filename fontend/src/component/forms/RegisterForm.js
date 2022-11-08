@@ -5,7 +5,7 @@ import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
 import Button from 'react-bootstrap/Button';
 
-const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, handleClose, show, newSuccess }) => {
+const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, handleClose, show }) => {
   return (
     <div>
       <div>
@@ -24,7 +24,6 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
             <Form id="registerform" onSubmit={handleSubmit}>
               <div>
                 <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
-                <div>{newSuccess && <AlertComponent variant="success" header="" text={newSuccess} />}</div>
 
                 <label htmlFor="firstName">first name *</label>
                 <div className="input-group">
@@ -102,17 +101,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
 
                 <label htmlFor="postalCode">Postal code *</label>
                 <div className="input-group">
-                  <input
-                    className="form-control"
-                    id="postalCode"
-                    name="postalCode"
-                    type="number"
-                    required
-                    value={signUp.postalCode}
-                    onChange={handleChange}
-                    maxLength={10}
-                    placeholder="Numbers only"
-                  />
+                  <input className="form-control" id="postalCode" name="postalCode" type="text" required value={signUp.postalCode} onChange={handleChange} maxLength={10} placeholder="Numbers only" />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.postalCode} min={4} />
                   </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import service from '../services/services';
+import service from '../services/itemservices';
 import CreateItemForm from './forms/CreateItenForm';
 const CreateItem = ({ data, setData }) => {
   const [error, setError] = useState(null);
@@ -54,7 +54,7 @@ const CreateItem = ({ data, setData }) => {
             if (!res.status === 'Created') {
               throw Error('could not add data');
             }
-            setData(data.concat(res.data));
+            setData(data.concat(res));
             handleClose();
             setImage(null);
             setError(null);

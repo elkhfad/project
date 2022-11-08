@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import services from '../../services/services';
+import registerServices from '../../services/registerService';
 import RegisterForm from '../forms/RegisterForm';
 
 const Register = () => {
-  const [success, setSuccess] = useState('');
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
   const [show, setShow] = useState(false);
@@ -18,7 +17,7 @@ const Register = () => {
     postalCode: '',
     city: '',
   });
-  const url = 'http://localhost:3001/api/registers';
+  const url = 'http://localhost:3001/api/users';
 
   useEffect(() => {
     const validation = () => {
@@ -35,21 +34,19 @@ const Register = () => {
       }
     };
     validation();
-  }, [signUp, error]);
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSuccess('');
     if (valid) {
-      services
+      registerServices
         .create(url, signUp)
         .then((res) => {
-          if (!res.status === 'Created') {
+          if (!res.status === '201') {
             throw Error('could not add data');
           }
           handleClose();
           setError(null);
           setValid(false);
-          setSuccess(`${signUp.firstName} Has been added successfully`);
         })
         .catch((err) => {
           setError(err.message);
@@ -75,17 +72,7 @@ const Register = () => {
 
   return (
     <div>
-      <RegisterForm
-        handleChange={handleChange}
-        signUp={signUp}
-        error={error}
-        success={success}
-        handleSubmit={handleSubmit}
-        handleClose={handleClose}
-        handleShow={handleShow}
-        show={show}
-        newSuccess={success}
-      />
+      <RegisterForm handleChange={handleChange} signUp={signUp} error={error} handleSubmit={handleSubmit} handleClose={handleClose} handleShow={handleShow} show={show} />
     </div>
   );
 };

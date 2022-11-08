@@ -1,12 +1,12 @@
 console.log('mongo starting');
 require('dotenv').config();
+const config = require('../utils/config');
+
 const mongoose = require('mongoose');
+console.log('connecting to', config.MONGODB_URI);
 
-const url = process.env.MONGODB_URI;
-
-console.log('connecting to', url);
 mongoose
-  .connect(url)
+  .connect(config.MONGODB_URI)
   .then((result) => {
     console.log('connected to MongoDB');
   })
@@ -15,11 +15,29 @@ mongoose
   });
 
 const itemSchema = new mongoose.Schema({
-  title: String,
-  comment: String,
-  price: Number,
-  amount: Number,
+  title: {
+    type: String,
+    required: true,
+    minlength: 5,
+  },
+  comment: {
+    type: String,
+    required: true,
+    minlength: 5,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  amount: {
+    type: Number,
+    required: true,
+  },
   pic: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 itemSchema.set('toJSON', {
