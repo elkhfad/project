@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const usersRouter = require('express').Router();
 const User = require('../models/user');
 
-usersRouter.post('/api/users', async (request, response) => {
+usersRouter.post('/', async (request, response) => {
   const { firstName, lastName, email, city, street, postalCode, password } = request.body;
 
   const existingEmail = await User.findOne({ email });
@@ -28,7 +28,7 @@ usersRouter.post('/api/users', async (request, response) => {
 
   response.status(201).json(savedUser);
 });
-usersRouter.get('/api/users', async (request, response) => {
+usersRouter.get('/', async (request, response) => {
   const users = await User.find({}).find({}).populate('items');
   response.json(users);
 });

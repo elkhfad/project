@@ -5,16 +5,6 @@ require('dotenv').config();
 const config = require('../utils/config');
 
 const mongoose = require('mongoose');
-logger.info('connecting to', config.MONGODB_URI);
-
-mongoose
-  .connect(config.MONGODB_URI)
-  .then((result) => {
-    logger.info('connected to MongoDB');
-  })
-  .catch((error) => {
-    logger.info('error connecting to MongoDB:', error.message);
-  });
 
 const itemSchema = new mongoose.Schema({
   title: {

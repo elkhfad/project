@@ -9,29 +9,29 @@ const getTokenFrom = (request) => {
   }
   return null;
 };
-itemsRouter.get('/api/items', (request, response) => {
+itemsRouter.get('/', (request, response) => {
   const user = request.user;
   Item.find().then((items) => {
     response.json(items);
   });
 });
-itemsRouter.get('/api/items/:id', (request, response) => {
+itemsRouter.get('/:id', (request, response) => {
   Item.findById(request.params.id).then((item) => {
     response.json(item);
   });
 });
-itemsRouter.delete('/api/items/:id', (request, response) => {
+itemsRouter.delete('/:id', (request, response) => {
   Item.findByIdAndDelete(request.params.id).then((item) => {
     response.json('');
   });
 });
-itemsRouter.put('/api/items/:id', (request, response) => {
+itemsRouter.put('/:id', (request, response) => {
   Item.findByIdAndUpdate(request.params.id, request.body).then((item) => {
     response.json(item);
   });
 });
 
-itemsRouter.post('/api/items', async (request, response) => {
+itemsRouter.post('/', async (request, response) => {
   const body = request.body;
   const token = getTokenFrom(request);
   const decodedToken = jwt.verify(token, process.env.SECRET);
