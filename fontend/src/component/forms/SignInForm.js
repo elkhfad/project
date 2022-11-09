@@ -15,7 +15,7 @@ const SignInForm = ({ error, handleLogin, handlePasswordChange, handleEmailChang
               <label htmlFor="email">email *</label>
             </div>
             <div className="input-group">
-              <input className="form-control" id="email" name="email" type="email" value={email} onChange={handleEmailChange} required maxLength={50} placeholder="Title" />
+              <input className="form-control" id="email" name="email" type="email" value={email} onChange={handleEmailChange} required maxLength={50} placeholder="Your email" />
               <div className="input-group-addon">
                 <ChooseIcon value={email} min={5} />
               </div>

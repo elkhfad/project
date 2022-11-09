@@ -1,13 +1,19 @@
 import axios from 'axios';
 let token = null;
 
-const setToken = (newToken) => {
-  token = `bearer ${newToken}`;
+const setToken = () => {
+  const current = sessionStorage.getItem('currenUser');
+  const currentUserData = JSON.parse(current);
+  token = `bearer ${currentUserData.token}`;
 };
 
-const getAll = (baseUrl) => {
-  const request = axios.get(baseUrl);
-  return request.then((response) => response.data);
+const getAll = async (baseUrl) => {
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.get(baseUrl, config);
+  return response.data;
 };
 
 const getById = (baseUrl, id) => {
@@ -15,6 +21,7 @@ const getById = (baseUrl, id) => {
 };
 
 const create = async (baseUrl, newObject) => {
+  setToken();
   const config = {
     headers: { Authorization: token },
   };
@@ -24,13 +31,13 @@ const create = async (baseUrl, newObject) => {
 };
 
 const update = (baseUrl, id, newObject) => {
-  const request = axios.put(`${baseUrl}/${id}`, newObject);
-  return request.then((response) => response.data);
+  const response = axios.put(`${baseUrl}/${id}`, newObject);
+  return response.data;
 };
 
 const deleteItem = (baseUrl, id) => {
-  const request = axios.delete(`${baseUrl}/${id}`);
-  return request.then((response) => response.data);
+  const response = axios.delete(`${baseUrl}/${id}`);
+  return response.data;
 };
 
 //eslint-disable-next-line

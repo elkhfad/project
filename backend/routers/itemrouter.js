@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Item = require('../models/item');
 const itemsRouter = require('express').Router();
 const jwt = require('jsonwebtoken');
+
 const getTokenFrom = (request) => {
   const authorization = request.get('authorization');
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
@@ -10,10 +11,19 @@ const getTokenFrom = (request) => {
   return null;
 };
 itemsRouter.get('/', async (request, response, next) => {
+  const token = getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
+  const user = await User.findById(decodedToken.id);
   try {
     const items = await Item.find();
-    if (items) {
-      response.json(items);
+    const itemsByUser = items.filter((userByItem) => {
+      return userByItem.user.valueOf() === user._id.valueOf();
+    });
+    if (itemsByUser) {
+      response.json(itemsByUser);
     } else {
       response.status(404).end();
     }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import itemservices from '../../services/itemservices';
 //import { useNavigate } from 'react-router-dom';
 import services from '../../services/itemservices';
 export const useGetAllItems = (url) => {
@@ -12,6 +13,8 @@ export const useGetAllItems = (url) => {
         if (!res.status === 'OK') {
           throw Error('could not load data');
         }
+        itemservices.setToken('');
+
         setIsPending(false);
         setData(res);
         setError(null);

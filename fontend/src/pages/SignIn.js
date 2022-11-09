@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import itemService from '../services/itemservices';
 import logInService from '../services/login';
 import SignInForm from '../component/forms/SignInForm';
 import { useNavigate } from 'react-router-dom';
@@ -28,13 +27,12 @@ const SignIn = () => {
           email,
           password,
         });
+        sessionStorage.setItem('currenUser', JSON.stringify(newUser));
         setEmail('');
         setPassword('');
-        sessionStorage.setItem('currenUser', JSON.stringify(newUser));
-        itemService.setToken(newUser.token);
         navigate('/itemList');
       } catch (exception) {
-        setError('wrong credentials');
+        setError('Email or Password is wrong');
         setTimeout(() => {
           setError(null);
         }, 5000);
