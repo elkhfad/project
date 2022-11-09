@@ -4,6 +4,7 @@ const config = require('./utils/config');
 const cors = require('cors');
 const itemRouter = require('./routers/itemrouter');
 const loginRouter = require('./controllers/login');
+const logger = require('./utils/logger');
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cors());
@@ -16,7 +17,7 @@ app.get('/', (req, res) => {
   res.send('<h1>Hello!</h1>');
 });
 app.listen(config.PORT, () => {
-  console.log(`Server running on port ${config.PORT}`);
+  logger.info(`Server running on port ${config.PORT}`);
 });
 
-console.log('ready');
+logger.info('ready');

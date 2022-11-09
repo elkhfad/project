@@ -1,17 +1,19 @@
-console.log('mongo starting');
+const logger = require('../utils/logger');
+
+logger.info('mongo starting');
 require('dotenv').config();
 const config = require('../utils/config');
 
 const mongoose = require('mongoose');
-console.log('connecting to', config.MONGODB_URI);
+logger.info('connecting to', config.MONGODB_URI);
 
 mongoose
   .connect(config.MONGODB_URI)
   .then((result) => {
-    console.log('connected to MongoDB');
+    logger.info('connected to MongoDB');
   })
   .catch((error) => {
-    console.log('error connecting to MongoDB:', error.message);
+    logger.info('error connecting to MongoDB:', error.message);
   });
 
 const itemSchema = new mongoose.Schema({

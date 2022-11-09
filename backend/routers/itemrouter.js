@@ -9,9 +9,10 @@ const getTokenFrom = (request) => {
   }
   return null;
 };
-itemsRouter.get('/api/items', (req, res) => {
+itemsRouter.get('/api/items', (request, response) => {
+  const user = request.user;
   Item.find().then((items) => {
-    res.json(items);
+    response.json(items);
   });
 });
 itemsRouter.get('/api/items/:id', (request, response) => {
