@@ -101,7 +101,17 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
 
                 <label htmlFor="postalCode">Postal code *</label>
                 <div className="input-group">
-                  <input className="form-control" id="postalCode" name="postalCode" type="text" required value={signUp.postalCode} onChange={handleChange} maxLength={10} placeholder="Numbers only" />
+                  <input
+                    className="form-control"
+                    id="postalCode"
+                    name="postalCode"
+                    type="text"
+                    required
+                    value={signUp.postalCode}
+                    onChange={handleChange}
+                    maxLength={10}
+                    placeholder="Your postal code"
+                  />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.postalCode} min={4} />
                   </div>

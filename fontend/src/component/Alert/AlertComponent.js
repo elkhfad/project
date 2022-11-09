@@ -6,7 +6,7 @@ function AlertComponent({ variant, header, text }) {
 
   setTimeout(() => {
     setShow(false);
-  }, 10000);
+  }, 5000);
 
   if (show) {
     return (

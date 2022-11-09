@@ -41,15 +41,12 @@ const Register = () => {
       registerServices
         .create(url, signUp)
         .then((res) => {
-          if (!res.status === '201') {
-            throw Error('could not add data');
-          }
           handleClose();
           setError(null);
           setValid(false);
         })
         .catch((err) => {
-          setError(err.message);
+          setError(err.response.data.error);
         });
     }
   };
@@ -66,6 +63,7 @@ const Register = () => {
       postalCode: '',
       city: '',
     });
+    setError('');
     setShow(false);
   };
   const handleShow = () => setShow(true);

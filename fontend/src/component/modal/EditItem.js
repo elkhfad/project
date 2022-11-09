@@ -37,16 +37,14 @@ const EditItem = () => {
     services
       .getById(url, id)
       .then((res) => {
-        if (!res.status === 'OK') {
-          throw Error('could not load data');
-        }
         setIsPending(false);
         setItem(res.data);
         setItemOriginal(res);
         setError(null);
       })
       .catch((err) => {
-        setError(err.message);
+        console.log(err.response.data.error);
+        setError(err.response.data.error);
         setIsPending(false);
       });
   }, [id, url]);

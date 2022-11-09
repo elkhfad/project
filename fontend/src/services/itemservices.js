@@ -7,7 +7,6 @@ const setToken = (newToken) => {
 
 const getAll = (baseUrl) => {
   const request = axios.get(baseUrl);
-
   return request.then((response) => response.data);
 };
 

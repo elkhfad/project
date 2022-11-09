@@ -9,26 +9,50 @@ const getTokenFrom = (request) => {
   }
   return null;
 };
-itemsRouter.get('/', (request, response) => {
-  const user = request.user;
-  Item.find().then((items) => {
-    response.json(items);
-  });
+itemsRouter.get('/', async (request, response, next) => {
+  try {
+    const items = await Item.find();
+    if (items) {
+      response.json(items);
+    } else {
+      response.status(404).end();
+    }
+  } catch (exception) {
+    next(exception);
+  }
 });
-itemsRouter.get('/:id', (request, response) => {
-  Item.findById(request.params.id).then((item) => {
-    response.json(item);
-  });
+
+itemsRouter.get('/:id', async (request, response, next) => {
+  try {
+    const item = await Item.findById(request.params.id);
+    if (item) {
+      response.json(item);
+    } else {
+      response.status(404).end();
+    }
+  } catch (exception) {
+    next(exception);
+  }
 });
-itemsRouter.delete('/:id', (request, response) => {
-  Item.findByIdAndDelete(request.params.id).then((item) => {
-    response.json('');
-  });
+itemsRouter.delete('/:id', async (request, response, next) => {
+  try {
+    await Item.findByIdAndDelete(request.params.id);
+    response.status(204).end();
+  } catch (exception) {
+    next(exception);
+  }
 });
-itemsRouter.put('/:id', (request, response) => {
-  Item.findByIdAndUpdate(request.params.id, request.body).then((item) => {
-    response.json(item);
-  });
+itemsRouter.put('/:id', async (request, response, next) => {
+  try {
+    const item = await Item.findByIdAndUpdate(request.params.id, request.body);
+    if (item) {
+      response.json(item);
+    } else {
+      response.status(404).end();
+    }
+  } catch (exception) {
+    next(exception);
+  }
 });
 
 itemsRouter.post('/', async (request, response) => {
@@ -50,10 +74,13 @@ itemsRouter.post('/', async (request, response) => {
     user: user._id,
   });
 
-  const savedItem = await item.save();
-  user.items = user.items.concat(savedItem._id);
-  await user.save();
-
-  response.json(savedItem);
+  try {
+    const savedItem = await item.save();
+    user.items = user.items.concat(savedItem._id);
+    await user.save();
+    response.json(savedItem);
+  } catch (exception) {
+    next(exception);
+  }
 });
 module.exports = itemsRouter;

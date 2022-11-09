@@ -51,9 +51,6 @@ const CreateItem = ({ data, setData }) => {
         service
           .create(url, newItem)
           .then((res) => {
-            if (!res.status === 'Created') {
-              throw Error('could not add data');
-            }
             setData(data.concat(res));
             handleClose();
             setImage(null);
@@ -62,7 +59,7 @@ const CreateItem = ({ data, setData }) => {
             setSuccess(`${addItem.title} Has been added successfully`);
           })
           .catch((err) => {
-            setError(err.message);
+            setError(err.response.data.error);
           });
       } else {
         setError(`${addItem.title} exist`);
