@@ -10,7 +10,7 @@ export const useGetAllItems = (url) => {
     services
       .getAll(url)
       .then((res) => {
-        if (!res.status === 'OK') {
+        if (res.status !== 'OK') {
           throw Error('could not load data');
         }
         itemservices.setToken('');
@@ -39,7 +39,7 @@ export const useGetItemById = (url, id) => {
     services
       .getById(url, id)
       .then((res) => {
-        if (!res.status === 'OK') {
+        if (res.status !== 'OK') {
           throw Error('could not load data');
         }
         setIsPending(false);
