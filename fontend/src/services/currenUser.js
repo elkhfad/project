@@ -6,7 +6,7 @@ export const useCurrentUser = () => {
     const current = sessionStorage.getItem('currenUser');
     const currentUserData = JSON.parse(current);
     setCurrentUser(currentUserData);
-  }, [currentUser]);
+  }, []);
   return {
     currentUser,
   };

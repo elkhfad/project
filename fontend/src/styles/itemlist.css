@@ -31,6 +31,21 @@ label {
   font-size: 2em;
 }
 
+.lockOut {
+  outline: none;
+  color: #145713;
+  background-color: #f7f7f7;
+  border: 1px solid #f7f7f7;
+  margin-bottom: 0.2em;
+  font-size: 18px;
+  padding: 2px
+}
+
+.lockOut:hover {
+  background-color: #145713 !important;
+  color: #b7b7b7 !important;
+}
+
 .modal-content {
   width: fit-content !important;
   margin: 0 auto;

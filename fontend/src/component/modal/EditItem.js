@@ -43,7 +43,6 @@ const EditItem = () => {
         setError(null);
       })
       .catch((err) => {
-        console.log(err.response.data.error);
         setError(err.response.data.error);
         setIsPending(false);
       });

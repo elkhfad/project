@@ -17,7 +17,7 @@ const SiteNavBar = () => {
       <Offcanvas show={show} onHide={handleClose} style={{ width: '10em' }}>
         <Offcanvas.Header>
           <Offcanvas.Title>
-            <header className="navBar-header">Leebstore</header>
+            <header className="navBar-header">My Leebstore</header>
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>

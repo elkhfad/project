@@ -9,7 +9,7 @@ const login = async (credentials) => {
 const logout = () => {
   sessionStorage.removeItem('currentUser');
   sessionStorage.clear();
-  window.location.reload();
+  window.location.href = '/';
 };
 //eslint-disable-next-line
 export default {

@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import logInService from '../services/login';
 import SignInForm from '../component/forms/SignInForm';
-import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   useEffect(() => {
     const validation = () => {
@@ -30,7 +28,7 @@ const SignIn = () => {
         sessionStorage.setItem('currenUser', JSON.stringify(newUser));
         setEmail('');
         setPassword('');
-        navigate('/itemList');
+        window.location.href = '/itemList';
       } catch (exception) {
         setError('Email or Password is wrong');
         setTimeout(() => {

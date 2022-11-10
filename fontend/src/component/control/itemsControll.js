@@ -13,8 +13,6 @@ export const useGetAllItems = (url) => {
         if (!res.status === 'OK') {
           throw Error('could not load data');
         }
-        console.log('1hei');
-
         itemservices.setToken('');
         setIsPending(false);
         setData(res);

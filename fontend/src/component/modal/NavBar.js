@@ -5,11 +5,18 @@ import SiteNavBar from '../SiteNavBar';
 import { Link } from 'react-router-dom';
 import { AiOutlineLock } from 'react-icons/ai';
 import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineUnlock } from 'react-icons/ai';
+import { useCurrentUser } from '../../services/currenUser';
+import logInService from '../../services/login';
 
 function NewNavBar() {
+  const { currentUser } = useCurrentUser();
+  const handleLockOut = () => {
+    logInService.logout();
+  };
   return (
     <Navbar bg="light" expand="sm">
-      <SiteNavBar />
+      {currentUser && <SiteNavBar />}
       <Container fluid>
         <header className="navBar-header">Leebstore</header>
 
@@ -22,11 +29,17 @@ function NewNavBar() {
                   Home <AiOutlineHome />
                 </Link>
               </div>
-              <div className="links">
-                <Link to="/signIn">
-                  Sign in <AiOutlineLock />
-                </Link>
-              </div>
+              {!currentUser ? (
+                <div className="links">
+                  <Link to="/signIn">
+                    Sign in <AiOutlineLock />
+                  </Link>
+                </div>
+              ) : (
+                <button className="lockOut" onClick={() => handleLockOut()}>
+                  Lock out <AiOutlineUnlock />
+                </button>
+              )}
             </nav>
           </Nav>
         </Navbar.Collapse>
