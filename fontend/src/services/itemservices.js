@@ -30,13 +30,13 @@ const create = async (baseUrl, newObject) => {
   return response.data;
 };
 
-const update = (baseUrl, id, newObject) => {
-  const response = axios.put(`${baseUrl}/${id}`, newObject);
+const update = async (baseUrl, id, newObject) => {
+  const response = await axios.put(`${baseUrl}/${id}`, newObject);
   return response.data;
 };
 
-const deleteItem = (baseUrl, id) => {
-  const response = axios.delete(`${baseUrl}/${id}`);
+const deleteItem = async (baseUrl, id) => {
+  const response = await axios.delete(`${baseUrl}/${id}`);
   return response.data;
 };
 

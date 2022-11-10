@@ -209,8 +209,9 @@ textarea {
   border-radius: 10px 10px 10px 10px;
   margin: 0 auto;
   padding: 10px;
-  margin-top: 0.2em;
   margin-bottom: 1em;
+  background-color: #898888;
+  margin-top: 5em;
 
 
 }
