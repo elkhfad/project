@@ -10,11 +10,12 @@ export const useGetAllItems = (url) => {
     services
       .getAll(url)
       .then((res) => {
-        if (res.status !== 'OK') {
+        if (!res.status === 'OK') {
           throw Error('could not load data');
         }
-        itemservices.setToken('');
+        console.log('1hei');
 
+        itemservices.setToken('');
         setIsPending(false);
         setData(res);
         setError(null);
@@ -39,7 +40,7 @@ export const useGetItemById = (url, id) => {
     services
       .getById(url, id)
       .then((res) => {
-        if (res.status !== 'OK') {
+        if (!res.status === 'OK') {
           throw Error('could not load data');
         }
         setIsPending(false);
