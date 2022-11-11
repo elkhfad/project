@@ -144,7 +144,7 @@ const Account = () => {
                   minLength={3}
                 />
                 <div className="input-group-addon">
-                  <ChooseIcon value={account.lastName} min={5} />
+                  <ChooseIcon value={account.lastName} min={3} />
                 </div>
               </div>
               {<ErrorHandler min={5} value={account.lastName} text="First length is too short !  required 5 characters" />}
