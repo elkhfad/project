@@ -1,7 +1,6 @@
 import CreateItem from '../component/CreateItem';
 import '../styles/itemlist.css';
 import Spinner from 'react-bootstrap/Spinner';
-import AlertComponent from '../component/Alert/AlertComponent';
 import { useGetAllItems } from '../component/control/itemsControll';
 import Pagination from '../component/Pagination';
 import { useState } from 'react';
@@ -9,7 +8,7 @@ import Items from '../component/Items';
 
 const ItemList = () => {
   const url = 'http://localhost:3001/api/items';
-  const { data, error, isPending, setData } = useGetAllItems(url);
+  const { data, isPending, setData } = useGetAllItems(url);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(12);
@@ -34,14 +33,13 @@ const ItemList = () => {
 
   return (
     <div>
+      <div className="search">
+        <input id="search" name="search" placeholder="search by title" onChange={handleSearch} value={search} />
+      </div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
-      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div className="container mt-5">
         <div className="addItem" style={{ float: 'left' }}>
           <CreateItem data={data} setData={setData} />
-        </div>
-        <div className="search">
-          <input id="search" name="search" placeholder="search by title" onChange={handleSearch} value={search} />
         </div>
         <div className="mt-3" style={{ float: 'right' }}>
           {'Items per Page: '}

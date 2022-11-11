@@ -196,6 +196,7 @@ textarea {
   text-transform: capitalize;
   margin: 2em;
   float: right;
+  width: 90%;
 }
 
 #search:hover {
