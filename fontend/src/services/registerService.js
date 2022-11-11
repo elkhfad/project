@@ -1,12 +1,24 @@
 import axios from 'axios';
+let token = null;
+
+const setToken = () => {
+  const current = sessionStorage.getItem('currenUser');
+  const currentUserData = JSON.parse(current);
+  token = `bearer ${currentUserData.token}`;
+};
 const create = (baseUrl, newObject) => {
   return axios.post(baseUrl, newObject);
 };
-const getById = (baseUrl, id) => {
-  return axios.get(`${baseUrl}/${id}`);
+const getUser = async (baseUrl) => {
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.get(baseUrl, config);
+  return response.data;
 };
 //eslint-disable-next-line
 export default {
   create,
-  getById,
+  getUser,
 };

@@ -157,6 +157,11 @@ textarea {
   color: #c30303;
 }
 
+.editItemForm,
+.editAccountForm {
+  margin-top: 2em;
+}
+
 .page-link {
   color: #ffffff !important;
   background-color: #757373 !important;
@@ -183,7 +188,16 @@ textarea {
   padding: 5px;
   font-size: 14px;
   text-transform: uppercase;
+}
 
+.editAccountForm {
+  margin-top: 4em !important;
+  width: 50%;
+  background-color: #ffffff;
+  padding: 2em;
+  margin: 0 auto;
+  text-align: left;
+  border-radius: 10px 10px 10px 10px;
 }
 
 #search {

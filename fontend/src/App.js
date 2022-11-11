@@ -6,6 +6,7 @@ import EditItem from './component/modal/EditItem';
 import NewNavBar from './component/modal/NavBar';
 import ItemList from './pages/ItemList';
 import AutoLogOut from './component/autoLogOut/AutoLogOut';
+import Account from './pages/Account';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/items/:id" element={<EditItem />} />
             <Route path="/itemList" element={<ItemList />} />
+            <Route path="/accounts" element={<Account />} />
           </Routes>
         </div>
         <div>

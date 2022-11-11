@@ -1,6 +1,16 @@
 const bcrypt = require('bcryptjs');
 const usersRouter = require('express').Router();
+const jwt = require('jsonwebtoken');
+
 const User = require('../models/user');
+
+const getTokenFrom = (request) => {
+  const authorization = request.get('authorization');
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7);
+  }
+  return null;
+};
 
 usersRouter.post('/', async (request, response, next) => {
   const { firstName, lastName, email, city, street, postalCode, password } = request.body;
@@ -30,19 +40,15 @@ usersRouter.post('/', async (request, response, next) => {
     next(exception);
   }
 });
-usersRouter.get('/', async (request, response) => {
-  const users = await User.find({}).populate('items');
-  response.json(users);
-});
-
-usersRouter.get('/:id', async (request, response, next) => {
+usersRouter.get('/', async (request, response, next) => {
+  const token = getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
+  const user = await User.findById(decodedToken.id);
   try {
-    const users = await User.findById(request.params.id).populate('items');
-    if (users) {
-      response.json(users);
-    } else {
-      response.status(404).end();
-    }
+    response.json(user);
   } catch (exception) {
     next(exception);
   }

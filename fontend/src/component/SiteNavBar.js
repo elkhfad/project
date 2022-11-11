@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { VscListFlat } from 'react-icons/vsc';
 import { FaTasks } from 'react-icons/fa';
+import { VscAccount } from 'react-icons/vsc';
 
 const SiteNavBar = () => {
   const [show, setShow] = useState(false);
@@ -25,6 +26,11 @@ const SiteNavBar = () => {
             <div className="links">
               <Link to="/itemList" onClick={handleClose}>
                 Items <FaTasks />
+              </Link>
+            </div>
+            <div className="links">
+              <Link to="/accounts" onClick={handleClose}>
+                Account <VscAccount />
               </Link>
             </div>
           </nav>
