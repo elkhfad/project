@@ -24,7 +24,7 @@ const SiteNavBar = () => {
           <nav className="navbar">
             <div className="links">
               <Link to="/itemList" onClick={handleClose}>
-                My items <FaTasks />
+                Items <FaTasks />
               </Link>
             </div>
           </nav>
