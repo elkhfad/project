@@ -54,7 +54,7 @@ usersRouter.put('/', async (request, response, next) => {
     return response.status(401).json({ error: 'token missing or invalid' });
   }
   try {
-    const user = await User.findByIdAndUpdate(decodedToken.id, request.body);
+    const user = await User.findByIdAndUpdate(decodedToken.id, body);
     if (user) {
       response.json(user);
     } else {
