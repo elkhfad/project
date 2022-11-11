@@ -61,6 +61,7 @@ const ItemList = () => {
             <div>
               <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
             </div>
+            <br />
           </div>
         ) : (
           <div className="infoItems">Your Item list is empty</div>

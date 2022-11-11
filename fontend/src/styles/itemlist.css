@@ -11,7 +11,7 @@ label {
   text-transform: capitalize;
   font-size: 14px;
   padding-right: 4px;
-  color: #cccccc;
+  color: #b7b7b7;
   margin-top: 0.6em;
 
 }
@@ -167,8 +167,6 @@ textarea {
   background-color: #242323 !important;
 }
 
-
-
 .listTitle {
   color: #757373;
   font-weight: 800;
@@ -190,17 +188,13 @@ textarea {
 
 #search {
   outline: none;
-  border: 4px solid #757373;
+  border: 2px solid #b7b7b7;
   border-radius: 10px 10px 10px 10px;
-  padding: 5px;
   text-transform: capitalize;
   margin: 2em;
-  float: right;
-  width: 90%;
-}
-
-#search:hover {
-  border: 4px solid #dad6d6;
+  width: 30%;
+  height: 4em;
+  text-align: center;
 }
 
 
@@ -211,7 +205,7 @@ textarea {
   margin: 0 auto;
   padding: 10px;
   margin-bottom: 1em;
-  background-color: #898888;
+  background-color: #ffffff;
   margin-top: 5em;
 
 
@@ -246,9 +240,8 @@ textarea {
 #editItemForm {
   max-width: 24em;
   margin: 0 auto;
-  background-color: #757373;
+  background-color: #ffffff;
   padding: 2em;
-  border: 4px solid #ffffff;
   border-radius: 10px 10px 10px 10px;
   text-align: left;
 }
@@ -270,8 +263,8 @@ textarea {
 .contain {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background-color: #ffffff;
+  gap: 5px;
+  background-color: #b7b7b7;
   margin: 1px;
   height: fit-content;
   padding: 2px;
