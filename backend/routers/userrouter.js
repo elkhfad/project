@@ -1,16 +1,9 @@
 const bcrypt = require('bcryptjs');
 const usersRouter = require('express').Router();
 const jwt = require('jsonwebtoken');
+const getToken = require('../utils/token');
 
 const User = require('../models/user');
-
-const getTokenFrom = (request) => {
-  const authorization = request.get('authorization');
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    return authorization.substring(7);
-  }
-  return null;
-};
 
 usersRouter.post('/', async (request, response, next) => {
   const { firstName, lastName, email, city, street, postalCode, password } = request.body;
@@ -41,7 +34,7 @@ usersRouter.post('/', async (request, response, next) => {
   }
 });
 usersRouter.get('/', async (request, response, next) => {
-  const token = getTokenFrom(request);
+  const token = getToken.getTokenFrom(request);
   const decodedToken = jwt.verify(token, process.env.SECRET);
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' });
