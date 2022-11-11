@@ -46,5 +46,23 @@ usersRouter.get('/', async (request, response, next) => {
     next(exception);
   }
 });
+usersRouter.put('/', async (request, response, next) => {
+  const body = request.body;
+  const token = getToken.getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
+  try {
+    const user = await User.findByIdAndUpdate(decodedToken.id, request.body);
+    if (user) {
+      response.json(user);
+    } else {
+      response.status(404).end();
+    }
+  } catch (exception) {
+    next(exception);
+  }
+});
 
 module.exports = usersRouter;

@@ -17,8 +17,17 @@ const getUser = async (baseUrl) => {
   const response = await axios.get(baseUrl, config);
   return response.data;
 };
+const update = async (baseUrl, newObject) => {
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.put(`${baseUrl}`, newObject, config);
+  return response.data;
+};
 //eslint-disable-next-line
 export default {
   create,
   getUser,
+  update,
 };

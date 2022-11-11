@@ -76,7 +76,7 @@ const Account = () => {
           setAccount(updateAccount);
           handleClose();
           setError(null);
-          navigate('/accountList');
+          navigate('/');
         })
         .catch((err) => {
           setError(err.message);
@@ -194,7 +194,7 @@ const Account = () => {
               </div>
               {<ErrorHandler min={4} value={account.postalCode} text="Postal code length is too short !  required 4 characters" />}
             </div>
-            <Button className="addNewAccount" type="submit">
+            <Button className="editAccount" type="submit">
               Save changes
             </Button>
           </Form>

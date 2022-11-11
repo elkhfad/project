@@ -133,7 +133,7 @@ textarea {
   border: 2px solid #b7b7b7 !important;
 }
 
-
+.editAccount:hover,
 .addNewItem:hover,
 .editPen:hover,
 .btn-outline-success:hover {
@@ -260,6 +260,7 @@ textarea {
   text-align: left;
 }
 
+.editAccount,
 .addNewItem {
   background-color: #b7b7b7 !important;
   color: #145713 !important;
