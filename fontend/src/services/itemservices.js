@@ -7,12 +7,16 @@ const setToken = () => {
   token = `bearer ${currentUserData.token}`;
 };
 
-const getAll = async (baseUrl) => {
+const getAllByUser = async (baseUrl) => {
   setToken();
   const config = {
     headers: { Authorization: token },
   };
   const response = await axios.get(baseUrl, config);
+  return response.data;
+};
+const getAll = async (baseUrl) => {
+  const response = await axios.get(baseUrl);
   return response.data;
 };
 
@@ -54,6 +58,7 @@ const deleteItem = async (baseUrl, id) => {
 
 //eslint-disable-next-line
 export default {
+  getAllByUser,
   getAll,
   create,
   update,

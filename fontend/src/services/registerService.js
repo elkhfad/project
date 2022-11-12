@@ -25,6 +25,7 @@ const update = async (baseUrl, newObject) => {
   const response = await axios.put(`${baseUrl}`, newObject, config);
   return response.data;
 };
+
 //eslint-disable-next-line
 export default {
   create,

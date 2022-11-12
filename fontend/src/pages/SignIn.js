@@ -28,7 +28,7 @@ const SignIn = () => {
         sessionStorage.setItem('currenUser', JSON.stringify(newUser));
         setEmail('');
         setPassword('');
-        window.location.href = '/itemList';
+        window.location.href = '/';
       } catch (exception) {
         setError('Email or Password is wrong');
         setTimeout(() => {

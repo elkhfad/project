@@ -38,7 +38,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage, setCurren
         <nav>
           <ul className="pagination">
             <li className="page-item">
-              <a className="page-link" onClick={firstPage} href="!#">{`<<`}</a>
+              <a className="page-link" onClick={firstPage} disabled href="!#">{`<<`}</a>
             </li>
             <li className="page-item">
               <a className="page-link" onClick={prevPage} href="!#">

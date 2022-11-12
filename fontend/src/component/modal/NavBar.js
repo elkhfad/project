@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import SiteNavBar from '../SiteNavBar';
 import { Link } from 'react-router-dom';
 import { AiOutlineLock } from 'react-icons/ai';
-import { AiOutlineHome } from 'react-icons/ai';
+import { BsFillBagFill } from 'react-icons/bs';
 import { AiOutlineUnlock } from 'react-icons/ai';
 import { useCurrentUser } from '../../services/currenUser';
 import logInService from '../../services/login';
@@ -26,7 +26,7 @@ function NewNavBar() {
             <nav className="navbar">
               <div className="links">
                 <Link to="/">
-                  Home <AiOutlineHome />
+                  Shopping <BsFillBagFill />
                 </Link>
               </div>
               {!currentUser ? (

@@ -16,6 +16,14 @@ label {
 
 }
 
+.page-link {
+
+  color: #7b7a7a !important;
+  background-color: #7b7a7a !important;
+  border: #7b7a7a !important;
+
+}
+
 .infoItems {
   color: #ffffff;
   font-size: 20px;

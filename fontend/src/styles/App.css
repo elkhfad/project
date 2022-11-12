@@ -48,6 +48,7 @@ footer {
   width: 20rem !important;
   height: 30em fit-content;
   padding: 1em;
+  margin: 0 auto;
 }
 
 .cardTitleStyle {

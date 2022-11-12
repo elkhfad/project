@@ -1,17 +1,17 @@
-import CreateItem from '../component/CreateItem';
 import '../styles/itemlist.css';
 import Spinner from 'react-bootstrap/Spinner';
-import { useGetAllItemsToUser } from '../component/control/itemsControll';
 import Pagination from '../component/Pagination';
 import { useState } from 'react';
-import Items from '../component/Items';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import { useGetAllItems } from '../component/control/itemsControll';
 
-const ItemList = () => {
-  const url = 'http://localhost:3001/api/items';
-  const { data, isPending, setData } = useGetAllItemsToUser(url);
+const Shopping = () => {
+  const url = 'http://localhost:3001/api/items/all';
+  const { data, isPending } = useGetAllItems(url);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostPerPage] = useState(12);
+  const [postsPerPage, setPostPerPage] = useState(6);
   const results = data.filter((result) => {
     return result.title.includes(search);
   });
@@ -38,9 +38,6 @@ const ItemList = () => {
       </div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div className="container mt-5">
-        <div className="addItem" style={{ float: 'left' }}>
-          <CreateItem data={data} setData={setData} />
-        </div>
         <div className="mt-3" style={{ float: 'right' }}>
           {'Items per Page: '}
           <select onChange={handlePageSizeChange} value={postsPerPage}>
@@ -51,13 +48,35 @@ const ItemList = () => {
             ))}
           </select>
         </div>
-        <h2 className="listTitle">My Items</h2>
         {data.length > 0 ? (
           <div>
             <div>
               <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
             </div>
-            <Items data={currentPosts} />
+            <div className={`${data.length > 0 && 'contain'}`}>
+              {currentPosts.map((data) => {
+                return (
+                  <div key={data.id}>
+                    <Card className="cardStyle">
+                      <div>
+                        <img src={data.pic} alt="My items" width="250" height="250" />
+                      </div>
+                      <Card.Body>
+                        <Card.Title className="cardTitleStyle">{data.title}</Card.Title>
+                      </Card.Body>
+                      <ListGroup className="list-group-flush">
+                        <ListGroup.Item className="listGroupItem">
+                          <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
+                        </ListGroup.Item>
+                        <ListGroup.Item className="listGroupItem">Amount: {data.amount}</ListGroup.Item>
+
+                        <ListGroup.Item className="listGroupItem">{data.comment}</ListGroup.Item>
+                      </ListGroup>
+                    </Card>
+                  </div>
+                );
+              })}
+            </div>
             <div>
               <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
             </div>
@@ -71,4 +90,4 @@ const ItemList = () => {
   );
 };
 
-export default ItemList;
+export default Shopping;
