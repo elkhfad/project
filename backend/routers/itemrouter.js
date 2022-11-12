@@ -27,6 +27,11 @@ itemsRouter.get('/', async (request, response, next) => {
 });
 
 itemsRouter.get('/:id', async (request, response, next) => {
+  const token = getToken.getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
   try {
     const item = await Item.findById(request.params.id);
     if (item) {
@@ -38,8 +43,23 @@ itemsRouter.get('/:id', async (request, response, next) => {
     next(exception);
   }
 });
+itemsRouter.get('/api/items', (req, res) => {
+  Item.find().then((items) => {
+    res.json(items);
+  });
+});
 itemsRouter.delete('/:id', async (request, response, next) => {
+  const token = getToken.getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
+  const user = await User.findById(decodedToken.id);
   try {
+    user.items = user.items.filter((item) => {
+      return item._id.valueOf() !== request.params.id;
+    });
+    await user.save();
     await Item.findByIdAndDelete(request.params.id);
     response.status(204).end();
   } catch (exception) {
@@ -47,6 +67,11 @@ itemsRouter.delete('/:id', async (request, response, next) => {
   }
 });
 itemsRouter.put('/:id', async (request, response, next) => {
+  const token = getToken.getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
   try {
     const item = await Item.findByIdAndUpdate(request.params.id, request.body);
     if (item) {

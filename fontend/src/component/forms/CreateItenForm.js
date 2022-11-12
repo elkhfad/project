@@ -6,11 +6,13 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import { IoAddCircleOutline } from 'react-icons/io5';
 import AlertComponent from '../Alert/AlertComponent';
-const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, handleShow, handleClose, show, image, success, isPending }) => {
+const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, handleShow, handleClose, show, image, success, isPending, error }) => {
   return (
     <div>
-      <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
+      <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
+      <div>{error && <AlertComponent variant="warning" header="" text={error} />}</div>
+
       <div>
         <button className="addNewItem" style={{ fontSize: '18px' }} onClick={handleShow}>
           Add item <IoAddCircleOutline />
@@ -18,6 +20,7 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
+          <br />
           <div>
             <header>Add item</header>
           </div>

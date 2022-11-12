@@ -17,7 +17,11 @@ const getAll = async (baseUrl) => {
 };
 
 const getById = (baseUrl, id) => {
-  return axios.get(`${baseUrl}/${id}`);
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  return axios.get(`${baseUrl}/${id}`, config);
 };
 
 const create = async (baseUrl, newObject) => {
@@ -31,12 +35,20 @@ const create = async (baseUrl, newObject) => {
 };
 
 const update = async (baseUrl, id, newObject) => {
-  const response = await axios.put(`${baseUrl}/${id}`, newObject);
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.put(`${baseUrl}/${id}`, newObject, config);
   return response.data;
 };
 
 const deleteItem = async (baseUrl, id) => {
-  const response = await axios.delete(`${baseUrl}/${id}`);
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.delete(`${baseUrl}/${id}`, config);
   return response.data;
 };
 
