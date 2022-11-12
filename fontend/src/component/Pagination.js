@@ -34,43 +34,45 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage, setCurren
 
   return (
     <div>
-      <nav>
-        <ul className="pagination">
-          <li className="page-item">
-            <a className="page-link" onClick={firstPage} href="!#">{`<<`}</a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" onClick={prevPage} href="!#">
-              Previous
-            </a>
-          </li>
-          {pageNumbers.map((number) => {
-            return (
-              <li className="page-item" key={number}>
-                <a
-                  onClick={(e) => {
-                    paginate(number);
-                    e.preventDefault();
-                  }}
-                  href="!#"
-                  className={`page-link ${currentPage === number ? 'active' : ''}`}
-                >
-                  {number}
-                </a>
-              </li>
-            );
-          })}
+      {pages > 1 && (
+        <nav>
+          <ul className="pagination">
+            <li className="page-item">
+              <a className="page-link" onClick={firstPage} href="!#">{`<<`}</a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" onClick={prevPage} href="!#">
+                Previous
+              </a>
+            </li>
+            {pageNumbers.map((number) => {
+              return (
+                <li className="page-item" key={number}>
+                  <a
+                    onClick={(e) => {
+                      paginate(number);
+                      e.preventDefault();
+                    }}
+                    href="!#"
+                    className={`page-link ${currentPage === number ? 'active' : ''}`}
+                  >
+                    {number}
+                  </a>
+                </li>
+              );
+            })}
 
-          <li className="page-item">
-            <a className="page-link" onClick={nextPage} href="!#">
-              Next
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" onClick={lastPage} href="!#">{`>>`}</a>
-          </li>
-        </ul>
-      </nav>
+            <li className="page-item">
+              <a className="page-link" onClick={nextPage} href="!#">
+                Next
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" onClick={lastPage} href="!#">{`>>`}</a>
+            </li>
+          </ul>
+        </nav>
+      )}
     </div>
   );
 };
