@@ -69,18 +69,23 @@ itemsRouter.delete('/:id', async (request, response, next) => {
 itemsRouter.put('/:id', async (request, response, next) => {
   const token = getToken.getTokenFrom(request);
   const decodedToken = jwt.verify(token, process.env.SECRET);
+  const user = await User.findById(decodedToken.id);
+  const findItem = user.items.find((item) => item._id.valueOf() === request.params.id);
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' });
-  }
-  try {
-    const item = await Item.findByIdAndUpdate(request.params.id, request.body);
-    if (item) {
-      response.json(item);
-    } else {
-      response.status(404).end();
+  } else if (findItem) {
+    try {
+      const item = await Item.findByIdAndUpdate(request.params.id, request.body);
+      if (item) {
+        response.json(item);
+      } else {
+        response.status(404).end();
+      }
+    } catch (exception) {
+      next(exception);
     }
-  } catch (exception) {
-    next(exception);
+  } else {
+    return response.status(401).json({ error: 'unauthorized' });
   }
 });
 
