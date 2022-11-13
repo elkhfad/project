@@ -11,17 +11,18 @@ import Image from 'react-bootstrap/Image';
 import { FaTasks } from 'react-icons/fa';
 import { MdAccountCircle } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-// import { VscAccount } from 'react-icons/vsc';
+import { useAccountHandler } from '../control/useAccountHandle';
 
 function NewNavBar() {
   const { currentUser } = useCurrentUser();
+  const { image } = useAccountHandler();
   const handleLockOut = () => {
     logInService.logout();
   };
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/">Leebstore</Navbar.Brand>
+        <Navbar.Brand className="navBarHeader">Leebstore</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
@@ -41,7 +42,7 @@ function NewNavBar() {
             <div className="me-2" aria-label="Search">
               <NavDropdown
                 className="me-5"
-                title={currentUser.pic !== undefined ? <Image src={currentUser.pic} alt="" style={{ width: '2em' }} roundedCircle /> : <MdAccountCircle style={{ fontSize: '2em' }} />}
+                title={image !== null ? <Image src={image} alt="" style={{ width: '2em' }} roundedCircle /> : <MdAccountCircle style={{ fontSize: '2em' }} />}
                 id="navbarScrollingDropdown"
               >
                 <NavDropdown.Item as={Link} to="/accounts">

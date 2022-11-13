@@ -13,7 +13,7 @@ const Shopping = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(6);
   const results = data.filter((result) => {
-    return result.title.includes(search);
+    return result.title.toUpperCase().includes(search.toUpperCase());
   });
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;

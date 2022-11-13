@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
 import registerServices from '../../services/registerService';
 import RegisterForm from '../forms/RegisterForm';
+import { useEffect, useState } from 'react';
 
 const Register = () => {
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
   const [show, setShow] = useState(false);
-
+  const [image, setImage] = useState(null);
   const [signUp, setSignUp] = useState({
     firstName: '',
     lastName: '',
@@ -16,9 +15,9 @@ const Register = () => {
     street: '',
     postalCode: '',
     city: '',
+    pic: '',
   });
   const url = 'http://localhost:3001/api/users';
-
   useEffect(() => {
     const validation = () => {
       if (
@@ -37,11 +36,22 @@ const Register = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newUser = {
+      firstName: signUp.firstName,
+      lastName: signUp.lastName,
+      email: signUp.email,
+      password: signUp.password,
+      street: signUp.street,
+      postalCode: signUp.postalCode,
+      city: signUp.city,
+      pic: image,
+    };
     if (valid) {
       registerServices
-        .create(url, signUp)
+        .create(url, newUser)
         .then((res) => {
           handleClose();
+          setImage(null);
           setError(null);
           setValid(false);
         })
@@ -62,15 +72,24 @@ const Register = () => {
       street: '',
       postalCode: '',
       city: '',
+      pic: '',
     });
     setError('');
     setShow(false);
   };
   const handleShow = () => setShow(true);
-
+  const handleImage = (e) => {
+    if (e.target.files[0]) {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        setImage(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
   return (
     <div>
-      <RegisterForm handleChange={handleChange} signUp={signUp} error={error} handleSubmit={handleSubmit} handleClose={handleClose} handleShow={handleShow} show={show} />
+      <RegisterForm handleChange={handleChange} signUp={signUp} error={error} handleSubmit={handleSubmit} handleClose={handleClose} handleShow={handleShow} show={show} handleImage={handleImage} />
     </div>
   );
 };

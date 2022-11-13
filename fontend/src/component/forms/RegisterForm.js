@@ -4,8 +4,9 @@ import AlertComponent from '../Alert/AlertComponent';
 import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 
-const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, handleClose, show }) => {
+const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, handleClose, show, handleImage }) => {
   return (
     <div>
       <div>
@@ -118,7 +119,12 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 </div>
                 {<ErrorHandler min={4} value={signUp.postalCode} text="Postal code length is too short !  required 4 characters" />}
               </div>
-
+              <div className="input-group">
+                <Image src={signUp.pic} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
+              </div>
+              <div className="input-group">
+                <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />
+              </div>
               <Button className="addNewItem" type="submit">
                 Send
               </Button>

@@ -1,120 +1,18 @@
-import { useState, useEffect } from 'react';
 import AlertComponent from '../component/Alert/AlertComponent';
 import { Spinner } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
-import services from '../services/registerService';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import ChooseIcon from '../component/Alert/ChooseIcon';
 import ErrorHandler from '../component/Alert/ErrorHandler';
 import Button from 'react-bootstrap/Button';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
+import { useAccountHandler } from '../component/control/useAccountHandle';
+import { BsTrash } from 'react-icons/bs';
+
 const Account = () => {
-  const [account, setAccount] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    street: '',
-    postalCode: '',
-    city: '',
-    pic: '',
-  });
-  const [accountOriginal, setAccountOriginal] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    street: '',
-    postalCode: '',
-    city: '',
-    pic: '',
-  });
-  const [isPending, setIsPending] = useState(true);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
-  const url = `http://localhost:3001/api/users`;
-  useEffect(() => {
-    services
-      .getUser(url)
-      .then((res) => {
-        setIsPending(false);
-        setAccount(res);
-        setAccountOriginal(res);
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.response.data.error);
-        setIsPending(false);
-      });
-  }, [url]);
-
-  const handleChange = (e) => {
-    setAccount({ ...account, [e.target.name]: e.target.value });
-  };
-  const handleImage = (e) => {
-    if (e.target.files[0]) {
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        setAccount({
-          firstName: account.firstName,
-          lastName: account.lastName,
-          email: account.email,
-          street: account.street,
-          postalCode: account.postalCode,
-          city: account.city,
-          pic: reader.result,
-        });
-      });
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const updateAccount = {
-      firstName: account.firstName,
-      lastName: account.lastName,
-      email: account.email,
-      street: account.street,
-      postalCode: account.postalCode,
-      city: account.city,
-      pic: account.pic,
-    };
-
-    setSuccess(null);
-    if (
-      updateAccount.firstName.length > 2 &&
-      updateAccount.lastName.length > 4 &&
-      updateAccount.email.length > 4 &&
-      updateAccount.street.length > 3 &&
-      updateAccount.postalCode.length > 3 &&
-      updateAccount.city.length > 3
-    ) {
-      services
-        .update(url, updateAccount)
-        .then((res) => {
-          setAccount(updateAccount);
-          handleClose();
-          setError(null);
-          navigate('/');
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
-    }
-  };
-  const handleClose = () => {
-    setAccount({
-      firstName: accountOriginal.firstName,
-      lastName: accountOriginal.lastName,
-      email: accountOriginal.email,
-      password: accountOriginal.password,
-      street: accountOriginal.street,
-      postalCode: accountOriginal.postalCode,
-      city: accountOriginal.city,
-      pic: accountOriginal.pic,
-    });
-  };
+  const { image, account, isPending, error, success, handleSubmit, handleChange, handleImage, removeImage } = useAccountHandler();
   return (
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
@@ -216,7 +114,10 @@ const Account = () => {
               {<ErrorHandler min={4} value={account.postalCode} text="Postal code length is too short !  required 4 characters" />}
             </div>
             <div className="input-group">
-              <Image src={account.pic} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
+              <Image src={image} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
+              <Button onClick={removeImage} className="removeImage">
+                <BsTrash />
+              </Button>
             </div>
             <div className="input-group">
               <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />
