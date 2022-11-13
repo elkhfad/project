@@ -1,13 +1,17 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import SiteNavBar from '../SiteNavBar';
-import { Link } from 'react-router-dom';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { AiOutlineLock } from 'react-icons/ai';
 import { BsFillBagFill } from 'react-icons/bs';
 import { AiOutlineUnlock } from 'react-icons/ai';
 import { useCurrentUser } from '../../services/currenUser';
 import logInService from '../../services/login';
+import Image from 'react-bootstrap/Image';
+import { FaTasks } from 'react-icons/fa';
+import { MdAccountCircle } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+// import { VscAccount } from 'react-icons/vsc';
 
 function NewNavBar() {
   const { currentUser } = useCurrentUser();
@@ -15,33 +19,43 @@ function NewNavBar() {
     logInService.logout();
   };
   return (
-    <Navbar bg="light" expand="sm">
-      {currentUser && <SiteNavBar />}
+    <Navbar bg="light" expand="lg">
       <Container fluid>
-        <header className="navBar-header">Leebstore</header>
-
+        <Navbar.Brand href="/">Leebstore</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-            <nav className="navbar">
+            <Nav.Link as={Link} to="/">
+              Shopping <BsFillBagFill />
+            </Nav.Link>
+            {!currentUser && (
               <div className="links">
-                <Link to="/">
-                  Shopping <BsFillBagFill />
-                </Link>
+                <Nav.Link as={Link} to="/signIn">
+                  Sign in <AiOutlineLock />
+                </Nav.Link>
               </div>
-              {!currentUser ? (
-                <div className="links">
-                  <Link to="/signIn">
-                    Sign in <AiOutlineLock />
-                  </Link>
-                </div>
-              ) : (
+            )}
+          </Nav>
+
+          {currentUser && (
+            <div className="me-2" aria-label="Search">
+              <NavDropdown
+                className="me-5"
+                title={currentUser.pic !== undefined ? <Image src={currentUser.pic} alt="" style={{ width: '2em' }} roundedCircle /> : <MdAccountCircle style={{ fontSize: '2em' }} />}
+                id="navbarScrollingDropdown"
+              >
+                <NavDropdown.Item as={Link} to="/accounts">
+                  Account <MdAccountCircle style={{ fontSize: '1.5em' }} />
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="itemList">
+                  My items <FaTasks />
+                </NavDropdown.Item>
                 <button className="lockOut" onClick={() => handleLockOut()}>
                   Lock out <AiOutlineUnlock />
                 </button>
-              )}
-            </nav>
-          </Nav>
+              </NavDropdown>
+            </div>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

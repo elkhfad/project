@@ -70,16 +70,12 @@ itemsRouter.get('/all', (request, response) => {
         user.items = user.items.filter((item) => {
           return item._id.valueOf() !== request.params.id;
         });
-        if (item) {
-          await user.save();
-          await Item.findByIdAndDelete(request.params.id);
-          response.status(204).end();
-        }
+        await user.save();
+        await Item.findByIdAndDelete(request.params.id);
+        response.status(204).end();
       } catch (exception) {
         next(exception);
       }
-    } else {
-      return response.status(401).json({ error: 'unauthorized' });
     }
   });
 

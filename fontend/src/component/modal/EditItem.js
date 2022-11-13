@@ -168,17 +168,11 @@ const EditItem = () => {
               <label htmlFor="price">Price {'\u20AC'} *</label>
               <div className="input-group">
                 <input className="form-control" id="price" name="price" type="number" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
-                <div className="input-group-addon">
-                  <ChooseIcon value={item.price} min={1} />
-                </div>
               </div>
 
               <label htmlFor="amount">Amount *</label>
               <div className="input-group">
                 <input className="form-control" id="amount" style={{ width: '12px' }} name="amount" type="number" value={item.amount} onChange={handleChange} required placeholder="Amount of pieces" />
-                <div className="input-group-addon">
-                  <ChooseIcon value={item.amount} min={1} />
-                </div>
               </div>
               <div className="input-group">
                 <img src={item.pic} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />

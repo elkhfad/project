@@ -17,6 +17,7 @@ const getUser = async (baseUrl) => {
   const response = await axios.get(baseUrl, config);
   return response.data;
 };
+
 const update = async (baseUrl, newObject) => {
   setToken();
   const config = {

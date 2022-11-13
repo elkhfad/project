@@ -42,11 +42,12 @@ label {
 .lockOut {
   outline: none;
   color: #145713;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   border: 1px solid #f7f7f7;
   margin-bottom: 0.2em;
   font-size: 18px;
-  padding: 2px
+  width: 100%;
+  text-align: left;
 }
 
 .lockOut:hover {
@@ -98,18 +99,6 @@ header {
 
 }
 
-.offcanvas-title header,
-.navBar-header {
-  color: #145713 !important;
-  text-transform: uppercase !important;
-  margin-left: -0.3em !important;
-}
-
-.offcanvas-title {
-  margin-left: -0.2em;
-  font-weight: 200 !important;
-
-}
 
 input,
 textarea {

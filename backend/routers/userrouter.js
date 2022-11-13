@@ -6,7 +6,7 @@ const getToken = require('../utils/token');
 const User = require('../models/user');
 
 usersRouter.post('/', async (request, response, next) => {
-  const { firstName, lastName, email, city, street, postalCode, password } = request.body;
+  const { firstName, lastName, email, city, street, postalCode, password, pic } = request.body;
 
   const existingEmail = await User.findOne({ email });
   if (existingEmail) {
@@ -23,6 +23,7 @@ usersRouter.post('/', async (request, response, next) => {
     email,
     city,
     street,
+    pic,
     postalCode,
     passwordHash,
   });

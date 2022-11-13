@@ -31,6 +31,7 @@ const userSchema = mongoose.Schema({
     require: true,
     minLength: 4,
   },
+  pic: String,
   passwordHash: String,
   items: [
     {

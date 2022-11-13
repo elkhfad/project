@@ -8,12 +8,16 @@ body {
 }
 
 .navbar .links {
-  margin-bottom: 0.5em;
   color: #145713;
+  margin: 0 auto;
+}
 
+.nav.navbar {
+  margin: 0 auto !important;
 }
 
 .navBarBtn {
+
   outline: none;
   border: 2px solid #ffffff;
 }
@@ -59,9 +63,6 @@ footer {
 
 }
 
-.offcanvas-backdrop {
-  background-color: #808080
-}
 
 .navbar a {
   text-decoration: none;

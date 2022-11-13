@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AlertComponent from '../component/Alert/AlertComponent';
 import { Spinner } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 import services from '../services/registerService';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
@@ -17,6 +18,7 @@ const Account = () => {
     street: '',
     postalCode: '',
     city: '',
+    pic: '',
   });
   const [accountOriginal, setAccountOriginal] = useState({
     firstName: '',
@@ -25,6 +27,7 @@ const Account = () => {
     street: '',
     postalCode: '',
     city: '',
+    pic: '',
   });
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -49,7 +52,23 @@ const Account = () => {
   const handleChange = (e) => {
     setAccount({ ...account, [e.target.name]: e.target.value });
   };
-
+  const handleImage = (e) => {
+    if (e.target.files[0]) {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        setAccount({
+          firstName: account.firstName,
+          lastName: account.lastName,
+          email: account.email,
+          street: account.street,
+          postalCode: account.postalCode,
+          city: account.city,
+          pic: reader.result,
+        });
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const updateAccount = {
@@ -59,6 +78,7 @@ const Account = () => {
       street: account.street,
       postalCode: account.postalCode,
       city: account.city,
+      pic: account.pic,
     };
 
     setSuccess(null);
@@ -92,6 +112,7 @@ const Account = () => {
       street: accountOriginal.street,
       postalCode: accountOriginal.postalCode,
       city: accountOriginal.city,
+      pic: accountOriginal.pic,
     });
   };
   return (
@@ -193,6 +214,12 @@ const Account = () => {
                 </div>
               </div>
               {<ErrorHandler min={4} value={account.postalCode} text="Postal code length is too short !  required 4 characters" />}
+            </div>
+            <div className="input-group">
+              <Image src={account.pic} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
+            </div>
+            <div className="input-group">
+              <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />
             </div>
             <Button className="editAccount" type="submit">
               Save changes
