@@ -6,7 +6,7 @@ const Register = () => {
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
   const [show, setShow] = useState(false);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState('');
   const [signUp, setSignUp] = useState({
     firstName: '',
     lastName: '',

@@ -167,7 +167,7 @@ const EditItem = () => {
               <ErrorHandler min={10} value={item.comment} text="Comment is too short ! required 10 characters" />
               <label htmlFor="price">Price {'\u20AC'} *</label>
               <div className="input-group">
-                <input className="form-control" id="price" name="price" type="number" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
+                <input className="form-control" id="price" name="price" type="number" step="0.001" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
               </div>
 
               <label htmlFor="amount">Amount *</label>

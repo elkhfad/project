@@ -260,6 +260,10 @@ textarea {
   text-align: left;
 }
 
+.dropdown-menu {
+  margin-left: -3em !important;
+}
+
 
 .editAccount,
 .addNewItem {

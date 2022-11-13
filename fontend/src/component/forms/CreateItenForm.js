@@ -59,7 +59,7 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
                 <ErrorHandler min={10} value={addItem.comment} text="Comment is too short ! required 10 characters" />
                 <label htmlFor="price">Price {'\u20AC'} *</label>
                 <div className="input-group">
-                  <input className="form-control" id="price" name="price" type="number" value={addItem.price} onChange={handleChange} required placeholder="How much it cost" min="0" />
+                  <input className="form-control" id="price" name="price" type="number" step="0.001" value={addItem.price} onChange={handleChange} required placeholder="How much it cost" min="0" />
                 </div>
 
                 <label htmlFor="amount">Amount *</label>

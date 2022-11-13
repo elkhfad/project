@@ -48,7 +48,7 @@ const Shopping = () => {
             ))}
           </select>
         </div>
-        {data.length > 0 ? (
+        {data.length > 0 && (
           <div>
             <div>
               <Pagination paginate={paginate} postsPerPage={postsPerPage} totalPosts={results.length} setCurrentPage={setCurrentPage} currentPage={currentPage} />
@@ -82,8 +82,6 @@ const Shopping = () => {
             </div>
             <br />
           </div>
-        ) : (
-          <div className="infoItems">Your Item list is empty</div>
         )}
       </div>
     </div>
