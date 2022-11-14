@@ -18,7 +18,7 @@ function NewNavBar() {
   const [image, setImage] = useState([]);
 
   useEffect(() => {
-    window.addEventListener('click', () => {
+    window.addEventListener('mousemove', () => {
       const avatar = sessionStorage.getItem('image');
       const avatarImage = JSON.parse(avatar);
       setImage(avatarImage);
