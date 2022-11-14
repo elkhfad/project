@@ -59,7 +59,7 @@ const Shopping = () => {
                   <div key={data.id}>
                     <Card className="cardStyle">
                       <div>
-                        <img src={data.pic} alt="My items" width="250" height="250" />
+                        <img src={data.pic} alt="" width="250" height="250" />
                       </div>
                       <Card.Body>
                         <Card.Title className="cardTitleStyle">{data.title}</Card.Title>

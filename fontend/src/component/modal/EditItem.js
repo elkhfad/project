@@ -108,6 +108,15 @@ const EditItem = () => {
       pic: itemOriginal.pic,
     });
   };
+  const removeImage = () => {
+    setItem({
+      title: item.title,
+      comment: item.comment,
+      price: item.price,
+      amount: item.amount,
+      pic: '',
+    });
+  };
   return (
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
@@ -174,8 +183,12 @@ const EditItem = () => {
               <div className="input-group">
                 <input className="form-control" id="amount" style={{ width: '12px' }} name="amount" type="number" value={item.amount} onChange={handleChange} required placeholder="Amount of pieces" />
               </div>
+
               <div className="input-group">
-                <img src={item.pic} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
+                <img src={item.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
+                <Button onClick={removeImage} className="removeImage">
+                  <BsTrash />
+                </Button>
               </div>
               <div className="input-group">
                 <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />

@@ -206,7 +206,7 @@ textarea {
   border-radius: 10px 10px 10px 10px;
   text-transform: capitalize;
   margin: 2em;
-  width: 30%;
+  width: 80%;
   height: 4em;
   text-align: center;
 }
@@ -252,7 +252,6 @@ textarea {
 }
 
 #editItemForm {
-  max-width: 24em;
   margin: 0 auto;
   background-color: #ffffff;
   padding: 2em;
@@ -291,5 +290,4 @@ textarea {
   margin: 0 auto;
   float: none;
   margin-bottom: 10px;
-
 }

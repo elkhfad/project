@@ -120,7 +120,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                 {<ErrorHandler min={4} value={signUp.postalCode} text="Postal code length is too short !  required 4 characters" />}
               </div>
               <div className="input-group">
-                <Image src={signUp.pic} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
+                <Image src={signUp.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
               </div>
               <div className="input-group">
                 <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />

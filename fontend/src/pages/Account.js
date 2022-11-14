@@ -231,7 +231,7 @@ const Account = () => {
               {<ErrorHandler min={4} value={account.postalCode} text="Postal code length is too short !  required 4 characters" />}
             </div>
             <div className="input-group">
-              <Image src={image} alt="It is empty" style={{ width: '8rem', margin: '0 auto' }} />
+              <Image src={image} alt="" style={{ width: '8rem', margin: '0 auto' }} />
               <Button onClick={removeImage} className="removeImage">
                 <BsTrash />
               </Button>
