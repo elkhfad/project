@@ -89,7 +89,7 @@ const EditItem = () => {
       services
         .update(url, id, updateItem)
         .then((res) => {
-          setItem(updateItem);
+          setItem(res);
           handleClose();
           setError(null);
           navigate('/itemList');
