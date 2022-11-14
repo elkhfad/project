@@ -5,16 +5,25 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { AiOutlineLock } from 'react-icons/ai';
 import { BsFillBagFill } from 'react-icons/bs';
 import { AiOutlineUnlock } from 'react-icons/ai';
-import { useAvatar, useCurrentUser } from '../../services/currenUser';
+import { useCurrentUser } from '../../services/currenUser';
 import logInService from '../../services/login';
 import Image from 'react-bootstrap/Image';
 import { FaTasks } from 'react-icons/fa';
 import { MdAccountCircle } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function NewNavBar() {
   const { currentUser } = useCurrentUser();
-  const { image } = useAvatar();
+  const [image, setImage] = useState([]);
+
+  useEffect(() => {
+    window.addEventListener('click', () => {
+      const avatar = sessionStorage.getItem('image');
+      const avatarImage = JSON.parse(avatar);
+      setImage(avatarImage);
+    });
+  }, [image]);
   const handleLockOut = () => {
     logInService.logout();
   };

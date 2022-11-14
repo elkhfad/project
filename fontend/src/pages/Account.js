@@ -10,10 +10,11 @@ import { IoReturnDownBackOutline } from 'react-icons/io5';
 import { BsTrash } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import services from '../services/registerService';
+
 const Account = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState('');
-  const [isPending, setIsPending] = useState(true);
+  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const url = `http://localhost:3001/api/users`;
@@ -41,6 +42,7 @@ const Account = () => {
     sessionStorage.setItem('image', JSON.stringify(''));
   };
   useEffect(() => {
+    setIsPending(true);
     services
       .getUser(url)
       .then((res) => {
@@ -77,8 +79,9 @@ const Account = () => {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPending(true);
     const updateAccount = {
       firstName: account.firstName,
       lastName: account.lastName,
@@ -98,19 +101,21 @@ const Account = () => {
       updateAccount.postalCode.length > 3 &&
       updateAccount.city.length > 3
     ) {
-      services
+      await services
         .update(url, updateAccount)
         .then((res) => {
-          setAccount(updateAccount);
+          setAccount(res);
           sessionStorage.setItem('image', JSON.stringify(image));
           handleClose();
           setError(null);
+          setIsPending(false);
+          navigate('/');
         })
         .catch((err) => {
           setError(err.message);
+          setIsPending(false);
         });
     }
-    window.location.href = '/';
   };
   const handleClose = () => {
     setAccount({
