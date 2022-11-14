@@ -68,7 +68,7 @@ const Shopping = () => {
                         <ListGroup.Item className="listGroupItem">
                           <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
                         </ListGroup.Item>
-                        <ListGroup.Item className="listGroupItem">Amount: {data.amount}</ListGroup.Item>
+                        <ListGroup.Item className="listGroupItem">{data.amount} pcs</ListGroup.Item>
 
                         <ListGroup.Item className="listGroupItem">{data.comment}</ListGroup.Item>
                       </ListGroup>
