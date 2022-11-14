@@ -142,7 +142,7 @@ const Account = () => {
             <div>
               <div style={{ textAlign: 'left' }}>
                 <Button style={{ float: 'right' }} className="returnToList" onClick={() => navigate('/')}>
-                  Return <IoReturnDownBackOutline />
+                  Back <IoReturnDownBackOutline />
                 </Button>
                 <header style={{ textAlign: 'center' }}>Edit Account</header>
               </div>

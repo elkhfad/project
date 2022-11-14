@@ -132,7 +132,7 @@ const EditItem = () => {
                 }}
               />
               <Button style={{ float: 'right' }} className="returnToList" onClick={() => navigate('/itemList')}>
-                Return <IoReturnDownBackOutline />
+                Back <IoReturnDownBackOutline />
               </Button>
               <header style={{ textAlign: 'center' }}>Edit Item</header>
             </div>
