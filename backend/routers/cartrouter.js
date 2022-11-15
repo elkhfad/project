@@ -14,14 +14,14 @@ cartRouter.post('/', async (request, response, next) => {
   }
   const user = await User.findById(decodedToken.id);
   let items = [];
-  console.log(body);
-
+  body.map((item) => {
+    items.push(item.item);
+  });
   const cart = new Cart({
     amount: body.amount,
     user: user._id,
-    item: items._id,
+    items: items,
   });
-  console.log(body.item);
   try {
     const savedCart = await cart.save();
     user.carts = user.carts.concat(savedCart._id);

@@ -42,8 +42,8 @@ const Shopping = () => {
       item: itemId,
     };
 
-    cartService.create(cartUrl, newCart).then((res) => {
-      setCart(cart.concat(res));
+    setCart(cart.concat(newCart));
+    cartService.create(cartUrl, cart).then((res) => {
       sessionStorage.setItem('cartList', JSON.stringify(cart));
     });
     console.log(cart);

@@ -7,10 +7,12 @@ const config = require('../utils/config');
 const mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({
-  item: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Item',
-  },
+  items: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Item',
+    },
+  ],
 
   amount: {
     type: Number,
