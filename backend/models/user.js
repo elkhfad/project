@@ -39,6 +39,12 @@ const userSchema = mongoose.Schema({
       ref: 'Item',
     },
   ],
+  carts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Cart',
+    },
+  ],
 });
 
 userSchema.set('toJSON', {

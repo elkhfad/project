@@ -34,6 +34,7 @@ label {
 
 }
 
+.shoppingCart,
 .editPen {
   color: #023d01;
   font-size: 2em;
@@ -135,7 +136,9 @@ textarea {
 
 .editAccount:hover,
 .addNewItem:hover,
+.addToShoppingCart:hover,
 .editPen:hover,
+.shoppingCart:hover,
 .btn-outline-success:hover {
   background-color: #023d01 !important;
   color: #b7b7b7 !important;
@@ -155,11 +158,6 @@ textarea {
 .deleteBtn,
 .danger {
   color: #c30303;
-}
-
-.editItemForm,
-.editAccountForm {
-  margin-top: 2em;
 }
 
 .page-link {
@@ -257,13 +255,15 @@ textarea {
   padding: 2em;
   border-radius: 10px 10px 10px 10px;
   text-align: left;
+  width: 40%;
+  margin-top: 5em;
 }
 
 .dropdown-menu {
   margin-left: -3em !important;
 }
 
-
+.addToShoppingCart,
 .editAccount,
 .addNewItem {
   background-color: #b7b7b7 !important;

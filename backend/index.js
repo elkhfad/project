@@ -3,6 +3,7 @@ const app = express();
 const config = require('./utils/config');
 const cors = require('cors');
 const itemRouter = require('./routers/itemrouter');
+const cartRouter = require('./routers/cartrouter');
 const loginRouter = require('./controllers/login');
 const logger = require('./utils/logger');
 const middleware = require('./utils/middleware');
@@ -23,13 +24,11 @@ app.use(cors());
 app.use('/api/items', itemRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/singIn', loginRouter);
+app.use('/api/carts', cartRouter);
 app.use(middleware.requestLogger);
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 app.use(express.static('build'));
-app.get('/', (req, res) => {
-  res.send('<h1>Hello!</h1>');
-});
 app.listen(config.PORT, () => {
   logger.info(`Server running on port ${config.PORT}`);
 });

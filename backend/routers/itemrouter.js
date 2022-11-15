@@ -102,7 +102,7 @@ itemsRouter.get('/all', (request, response) => {
     }
   });
 
-  itemsRouter.post('/', async (request, response) => {
+  itemsRouter.post('/', async (request, response, next) => {
     const body = request.body;
     const token = getToken.getTokenFrom(request);
     const decodedToken = jwt.verify(token, process.env.SECRET);

@@ -13,7 +13,7 @@ const Items = ({ data }) => {
               <div style={{ display: 'flex' }}>
                 <Link to={`/items/${data.id}`}>
                   <div>
-                    <button className="addNewItem" style={{ fontSize: '18px' }}>
+                    <button className="addNewItem">
                       <CiEdit className="editPen" />
                     </button>
                   </div>
