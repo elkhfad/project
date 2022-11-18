@@ -7,6 +7,8 @@ import ItemList from './pages/ItemList';
 import AutoLogOut from './component/autoLogOut/AutoLogOut';
 import Account from './pages/Account';
 import { useCurrentUser } from './services/currenUser';
+import CartList from './component/modal/cartsList';
+import Cart from './component/modal/Cart';
 
 function App() {
   const { currentUser } = useCurrentUser();
@@ -21,6 +23,8 @@ function App() {
             {currentUser && <Route path="/items/:id" element={<EditItem />} />}
             {currentUser && <Route path="/itemList" element={<ItemList />} />}
             {currentUser && <Route path="/accounts" element={<Account />} />}
+            {currentUser && <Route path="/cartList" element={<CartList />} />}
+            {currentUser && <Route path="/cartList/cart/:id" element={<Cart />} />}
           </Routes>
         </div>
         <div>

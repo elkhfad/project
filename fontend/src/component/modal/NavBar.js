@@ -3,40 +3,29 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { AiOutlineLock } from 'react-icons/ai';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsFillBagFill } from 'react-icons/bs';
 import { AiOutlineUnlock } from 'react-icons/ai';
-import { useCurrentUser } from '../../services/currenUser';
 import logInService from '../../services/login';
 import Image from 'react-bootstrap/Image';
 import { FaTasks } from 'react-icons/fa';
 import { MdAccountCircle } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-function NewNavBar() {
+import { useCurrentUser } from '../../services/currenUser';
+import { BsCart4 } from 'react-icons/bs';
+function NavBar() {
   const { currentUser } = useCurrentUser();
   const [image, setImage] = useState([]);
-  const [cartListAmount, setCartListAmount] = useState([]);
 
   const handleImageToSession = () => {
     const avatar = sessionStorage.getItem('image');
     const avatarImage = JSON.parse(avatar);
     setImage(avatarImage);
   };
-  const handleCartListToSession = () => {
-    const cartList = sessionStorage.getItem('cartList');
-    const CartListValue = JSON.parse(cartList);
-    setCartListAmount(CartListValue);
-  };
 
   useEffect(() => {
-    handleCartListToSession();
-    handleImageToSession();
-    window.addEventListener('mousemove', () => {
+    window.addEventListener('mouseover', () => {
       handleImageToSession();
-    });
-    window.addEventListener('click', () => {
-      handleCartListToSession();
     });
   }, [image]);
   const handleLockOut = () => {
@@ -53,6 +42,7 @@ function NewNavBar() {
             <Nav.Link as={Link} to="/">
               Shopping <BsFillBagFill />
             </Nav.Link>
+
             {!currentUser && (
               <div className="links">
                 <Nav.Link as={Link} to="/signIn">
@@ -61,13 +51,7 @@ function NewNavBar() {
               </div>
             )}
           </Nav>
-          {currentUser && (
-            <div className="cartStyle">
-              <Nav.Link as={Link} to="/carts">
-                Cart <AiOutlineShoppingCart /> {cartListAmount && cartListAmount.length}
-              </Nav.Link>
-            </div>
-          )}
+
           {currentUser && (
             <div className="me-2" aria-label="Search">
               <NavDropdown
@@ -81,6 +65,9 @@ function NewNavBar() {
                 <NavDropdown.Item as={Link} to="itemList">
                   My items <FaTasks />
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="cartList">
+                  Cart list <BsCart4 />
+                </NavDropdown.Item>
                 <button className="lockOut" onClick={() => handleLockOut()}>
                   Lock out <AiOutlineUnlock />
                 </button>
@@ -93,4 +80,4 @@ function NewNavBar() {
   );
 }
 
-export default NewNavBar;
+export default NavBar;

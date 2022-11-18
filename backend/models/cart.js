@@ -17,6 +17,9 @@ const cartSchema = new mongoose.Schema({
   amount: {
     type: Number,
   },
+  time: {
+    type: String,
+  },
 
   user: {
     type: mongoose.Schema.Types.ObjectId,

@@ -33,8 +33,17 @@ const update = async (baseUrl, id, newObject) => {
   const response = await axios.put(`${baseUrl}/${id}`, newObject, config);
   return response.data;
 };
+const getById = (baseUrl, id) => {
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  return axios.get(`${baseUrl}/${id}`, config);
+};
 //eslint-disable-next-line
 export default {
   create,
   update,
+  getAllCartByUser,
+  getById,
 };

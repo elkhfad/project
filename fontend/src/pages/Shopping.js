@@ -6,8 +6,13 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useGetAllItems } from '../component/control/itemsControll';
 import { MdAddShoppingCart } from 'react-icons/md';
-import { useCurrentUser } from '../services/currenUser';
 import cartService from '../services/cartsService';
+import { Button } from 'react-bootstrap';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
+import { useCurrentUser } from '../services/currenUser';
+import AlertComponent from '../component/Alert/AlertComponent';
+
 const Shopping = () => {
   const url = 'http://localhost:3001/api/items/all';
   const cartUrl = 'http://localhost:3001/api/carts';
@@ -15,9 +20,9 @@ const Shopping = () => {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(6);
-  const [cart, setCart] = useState([{}]);
-  const { currentUser } = useCurrentUser();
-
+  const [cart, setCart] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [valueOfCart, setValueOfCart] = useState(0);
   const results = data.filter((result) => {
     return result.title.toUpperCase().includes(search.toUpperCase());
   });
@@ -25,13 +30,17 @@ const Shopping = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = results.slice(indexOfFirstPost, indexOfLastPost);
   const pageSizes = [3, 6, 9, 12, 20, 50, 100];
+  const navigate = useNavigate();
+  const { currentUser } = useCurrentUser();
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
-
+  const startCart = () => {
+    setCartOpen(true);
+  };
   const handlePageSizeChange = (event) => {
     setPostPerPage(event.target.value);
     setCurrentPage(1);
@@ -41,17 +50,44 @@ const Shopping = () => {
       amount: 1,
       item: itemId,
     };
-
-    setCart(cart.concat(newCart));
-    cartService.create(cartUrl, cart).then((res) => {
-      sessionStorage.setItem('cartList', JSON.stringify(cart));
-    });
-    console.log(cart);
+    if (!cart.find((car) => car.item === newCart.item)) {
+      setCart(cart.concat(newCart));
+      setValueOfCart(valueOfCart + 1);
+    }
+  };
+  const buyItems = () => {
+    if (cart.length > 0) {
+      cartService.create(cartUrl, cart);
+      navigate('/cartList');
+    }
+  };
+  const handleShopping = () => {
+    if (currentUser) {
+      if (cartOpen) {
+        if (cart.length === 0) {
+          return <AlertComponent variant="info" text="You cart is empty" />;
+        }
+        return (
+          <Button className="startShoppingBtn" onClick={() => buyItems()}>
+            Buy <AiOutlineShoppingCart /> {valueOfCart}
+          </Button>
+        );
+      } else {
+        return (
+          <Button className="startShoppingBtn" onClick={() => startCart()}>
+            Start shopping
+          </Button>
+        );
+      }
+    } else {
+      return <AlertComponent variant="warning" header="You have to be sign in" />;
+    }
   };
 
   return (
     <div>
       <div className="search">
+        {handleShopping()}
         <input id="search" name="search" placeholder="search by title" onChange={handleSearch} value={search} />
       </div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
@@ -76,16 +112,16 @@ const Shopping = () => {
                 return (
                   <div key={data.id}>
                     <Card className="cardStyle">
-                      {currentUser && (
+                      {cartOpen && (
                         <div style={{ display: 'flex' }}>
-                          <button
+                          <Button
                             className="addToShoppingCart"
                             onClick={() => {
                               handleCart(data.id);
                             }}
                           >
                             <MdAddShoppingCart className="shoppingCart" />
-                          </button>
+                          </Button>
                         </div>
                       )}
                       <div>
@@ -99,7 +135,6 @@ const Shopping = () => {
                           <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
                         </ListGroup.Item>
                         <ListGroup.Item className="listGroupItem">{data.amount} pcs</ListGroup.Item>
-
                         <ListGroup.Item className="listGroupItem">{data.comment}</ListGroup.Item>
                       </ListGroup>
                     </Card>

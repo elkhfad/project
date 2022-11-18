@@ -40,9 +40,6 @@ itemsRouter.get('/all', (request, response) => {
       return response.status(401).json({ error: 'token missing or invalid' });
     } else if (findItem) {
       try {
-        user.items = user.items.filter((item) => {
-          return item._id.valueOf() !== request.params.id;
-        });
         const item = await Item.findById(request.params.id);
         if (item) {
           response.json(item);

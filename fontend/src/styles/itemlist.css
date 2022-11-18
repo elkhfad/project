@@ -6,6 +6,10 @@
 
 }
 
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+  color: #ffffff !important;
+  text-transform: capitalize !important;
+}
 
 label {
   text-transform: capitalize;
@@ -16,12 +20,36 @@ label {
 
 }
 
+table {
+  font-size: 14px;
+  color: #ffffff !important;
+  background-color: #8f8f8f;
+  width: 95% !important;
+  margin: 0 auto;
+  margin-top: 2em;
+  text-transform: capitalize;
+}
+
+.cardListAccording {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 1em;
+  height: 100%;
+  overflow-x: auto;
+}
+
+
 .page-link {
 
   color: #7b7a7a !important;
   background-color: #7b7a7a !important;
   border: #7b7a7a !important;
 
+}
+
+.price {
+  font-size: 1.5em;
+  font-weight: 800;
 }
 
 .infoItems {
@@ -228,7 +256,26 @@ textarea {
   text-align: left;
 }
 
+.cartBtn {
+  background-color: #175600 !important;
+  font-size: 14px !important;
+  outline: none;
+  border: 4px solid #114100 !important;
+  margin-top: 2em;
+  width: 40em;
+  word-spacing: 1em;
+  text-transform: capitalize;
+  font-style: italic;
+  padding: 1em !important;
+}
 
+.cartBtn:hover {
+  background-color: #114100 !important;
+  border: 4px solid #175600 !important;
+
+}
+
+.startShoppingBtn,
 .returnToList {
   background-color: #114100 !important;
   font-size: 14px !important;
@@ -237,6 +284,7 @@ textarea {
 
 }
 
+.startShoppingBtn:hover,
 .returnToList:hover {
   background-color: #237704 !important;
   border: 1px solid #237704 !important;
@@ -257,6 +305,10 @@ textarea {
   text-align: left;
   width: 40%;
   margin-top: 5em;
+}
+
+.cartList {
+  margin-top: 4em;
 }
 
 .dropdown-menu {
