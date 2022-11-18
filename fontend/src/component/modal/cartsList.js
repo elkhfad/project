@@ -2,11 +2,12 @@ import { useGetCartList } from '../control/useGetCardList';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import moment from 'moment';
+import Spinner from 'react-bootstrap/Spinner';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
 
 const CartList = () => {
   const cartUrl = 'http://localhost:3001/api/carts';
-  const { data } = useGetCartList(cartUrl);
+  const { data, isPending } = useGetCartList(cartUrl);
   const navigate = useNavigate();
 
   const seeList = (id) => {
@@ -15,6 +16,7 @@ const CartList = () => {
 
   return (
     <div>
+      <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>
         <Button style={{ float: 'right', marginRight: '4em', marginTop: '1em' }} className="returnToList" onClick={() => navigate('/')}>
           Back <IoReturnDownBackOutline />

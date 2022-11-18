@@ -4,18 +4,29 @@ import services from '../../services/cartsService';
 import Table from 'react-bootstrap/Table';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
+import AlertComponent from '../Alert/AlertComponent';
 
 const Cart = () => {
   const navigate = useNavigate();
-
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
   const { id } = useParams();
   const [carts, setCart] = useState([]);
   const url = 'http://localhost:3001/api/carts';
 
   useEffect(() => {
-    services.getById(url, id).then((res) => {
-      setCart(res.data);
-    });
+    services
+      .getById(url, id)
+      .then((res) => {
+        setCart(res.data);
+        setIsPending(false);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err.response.data.error);
+        setIsPending(false);
+      });
   }, [id, url]);
 
   const sum = () => {
@@ -25,9 +36,13 @@ const Cart = () => {
   };
   return (
     <div>
-      <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => navigate('/')}>
-        Back <IoReturnDownBackOutline />
-      </Button>
+      <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
+      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
+      <div>
+        <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => navigate('/cartList')}>
+          Back <IoReturnDownBackOutline />
+        </Button>
+      </div>
       <Table striped bordered hover>
         <thead>
           <tr>
