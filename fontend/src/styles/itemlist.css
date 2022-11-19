@@ -30,6 +30,10 @@ table {
   text-transform: capitalize;
 }
 
+.warning {
+  color: #a9c462 !important;
+}
+
 .cardListAccording {
   width: 80%;
   margin: 0 auto;

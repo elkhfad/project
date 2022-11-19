@@ -65,7 +65,7 @@ const Shopping = () => {
     if (currentUser) {
       if (cartOpen) {
         if (cart.length === 0) {
-          return <AlertComponent variant="info" text="You cart is empty" />;
+          return <AlertComponent variant="info" text="Your cart is empty" />;
         }
         return (
           <Button className="startShoppingBtn" onClick={() => buyItems()}>

@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
 import IdleTimer from './IdleTimer';
-import swal from 'sweetalert';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { BsExclamationCircle } from 'react-icons/bs';
 
 export default function AutoLogOut() {
   const [isTimeout, setIsTimeout] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   useEffect(() => {
     const timer = new IdleTimer({
       timeout: 600, //seconds
       onTimeout: () => {
         setIsTimeout(true);
-        swal({
-          title: 'You have been locked out',
-          text: `You have not been active for ${timer.timeout / 60} min`,
-          type: 'error',
-          icon: 'error',
-        }).then(function () {
-          window.location.href = '/signIn';
-        });
+        handleShow();
       },
       onExpired: () => {
         setIsTimeout(true);
@@ -29,7 +27,37 @@ export default function AutoLogOut() {
         timer.cleanUp();
       }
     };
-  }, [isTimeout]);
+  }, [isTimeout, show]);
 
-  return <div>{isTimeout ? '' : ''}</div>;
+  return (
+    <div>
+      {isTimeout ? (
+        <>
+          <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} className="modalCenter">
+            <Modal.Header>
+              <Modal.Title style={{ margin: '0 auto' }}>You have been locked out !</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="iconStyle warning">
+                <BsExclamationCircle />
+              </div>
+              {`You have not been active for 10 min`}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="success"
+                onClick={() => {
+                  window.location.href = '/signIn';
+                }}
+              >
+                ok
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
+      ) : (
+        ''
+      )}
+    </div>
+  );
 }
