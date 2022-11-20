@@ -66,12 +66,6 @@ table {
 
 }
 
-.shoppingCart,
-.editPen {
-  color: #023d01;
-  font-size: 2em;
-}
-
 .lockOut {
   outline: none;
   color: #145713;
@@ -169,7 +163,6 @@ textarea {
 .editAccount:hover,
 .addNewItem:hover,
 .addToShoppingCart:hover,
-.editPen:hover,
 .shoppingCart:hover,
 .btn-outline-success:hover {
   background-color: #023d01 !important;

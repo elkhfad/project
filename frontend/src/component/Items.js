@@ -14,7 +14,7 @@ const Items = ({ data }) => {
                 <Link to={`/items/${data.id}`}>
                   <div>
                     <button className="addNewItem">
-                      <CiEdit className="editPen" />
+                      <CiEdit style={{ fontSize: '2em' }} />
                     </button>
                   </div>
                 </Link>

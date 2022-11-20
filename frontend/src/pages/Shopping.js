@@ -112,24 +112,22 @@ const Shopping = () => {
                 return (
                   <div key={data.id}>
                     <Card className="cardStyle">
-                      {cartOpen && (
-                        <div style={{ display: 'flex' }}>
-                          <Button
-                            className="addToShoppingCart"
-                            onClick={() => {
-                              handleCart(data.id);
-                            }}
-                          >
-                            <MdAddShoppingCart className="shoppingCart" />
-                          </Button>
-                        </div>
-                      )}
                       <div>
                         <img src={data.pic} alt="" width="250" height="250" />
                       </div>
                       <Card.Body>
                         <Card.Title className="cardTitleStyle">{data.title}</Card.Title>
                       </Card.Body>
+                      {cartOpen && (
+                        <Button
+                          className="addToShoppingCart"
+                          onClick={() => {
+                            handleCart(data.id);
+                          }}
+                        >
+                          <MdAddShoppingCart style={{ fontSize: '2em' }} />
+                        </Button>
+                      )}
                       <ListGroup className="list-group-flush">
                         <ListGroup.Item className="listGroupItem">
                           <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
