@@ -14,7 +14,14 @@ const getAllCartByUser = async (baseUrl) => {
   const response = await axios.get(baseUrl, config);
   return response.data;
 };
-
+const getCartWishIsTrue = async (baseUrl) => {
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.get(baseUrl, config);
+  return response.data;
+};
 const create = async (baseUrl, newObject) => {
   setToken();
   const config = {
@@ -25,12 +32,12 @@ const create = async (baseUrl, newObject) => {
   return response.data;
 };
 
-const update = async (baseUrl, id, newObject) => {
+const update = async (baseUrl, newObject) => {
   setToken();
   const config = {
     headers: { Authorization: token },
   };
-  const response = await axios.put(`${baseUrl}/${id}`, newObject, config);
+  const response = await axios.put(`${baseUrl}`, newObject, config);
   return response.data;
 };
 const getById = (baseUrl, id) => {
@@ -46,4 +53,5 @@ export default {
   update,
   getAllCartByUser,
   getById,
+  getCartWishIsTrue,
 };

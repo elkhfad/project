@@ -25,6 +25,9 @@ const cartSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  wish: {
+    type: Boolean,
+  },
 });
 
 cartSchema.set('toJSON', {

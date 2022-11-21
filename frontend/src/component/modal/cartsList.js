@@ -6,8 +6,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
 
 const CartList = () => {
-  const cartUrl = 'http://localhost:3001/api/carts';
-  const { data, isPending } = useGetCartList(cartUrl);
+  const cartUrl = 'http://localhost:3001/api/carts/all';
+  const { cartdata, isPending } = useGetCartList(cartUrl);
   const navigate = useNavigate();
 
   const seeList = (id) => {
@@ -24,19 +24,16 @@ const CartList = () => {
       </div>
       <br />
       <div className="cartList">
-        {data.map((d, index) => {
-          if (d.items.length > 0) {
-            return (
-              <div key={d.id} className="cartStyle">
-                <Button onClick={() => seeList(d.id)} className="cartBtn">
-                  <div>
-                    {index + 1} cart {`${' '}`} created {moment(new Date(d.time)).format('DD/MM/YYYY hh:mm:ss')}
-                  </div>
-                </Button>
-              </div>
-            );
-          }
-          return '';
+        {cartdata.map((d, index) => {
+          return (
+            <div key={d.id + index} className="cartStyle">
+              <Button onClick={() => seeList(d.id)} className="cartBtn">
+                <div>
+                  {index + 1} cart {`${' '}`} created {moment(new Date(d.time)).format('DD/MM/YYYY hh:mm:ss')}
+                </div>
+              </Button>
+            </div>
+          );
         })}
       </div>
     </div>

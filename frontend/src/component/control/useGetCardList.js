@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import services from '../../services/cartsService';
 export const useGetCartList = (url) => {
-  const [data, setData] = useState([]);
+  const [cartdata, setCartData] = useState([{}]);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -12,7 +12,7 @@ export const useGetCartList = (url) => {
           throw Error('could not load data');
         }
         setIsPending(false);
-        setData(res);
+        setCartData(res);
         setError(null);
       })
       .catch((err) => {
@@ -21,10 +21,10 @@ export const useGetCartList = (url) => {
       });
   }, [url]);
   return {
-    data,
+    cartdata,
     error,
     isPending,
-    setData,
+    setCartData,
   };
 };
 export const useGetCartById = (url, id) => {

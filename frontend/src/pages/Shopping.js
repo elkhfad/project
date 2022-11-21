@@ -1,28 +1,28 @@
 import '../styles/itemlist.css';
 import Spinner from 'react-bootstrap/Spinner';
 import Pagination from '../component/Pagination';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useGetAllItems } from '../component/control/itemsControll';
 import { MdAddShoppingCart } from 'react-icons/md';
 import cartService from '../services/cartsService';
 import { Button } from 'react-bootstrap';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import AlertComponent from '../component/Alert/AlertComponent';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../services/currenUser';
-import AlertComponent from '../component/Alert/AlertComponent';
 
 const Shopping = () => {
+  const navigate = useNavigate();
+  const { currentUser } = useCurrentUser();
   const url = 'http://localhost:3001/api/items/all';
   const cartUrl = 'http://localhost:3001/api/carts';
+  const cartWishUrl = 'http://localhost:3001/api/carts/wishlist';
   const { data, isPending } = useGetAllItems(url);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(6);
-  const [cart, setCart] = useState([]);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [valueOfCart, setValueOfCart] = useState(0);
+  const [error, setError] = useState(null);
   const results = data.filter((result) => {
     return result.title.toUpperCase().includes(search.toUpperCase());
   });
@@ -30,66 +30,75 @@ const Shopping = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = results.slice(indexOfFirstPost, indexOfLastPost);
   const pageSizes = [3, 6, 9, 12, 20, 50, 100];
-  const navigate = useNavigate();
-  const { currentUser } = useCurrentUser();
+  const [cartdata, setCartData] = useState({});
+
+  useEffect(() => {
+    const getWishList = () => {
+      cartService
+        .getAllCartByUser(cartUrl)
+        .then((res) => {
+          if (!res.status === 'OK') {
+            throw Error('could not load data');
+          }
+          const wishCard = res.find((r) => {
+            return r.wish === true;
+          });
+          setCartData(wishCard);
+          setError(null);
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    };
+    getWishList();
+  }, []);
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
-  const startCart = () => {
-    setCartOpen(true);
-  };
+
   const handlePageSizeChange = (event) => {
     setPostPerPage(event.target.value);
     setCurrentPage(1);
   };
-  const handleCart = (itemId) => {
-    const newCart = {
-      amount: 1,
-      item: itemId,
-    };
-    if (!cart.find((car) => car.item === newCart.item)) {
-      setCart(cart.concat(newCart));
-      setValueOfCart(valueOfCart + 1);
-    }
-  };
-  const buyItems = () => {
-    if (cart.length > 0) {
-      cartService.create(cartUrl, cart);
-      navigate('/cartList');
-    }
-  };
-  const handleShopping = () => {
-    if (currentUser) {
-      if (cartOpen) {
-        if (cart.length === 0) {
-          return <AlertComponent variant="info" text="Your cart is empty" />;
-        }
-        return (
-          <Button className="startShoppingBtn" onClick={() => buyItems()}>
-            Buy <AiOutlineShoppingCart /> {valueOfCart}
-          </Button>
-        );
-      } else {
-        return (
-          <Button className="startShoppingBtn" onClick={() => startCart()}>
-            Start shopping
-          </Button>
-        );
-      }
-    } else {
-      return <AlertComponent variant="warning" header="You have to be sign in" />;
+
+  const buyItems = async (itemId) => {
+    if (Object.keys(cartdata || {}).length > 0) {
+      const itemsList = (cartdata.items || []).concat(itemId);
+      const cart = {
+        items: itemsList,
+        time: cartdata.time,
+        user: cartdata.user,
+      };
+      setCartData(cart);
+      await cartService
+        .update(cartWishUrl, cart)
+        .then((res) => {
+          setCartData(res);
+          setError(null);
+          navigate('/');
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    } else if (Object.keys(cartdata || {}).length === 0) {
+      setCartData(itemId);
+      const createCart = {
+        items: itemId,
+      };
+      cartService.create(cartUrl, createCart);
     }
   };
 
   return (
     <div>
       <div className="search">
-        {handleShopping()}
         <input id="search" name="search" placeholder="search by title" onChange={handleSearch} value={search} />
       </div>
+      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div className="container mt-5">
         <div className="mt-3" style={{ float: 'right' }}>
@@ -118,11 +127,11 @@ const Shopping = () => {
                       <Card.Body>
                         <Card.Title className="cardTitleStyle">{data.title}</Card.Title>
                       </Card.Body>
-                      {cartOpen && (
+                      {currentUser && (
                         <Button
                           className="addToShoppingCart"
                           onClick={() => {
-                            handleCart(data.id);
+                            buyItems(data.id);
                           }}
                         >
                           <MdAddShoppingCart style={{ fontSize: '2em' }} />
