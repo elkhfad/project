@@ -9,6 +9,8 @@ import Account from './pages/Account';
 import { useCurrentUser } from './services/currenUser';
 import CartList from './component/modal/cartsList';
 import Cart from './component/modal/Cart';
+import CartsListHistory from './component/modal/cartsListHistory';
+import CartHistory from './component/modal/CartHistory';
 
 function App() {
   const { currentUser } = useCurrentUser();
@@ -24,7 +26,9 @@ function App() {
             {currentUser && <Route path="/itemList" element={<ItemList />} />}
             {currentUser && <Route path="/accounts" element={<Account />} />}
             {currentUser && <Route path="/cartList" element={<CartList />} />}
-            {currentUser && <Route path="/cartList/cart/:id" element={<Cart />} />}
+            {currentUser && <Route path="/cartsListHistory" element={<CartsListHistory />} />}
+            {currentUser && <Route path="/cartList/:id" element={<Cart />} />}
+            {currentUser && <Route path="/cartsListHistory/:id" element={<CartHistory />} />}
           </Routes>
         </div>
         <div>

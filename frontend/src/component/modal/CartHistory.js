@@ -7,14 +7,13 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import AlertComponent from '../Alert/AlertComponent';
 
-const Cart = () => {
+const CartHistory = () => {
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const [carts, setCart] = useState([]);
   const url = 'http://localhost:3001/api/carts';
-  const urlBuy = 'http://localhost:3001/api/carts/buy';
   useEffect(() => {
     services
       .getById(url, id)
@@ -28,23 +27,6 @@ const Cart = () => {
         setIsPending(false);
       });
   }, [id, url]);
-  const handleBuy = () => {
-    const updateCart = {
-      items: carts.items,
-      time: carts.time,
-      user: carts.user,
-      wish: false,
-    };
-    services
-      .buyUpdate(urlBuy, updateCart, id)
-      .then(() => {
-        setError(null);
-        navigate('/');
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
-  };
 
   const sum = () => {
     let sum = 0;
@@ -58,7 +40,7 @@ const Cart = () => {
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div>
-        <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => navigate('/cartList')}>
+        <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => navigate('/cartsListHistory')}>
           Back <IoReturnDownBackOutline />
         </Button>
       </div>
@@ -94,11 +76,7 @@ const Cart = () => {
           </tr>
         </tbody>
       </Table>
-
-      <Button className="buyCart" onClick={() => handleBuy()}>
-        Buy
-      </Button>
     </div>
   );
 };
-export default Cart;
+export default CartHistory;

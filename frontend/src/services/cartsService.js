@@ -31,7 +31,14 @@ const create = async (baseUrl, newObject) => {
   const response = await axios.post(baseUrl, newObject, config);
   return response.data;
 };
-
+const buyUpdate = async (baseUrl, newObject, id) => {
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.put(`${baseUrl}/${id}`, newObject, config);
+  return response.data;
+};
 const update = async (baseUrl, newObject) => {
   setToken();
   const config = {
@@ -47,6 +54,14 @@ const getById = (baseUrl, id) => {
   };
   return axios.get(`${baseUrl}/${id}`, config);
 };
+const deleteCart = async (baseUrl, id) => {
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.delete(`${baseUrl}/${id}`, config);
+  return response.data;
+};
 //eslint-disable-next-line
 export default {
   create,
@@ -54,4 +69,6 @@ export default {
   getAllCartByUser,
   getById,
   getCartWishIsTrue,
+  buyUpdate,
+  deleteCart,
 };

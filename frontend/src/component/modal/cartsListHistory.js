@@ -4,12 +4,11 @@ import Button from 'react-bootstrap/Button';
 import moment from 'moment';
 import Spinner from 'react-bootstrap/Spinner';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
-import { BsCart4 } from 'react-icons/bs';
-import services from '../../services/cartsService';
 import Confirm from './Confirm';
 import { BsTrash } from 'react-icons/bs';
+import services from '../../services/cartsService';
 
-const CartList = () => {
+const CartsListHistory = () => {
   const cartUrl = 'http://localhost:3001/api/carts/all';
   const url = 'http://localhost:3001/api/carts';
   const { cartdata, isPending } = useGetCartList(cartUrl);
@@ -26,39 +25,34 @@ const CartList = () => {
   return (
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
-
       <div>
         <Button style={{ float: 'right', marginRight: '4em', marginTop: '1em' }} className="returnToList" onClick={() => navigate('/')}>
           Back <IoReturnDownBackOutline />
         </Button>
       </div>
       <br />
-      <div className="cartList">
-        <div className="cartList">Cart</div>
+      <div className="carthistory">
+        <div className="reviewHistory">Review your order history</div>
         {cartdata.map((d, index) => {
-          if (d.wish === true) {
+          if (d.wish === false) {
             return (
               <div key={d.id + index} className="cartStyle">
-                <div>
-                  <Button onClick={() => seeList(d.id)} className="cartBtn">
-                    {index + 1} cart <BsCart4 style={{ fontSize: '4em' }} /> {`${' '}`} created {moment(new Date(d.time)).format('DD/MM/YYYY hh:mm:ss')} <BsCart4 style={{ fontSize: '4em' }} />
-                  </Button>
-                </div>
-                <div className="cartListDeleteBtn">
-                  <Confirm
-                    icon={<BsTrash />}
-                    title={`Are you sure ?`}
-                    body={`You won't be able to revert deleted item!`}
-                    confirm="Yes delete it"
-                    cancelColor="success"
-                    confirmColor="danger"
-                    buttonName="Delete"
-                    itemDeleteBtn="itemDeleteBtn"
-                    handleClick={() => {
-                      handleDelete(d.id);
-                    }}
-                  />
-                </div>
+                <Button onClick={() => seeList(d.id)} className="cartBtn">
+                  cart {`${' '}`} created {moment(new Date(d.time)).format('DD/MM/YYYY hh:mm:ss')}
+                </Button>
+                <Confirm
+                  icon={<BsTrash />}
+                  title={`Are you sure ?`}
+                  body={`You won't be able to revert deleted item!`}
+                  confirm="Yes delete it"
+                  cancelColor="success"
+                  confirmColor="danger"
+                  buttonName="Delete"
+                  itemDeleteBtn="itemDeleteBtn"
+                  handleClick={() => {
+                    handleDelete(d.id);
+                  }}
+                />
               </div>
             );
           }
@@ -69,4 +63,4 @@ const CartList = () => {
   );
 };
 
-export default CartList;
+export default CartsListHistory;

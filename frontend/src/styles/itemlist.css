@@ -30,6 +30,36 @@ table {
   text-transform: capitalize;
 }
 
+
+.cartBtn {
+  background-color: #175600 !important;
+  font-size: 14px !important;
+  outline: none;
+  border: 4px solid #114100 !important;
+  margin-top: 1em;
+  width: 40em;
+  word-spacing: 1em;
+  text-transform: capitalize;
+  font-style: italic;
+  padding: 1em !important;
+  margin-right: 1em;
+}
+
+.cartBtn:hover {
+  background-color: #114100 !important;
+  border: 4px solid #175600 !important;
+
+}
+
+.cartHistoryDeleteBtn {
+  margin-right: 20em !important;
+}
+
+.cartListDeleteBtn {
+  margin-top: -3em;
+  margin-left: 19em;
+}
+
 .warning {
   color: #a9c462 !important;
 }
@@ -159,6 +189,19 @@ textarea {
   border: 2px solid #b7b7b7 !important;
 }
 
+.buyCart {
+  outline: none;
+  border: 2px solid #023d01 !important;
+  color: #b7b7b7 !important;
+  background-color: #023d01 !important;
+  width: 20em;
+  height: 3em;
+}
+
+.buyCart:hover {
+  background-color: #0a7009 !important;
+  border: 2px solid #0a7009 !important;
+}
 
 .editAccount:hover,
 .addNewItem:hover,
@@ -253,24 +296,6 @@ textarea {
   text-align: left;
 }
 
-.cartBtn {
-  background-color: #175600 !important;
-  font-size: 14px !important;
-  outline: none;
-  border: 4px solid #114100 !important;
-  margin-top: 2em;
-  width: 40em;
-  word-spacing: 1em;
-  text-transform: capitalize;
-  font-style: italic;
-  padding: 1em !important;
-}
-
-.cartBtn:hover {
-  background-color: #114100 !important;
-  border: 4px solid #175600 !important;
-
-}
 
 .startShoppingBtn,
 .returnToList {
@@ -304,12 +329,26 @@ textarea {
   margin-top: 5em;
 }
 
+.reviewHistory {
+  color: #114100;
+  margin-top: 4em;
+  font-size: 2em;
+  font-weight: 800;
+}
+
+.cartList {
+  color: #114100;
+  margin-top: 4em;
+  font-size: 2em;
+  font-weight: 800;
+}
+
 .cartList {
   margin-top: 4em;
 }
 
 .dropdown-menu {
-  margin-left: -3em !important;
+  margin-left: -6em !important;
 }
 
 .addToShoppingCart,

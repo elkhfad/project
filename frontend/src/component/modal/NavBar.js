@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useCurrentUser } from '../../services/currenUser';
 import { BsCart4 } from 'react-icons/bs';
+import { RiFileHistoryFill } from 'react-icons/ri';
 function NavBar() {
   const { currentUser } = useCurrentUser();
   const [image, setImage] = useState([]);
@@ -62,11 +63,14 @@ function NavBar() {
                 <NavDropdown.Item as={Link} to="/accounts">
                   Account <MdAccountCircle style={{ fontSize: '1.5em' }} />
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="itemList">
+                <NavDropdown.Item as={Link} to="/itemList">
                   My items <FaTasks />
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="cartList">
+                <NavDropdown.Item as={Link} to="/cartList">
                   Cart list <BsCart4 />
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/cartsListHistory">
+                  Review your order history <RiFileHistoryFill />
                 </NavDropdown.Item>
                 <button className="lockOut" onClick={() => handleLockOut()}>
                   Lock out <AiOutlineUnlock />

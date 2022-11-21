@@ -104,6 +104,31 @@ cartRouter.get('/:id', async (request, response, next) => {
     return response.status(401).json({ error: 'unauthorized' });
   }
 });
+cartRouter.put('/buy/:id', async (request, response, next) => {
+  const body = request.body;
+  const token = getToken.getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  const user = await User.findById(decodedToken.id);
+
+  const findCart = user.carts.find((cart) => cart._id.valueOf() === request.params.id);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  } else if (findCart) {
+    try {
+      const buyCart = await Cart.findByIdAndUpdate(request.params.id, body);
+
+      if (buyCart) {
+        response.json(buyCart);
+      } else {
+        response.status(404).end();
+      }
+    } catch (exception) {
+      next(exception);
+    }
+  } else {
+    return response.status(401).json({ error: 'unauthorized' });
+  }
+});
 
 cartRouter.put('/wishlist', async (request, response, next) => {
   const token = getToken.getTokenFrom(request);
@@ -131,6 +156,28 @@ cartRouter.put('/wishlist', async (request, response, next) => {
     }
   } else {
     return response.status(401).json({ error: 'unauthorized' });
+  }
+});
+
+cartRouter.delete('/:id', async (request, response, next) => {
+  const token = getToken.getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  const user = await User.findById(decodedToken.id);
+  const findCart = user.carts.find((cart) => cart._id.valueOf() === request.params.id);
+
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  } else if (findCart) {
+    try {
+      user.carts = user.carts.filter((cart) => {
+        return cart._id.valueOf() !== request.params.id;
+      });
+      await user.save();
+      await Cart.findByIdAndDelete(request.params.id);
+      response.status(204).end();
+    } catch (exception) {
+      next(exception);
+    }
   }
 });
 
