@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <div>
       <div className="contact">
-        <div className="contactHeader">contact leebstore developer team</div>
+        <div className="contactHeader">contact leebstore developers team</div>
         <div className="contactEmail">via email: Selim.Bedir@metropolia.fi or fadi.el-khouri@metropolia.fi</div>
         <div className="contactAddress">
           address: metropolia university of applied sciences <br /> Karaportti 2, 02610 Espoo
