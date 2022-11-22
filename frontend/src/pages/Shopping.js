@@ -73,11 +73,12 @@ const Shopping = () => {
         time: cartdata.time,
         user: cartdata.user,
       };
-      setCartData(cart);
+      setCartData(cartdata);
       await cartService
         .update(cartWishUrl, cart)
         .then((res) => {
           setCartData(res);
+          console.log(cartdata);
           setError(null);
           navigate('/');
         })

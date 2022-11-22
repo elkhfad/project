@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { useCurrentUser } from '../../services/currenUser';
 import { BsCart4 } from 'react-icons/bs';
 import { RiFileHistoryFill } from 'react-icons/ri';
+
 function NavBar() {
   const { currentUser } = useCurrentUser();
   const [image, setImage] = useState([]);
@@ -23,7 +24,6 @@ function NavBar() {
     const avatarImage = JSON.parse(avatar);
     setImage(avatarImage);
   };
-
   useEffect(() => {
     window.addEventListener('mouseover', () => {
       handleImageToSession();

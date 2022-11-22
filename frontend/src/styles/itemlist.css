@@ -30,6 +30,31 @@ table {
   text-transform: capitalize;
 }
 
+.cart {
+  background-color: #f7f7f7 !important;
+  font-size: 1em !important;
+  outline: none;
+  font-weight: 800 !important;
+  border: 4px solid #f7f7f7 !important;
+  color: #114100 !important;
+  margin-top: 1em;
+  width: fit-content;
+  text-transform: capitalize;
+  font-style: italic;
+  margin-right: 2em;
+}
+
+.cart:hover {
+  background-color: #175600 !important;
+  color: #8f8f8f !important;
+
+}
+
+.cartAvatar {
+  background-color: #d6e0d7;
+  font-size: 14px;
+  color: #af1818 !important;
+}
 
 .cartBtn {
   background-color: #175600 !important;
@@ -196,6 +221,7 @@ textarea {
   background-color: #023d01 !important;
   width: 20em;
   height: 3em;
+  margin-bottom: 3em !important;
 }
 
 .buyCart:hover {
