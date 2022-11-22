@@ -243,6 +243,30 @@ textarea {
   padding: 2px
 }
 
+.contact {
+  font-size: 16px;
+  margin: 0 auto;
+  color: #023d01;
+  margin-top: 1em;
+  text-transform: capitalize;
+}
+
+.contactAddress,
+.contactEmail {
+  margin-bottom: 1em;
+  font-weight: 600;
+
+}
+
+.contactHeader {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 2em;
+  text-decoration: 2px underline #023d01;
+  font-style: italic;
+  padding: 0.5em;
+}
+
 .deleteBtn:hover {
   background-color: #c30303 !important;
   color: #b7b7b7 !important;
@@ -251,7 +275,7 @@ textarea {
 
 .deleteBtn,
 .danger {
-  color: #c30303;
+  color: #ff0000;
 }
 
 .page-link {
@@ -271,7 +295,7 @@ textarea {
 }
 
 .success {
-  color: #00a10d;
+  color: #13fa26;
 }
 
 .error {
