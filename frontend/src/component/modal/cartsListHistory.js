@@ -36,9 +36,9 @@ const CartsListHistory = () => {
         {cartdata.map((d, index) => {
           if (d.wish === false) {
             return (
-              <div key={d.id + index} className="cartStyle">
-                <Button onClick={() => seeList(d.id)} className="cartBtn">
-                  cart {`${' '}`} created {moment(new Date(d.time)).format('DD/MM/YYYY hh:mm:ss')}
+              <div key={d.id + index} className="cartStyle" style={{ marginBottom: '1em', marginTop: '2em' }}>
+                <Button onClick={() => seeList(d.id)} className="cartHistoryBtn">
+                  cart created {moment(new Date(d.time)).format('DD/MM/YYYY hh:mm:ss')}
                 </Button>
                 <Confirm
                   icon={<BsTrash />}
@@ -48,7 +48,7 @@ const CartsListHistory = () => {
                   cancelColor="success"
                   confirmColor="danger"
                   buttonName="Delete"
-                  itemDeleteBtn="itemDeleteBtn"
+                  itemDeleteBtn="cartHistoryDeleteBtn"
                   handleClick={() => {
                     handleDelete(d.id);
                   }}

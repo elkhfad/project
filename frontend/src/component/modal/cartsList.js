@@ -26,7 +26,6 @@ const CartList = () => {
   return (
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
-
       <div>
         <Button style={{ float: 'right', marginRight: '4em', marginTop: '1em' }} className="returnToList" onClick={() => navigate('/')}>
           Back <IoReturnDownBackOutline />
@@ -34,31 +33,27 @@ const CartList = () => {
       </div>
       <br />
       <div className="cartList">
-        <div className="cartList">Cart</div>
+        Cart
         {cartdata.map((d, index) => {
           if (d.wish === true) {
             return (
               <div key={d.id + index} className="cartStyle">
-                <div>
-                  <Button onClick={() => seeList(d.id)} className="cartBtn">
-                    {index + 1} cart <BsCart4 style={{ fontSize: '4em' }} /> {`${' '}`} created {moment(new Date(d.time)).format('DD/MM/YYYY hh:mm:ss')} <BsCart4 style={{ fontSize: '4em' }} />
-                  </Button>
-                </div>
-                <div className="cartListDeleteBtn">
-                  <Confirm
-                    icon={<BsTrash />}
-                    title={`Are you sure ?`}
-                    body={`You won't be able to revert deleted item!`}
-                    confirm="Yes delete it"
-                    cancelColor="success"
-                    confirmColor="danger"
-                    buttonName="Delete"
-                    itemDeleteBtn="itemDeleteBtn"
-                    handleClick={() => {
-                      handleDelete(d.id);
-                    }}
-                  />
-                </div>
+                <Button onClick={() => seeList(d.id)} className="cartBtn">
+                  cart created {moment(new Date(d.time)).format('DD/MM/YYYY hh:mm:ss')}
+                </Button>
+                <Confirm
+                  icon={<BsTrash />}
+                  title={`Are you sure ?`}
+                  body={`You won't be able to revert deleted item!`}
+                  confirm="Yes delete it"
+                  cancelColor="success"
+                  confirmColor="danger"
+                  buttonName="Delete"
+                  itemDeleteBtn="cartDeleteBtn"
+                  handleClick={() => {
+                    handleDelete(d.id);
+                  }}
+                />
               </div>
             );
           }

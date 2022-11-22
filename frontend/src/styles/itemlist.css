@@ -60,29 +60,43 @@ table {
   background-color: #175600 !important;
   font-size: 14px !important;
   outline: none;
-  border: 4px solid #114100 !important;
-  margin-top: 1em;
-  width: 40em;
+  border: 2px solid #114100 !important;
+  width: 18em;
   word-spacing: 1em;
   text-transform: capitalize;
   font-style: italic;
-  padding: 1em !important;
-  margin-right: 1em;
+  margin-top: 2em;
+
+}
+
+.cartHistoryBtn {
+  background-color: #676767 !important;
+  font-size: 14px !important;
+  outline: none;
+  border: 2px solid #676767 !important;
+  width: 18em;
+  word-spacing: 1em;
+  text-transform: capitalize;
+  font-style: italic;
+
+}
+
+.cartHistoryBtn:hover {
+  background-color: #373737 !important;
+  border: 2px solid #373737 !important;
+
 }
 
 .cartBtn:hover {
   background-color: #114100 !important;
-  border: 4px solid #175600 !important;
+  border: 2px solid #175600 !important;
 
 }
 
-.cartHistoryDeleteBtn {
-  margin-right: 20em !important;
-}
 
 .cartListDeleteBtn {
   margin-top: -3em;
-  margin-left: 19em;
+  margin-left: 16em;
 }
 
 .warning {
@@ -158,6 +172,36 @@ table {
   margin: 0 auto !important;
   color: #8f8f8f;
 
+}
+
+.cartHistoryDeleteBtn {
+  background-color: #750000 !important;
+  font-size: 1em !important;
+  height: 3.4em;
+  outline: none;
+  border: 1px solid #750000 !important;
+  margin-left: 1.5em;
+}
+
+.cartHistoryDeleteBtn:hover {
+  background-color: #af0505 !important;
+  border: 1px solid #af0505 !important;
+}
+
+.cartDeleteBtn {
+  background-color: #750000 !important;
+  font-size: 1em !important;
+  height: 1.8em;
+  outline: none;
+  border: 1px solid #750000 !important;
+  margin-left: 1.5em;
+  margin-top: 0.9em;
+
+}
+
+.cartDeleteBtn:hover {
+  background-color: #af0505 !important;
+  border: 1px solid #af0505 !important;
 }
 
 .removeImage,
@@ -380,7 +424,7 @@ textarea {
 }
 
 .reviewHistory {
-  color: #114100;
+  color: #595959;
   margin-top: 4em;
   font-size: 2em;
   font-weight: 800;
