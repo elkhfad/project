@@ -11,7 +11,7 @@ export default function AutoLogOut() {
   const handleShow = () => setShow(true);
   useEffect(() => {
     const timer = new IdleTimer({
-      timeout: 600, //seconds
+      timeout: 300, //seconds
       onTimeout: () => {
         setIsTimeout(true);
         handleShow();
