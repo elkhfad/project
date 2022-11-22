@@ -9,6 +9,7 @@ import logInService from '../../services/login';
 import Image from 'react-bootstrap/Image';
 import { FaTasks } from 'react-icons/fa';
 import { MdAccountCircle } from 'react-icons/md';
+import { MdContactSupport } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useCurrentUser } from '../../services/currenUser';
@@ -40,6 +41,9 @@ function NavBar() {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+            <Nav.Link as={Link} to="/contact">
+              Contact <MdContactSupport />
+            </Nav.Link>
             <Nav.Link as={Link} to="/">
               Shopping <BsFillBagFill />
             </Nav.Link>

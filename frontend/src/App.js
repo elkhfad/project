@@ -11,6 +11,7 @@ import CartList from './component/modal/cartsList';
 import Cart from './component/modal/Cart';
 import CartsListHistory from './component/modal/cartsListHistory';
 import CartHistory from './component/modal/CartHistory';
+import Contact from './pages/Contact';
 
 function App() {
   const { currentUser } = useCurrentUser();
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route extact path="/" element={<Shopping />} />
             <Route path="/signIn" element={<SignIn />} />
+            <Route path="/contact" element={<Contact />} />
             {currentUser && <Route path="/items/:id" element={<EditItem />} />}
             {currentUser && <Route path="/itemList" element={<ItemList />} />}
             {currentUser && <Route path="/accounts" element={<Account />} />}
