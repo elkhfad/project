@@ -71,7 +71,7 @@ function NavBar() {
                   My items <FaTasks />
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/cartList">
-                  Cart list <BsCart4 />
+                  Cart <BsCart4 />
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/cartsListHistory">
                   Review your order history <RiFileHistoryFill />
