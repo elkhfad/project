@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
     type: String,
     require: true,
     minLength: 5,
+    unique: true,
   },
   city: {
     type: String,

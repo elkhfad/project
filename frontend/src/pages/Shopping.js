@@ -78,7 +78,6 @@ const Shopping = () => {
         .update(cartWishUrl, cart)
         .then((res) => {
           setCartData(res);
-          console.log(cartdata);
           setError(null);
           navigate('/');
         })
