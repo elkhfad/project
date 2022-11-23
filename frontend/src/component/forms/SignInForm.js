@@ -37,8 +37,8 @@ const SignInForm = ({ error, handleLogin, handlePasswordChange, handleEmailChang
           <button className="addNewItem" type="submit">
             Send
           </button>
-          <Register />
         </Form>
+        <Register />
       </div>
     </div>
   );
