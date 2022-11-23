@@ -99,7 +99,7 @@ const Shopping = () => {
       <div className="search">
         <input id="search" name="search" placeholder="search by title" onChange={handleSearch} value={search} />
       </div>
-      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
+      {currentUser && <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>}
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div className="container mt-5">
         <div className="mt-3" style={{ float: 'right' }}>
