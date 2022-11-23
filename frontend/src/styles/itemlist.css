@@ -191,12 +191,19 @@ table {
 .cartDeleteBtn {
   background-color: #750000 !important;
   font-size: 1em !important;
-  height: 1.8em;
   outline: none;
   border: 1px solid #750000 !important;
   margin-left: 1.5em;
   margin-top: 0.9em;
 
+}
+
+.cartDate {
+  font-size: 1.2em;
+  text-transform: capitalize;
+  margin-top: 1.5em;
+  color: #145713;
+  font-weight: 600;
 }
 
 .cartDeleteBtn:hover {
