@@ -14,7 +14,7 @@ itemsRouter.get('/', async (request, response, next) => {
   try {
     const items = await Item.find();
     const itemsByUser = items.filter((userByItem) => {
-      return userByItem.user.valueOf() === user._id.valueOf();
+      return userByItem?.user?.valueOf() === user._id.valueOf();
     });
     if (itemsByUser) {
       response.json(itemsByUser);
