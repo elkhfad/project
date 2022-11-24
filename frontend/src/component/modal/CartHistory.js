@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import services from '../../services/cartsService';
-import Table from 'react-bootstrap/Table';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import AlertComponent from '../Alert/AlertComponent';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 const CartHistory = () => {
   const navigate = useNavigate();
@@ -28,13 +34,20 @@ const CartHistory = () => {
       });
   }, [id, url]);
 
-  const sum = () => {
-    let sum = 0;
-    carts.map((cart) => {
-      return (sum += cart.price);
-    });
-    return sum;
+  const TAX_RATE = 0.22;
+
+  const ccyFormat = (num) => {
+    return `${num.toFixed(2)}`;
   };
+
+  const subtotal = (items) => {
+    return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+  };
+
+  const invoiceSubtotal = subtotal(carts);
+  const invoiceTaxes = TAX_RATE * invoiceSubtotal;
+  const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+
   return (
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
@@ -44,38 +57,54 @@ const CartHistory = () => {
           Back <IoReturnDownBackOutline />
         </Button>
       </div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>picture</th>
-            <th>title</th>
-            <th>{`price \u20AC`}</th>
-          </tr>
-        </thead>
-        {carts.map((item, index) => {
-          return (
-            <tbody key={item.id + index}>
-              <tr>
-                <td>{index + 1}</td>
-                <td>
+
+      <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
+        <Table sx={{ minWidth: 700 }} aria-label="spanning table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center" colSpan={3}>
+                Details
+              </TableCell>
+              <TableCell align="right">Price</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Title</TableCell>
+              <TableCell align="right">Amount</TableCell>
+              <TableCell align="right">Picture</TableCell>
+              <TableCell align="right">Unit</TableCell>
+              <TableCell align="right">Sum</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {carts.map((item, index) => (
+              <TableRow key={item.id + index}>
+                <TableCell>{item.title}</TableCell>
+                <TableCell align="right">{1}</TableCell>
+                <TableCell align="right">
                   <img src={item.pic} alt="" width="50" height="50" />
-                </td>
-                <td>{item.title}</td>
-                <td>{`${item.price} \u20AC`}</td>
-              </tr>
-            </tbody>
-          );
-        })}
-        <tbody>
-          <tr>
-            <td> Total</td>
-            <td></td>
-            <td> {` ${carts.length} pcs `}</td>
-            <td> {` ${sum()} \u20AC `}</td>
-          </tr>
-        </tbody>
-      </Table>
+                </TableCell>
+                <TableCell align="right">{item.price}</TableCell>
+                <TableCell align="right">{ccyFormat(1 * item.price)}</TableCell>
+              </TableRow>
+            ))}
+
+            <TableRow>
+              <TableCell rowSpan={3} />
+              <TableCell colSpan={2}>Subtotal</TableCell>
+              <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Tax</TableCell>
+              <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
+              <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell colSpan={2}>Total</TableCell>
+              <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
