@@ -9,8 +9,8 @@ import { BsTrash } from 'react-icons/bs';
 import services from '../../services/cartsService';
 
 const CartsListHistory = () => {
-  const cartUrl = 'http://localhost:3001/api/carts/all';
-  const url = 'http://localhost:3001/api/carts';
+  const cartUrl = '/api/carts/all';
+  const url = '/api/carts';
   const { cartdata, isPending } = useGetCartList(cartUrl);
   const navigate = useNavigate();
 

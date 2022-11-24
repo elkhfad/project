@@ -31,7 +31,7 @@ const EditItem = () => {
   const [success, setSuccess] = useState(null);
 
   const navigate = useNavigate();
-  const url = `http://localhost:3001/api/items`;
+  const url = `/api/items`;
 
   useEffect(() => {
     services

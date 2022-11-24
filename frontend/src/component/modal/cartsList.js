@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const CartList = () => {
-  const cartUrl = 'http://localhost:3001/api/carts/all';
+  const cartUrl = '/api/carts/all';
   const { cartdata } = useGetCartList(cartUrl);
   const navigate = useNavigate();
   useEffect(() => {

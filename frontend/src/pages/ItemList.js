@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Items from '../component/Items';
 
 const ItemList = () => {
-  const url = 'http://localhost:3001/api/items';
+  const url = '/api/items';
   const { data, isPending, setData } = useGetAllItemsToUser(url);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);

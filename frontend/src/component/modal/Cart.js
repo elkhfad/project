@@ -19,15 +19,15 @@ import Paper from '@mui/material/Paper';
 
 const Cart = () => {
   const navigate = useNavigate();
-  const cartUrl = 'http://localhost:3001/api/carts/all';
+  const cartUrl = '/api/carts/all';
   const [isPending, setIsPending] = useState(true);
   const { cartdata } = useGetCartList(cartUrl);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const [carts, setCart] = useState([]);
-  const url = 'http://localhost:3001/api/carts';
-  const urlBuy = 'http://localhost:3001/api/carts/buy';
-  const cartWishUrl = 'http://localhost:3001/api/carts/wishlist';
+  const url = '/api/carts';
+  const urlBuy = '/api/carts/buy';
+  const cartWishUrl = '/api/carts/wishlist';
 
   useEffect(() => {
     services

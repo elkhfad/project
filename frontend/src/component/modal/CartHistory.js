@@ -19,7 +19,7 @@ const CartHistory = () => {
   const [error, setError] = useState(null);
   const { id } = useParams();
   const [carts, setCart] = useState([]);
-  const url = 'http://localhost:3001/api/carts';
+  const url = '/api/carts';
   useEffect(() => {
     services
       .getById(url, id)

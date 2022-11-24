@@ -17,7 +17,7 @@ const Account = () => {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const url = `http://localhost:3001/api/users`;
+  const url = `/api/users`;
   const [account, setAccount] = useState({
     firstName: '',
     lastName: '',

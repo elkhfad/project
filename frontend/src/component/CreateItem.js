@@ -14,7 +14,7 @@ const CreateItem = ({ data, setData }) => {
     amount: '',
     pic: '',
   });
-  const url = 'http://localhost:3001/api/items';
+  const url = '/api/items';
 
   useEffect(() => {
     const validation = () => {

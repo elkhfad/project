@@ -15,9 +15,9 @@ import { useCurrentUser } from '../services/currenUser';
 const Shopping = () => {
   const navigate = useNavigate();
   const { currentUser } = useCurrentUser();
-  const url = 'http://localhost:3001/api/items/all';
-  const cartUrl = 'http://localhost:3001/api/carts';
-  const cartWishUrl = 'http://localhost:3001/api/carts/wishlist';
+  const url = '/api/items/all';
+  const cartUrl = '/api/carts';
+  const cartWishUrl = '/api/carts/wishlist';
   const { data, isPending } = useGetAllItems(url);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);

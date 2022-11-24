@@ -17,7 +17,7 @@ const Register = () => {
     city: '',
     pic: '',
   });
-  const url = 'http://localhost:3001/api/users';
+  const url = '/api/users';
   useEffect(() => {
     const validation = () => {
       if (
