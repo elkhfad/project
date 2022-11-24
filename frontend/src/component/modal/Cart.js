@@ -27,6 +27,8 @@ const Cart = () => {
   const [carts, setCart] = useState([]);
   const url = 'http://localhost:3001/api/carts';
   const urlBuy = 'http://localhost:3001/api/carts/buy';
+  const cartWishUrl = 'http://localhost:3001/api/carts/wishlist';
+
   useEffect(() => {
     services
       .getById(url, id)
@@ -64,9 +66,21 @@ const Cart = () => {
   };
 
   const subtotal = (items) => {
-    return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+    return items?.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
   };
-
+  const getByIdItems = () => {
+    services
+      .getById(url, id)
+      .then((res) => {
+        setCart(res.data);
+        setIsPending(false);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err.response.data.error);
+        setIsPending(false);
+      });
+  };
   const invoiceSubtotal = subtotal(carts);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
@@ -81,6 +95,22 @@ const Cart = () => {
     });
     const time = cart[0]?.time;
     return time;
+  };
+
+  const deleteItem = async (itemId, index) => {
+    const cartItem = carts.filter((cart, i) => {
+      return cart.id + i !== itemId + index;
+    });
+    const itemsList = cartItem.map((cart) => {
+      return cart.id;
+    });
+    const cart = {
+      items: itemsList,
+      time: cartdata.time,
+      user: cartdata.user,
+    };
+    await services.update(cartWishUrl, cart);
+    getByIdItems();
   };
 
   return (
@@ -139,6 +169,21 @@ const Cart = () => {
                 </TableCell>
                 <TableCell align="right">
                   {ccyFormat(1 * item.price)} {'\u20AC'}
+                </TableCell>
+                <TableCell align="right">
+                  <Confirm
+                    icon={<BsTrash />}
+                    title={`Are you sure ?`}
+                    body={`You won't be able to revert deleted item!`}
+                    confirm="Yes delete it"
+                    cancelColor="success"
+                    confirmColor="danger"
+                    buttonName="Delete"
+                    itemDeleteBtn="itemDeleteBtn"
+                    handleClick={() => {
+                      deleteItem(item.id, index);
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             ))}
