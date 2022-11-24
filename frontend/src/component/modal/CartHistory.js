@@ -62,7 +62,7 @@ const CartHistory = () => {
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
             <TableRow>
-              <TableCell align="center" colSpan={3}>
+              <TableCell align="center" colSpan={4}>
                 Details
               </TableCell>
               <TableCell align="right">Price</TableCell>
