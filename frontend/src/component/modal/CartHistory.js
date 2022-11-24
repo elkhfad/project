@@ -83,24 +83,34 @@ const CartHistory = () => {
                 <TableCell align="right">
                   <img src={item.pic} alt="" width="50" height="50" />
                 </TableCell>
-                <TableCell align="right">{item.price}</TableCell>
-                <TableCell align="right">{ccyFormat(1 * item.price)}</TableCell>
+                <TableCell align="right">
+                  {item.price} {'\u20AC'}
+                </TableCell>
+                <TableCell align="right">
+                  {ccyFormat(1 * item.price)} {'\u20AC'}
+                </TableCell>
               </TableRow>
             ))}
 
             <TableRow>
               <TableCell rowSpan={3} />
               <TableCell colSpan={2}>Subtotal</TableCell>
-              <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
+              <TableCell align="right">
+                {ccyFormat(invoiceSubtotal)} {'\u20AC'}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Tax</TableCell>
               <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
-              <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
+              <TableCell align="right">
+                {ccyFormat(invoiceTaxes)} {'\u20AC'}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
-              <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
+              <TableCell align="right">
+                {ccyFormat(invoiceTotal)} {'\u20AC'}
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
