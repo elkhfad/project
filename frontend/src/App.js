@@ -1,5 +1,5 @@
 import Shopping from './pages/Shopping';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import SignIn from './pages/SignIn';
 import EditItem from './component/modal/EditItem';
 import NewNavBar from './component/modal/NavBar';
@@ -16,7 +16,7 @@ import Contact from './pages/Contact';
 function App() {
   const { currentUser } = useCurrentUser();
   return (
-    <BrowserRouter basename="/">
+    <HashRouter basename="/">
       <div className="App">
         <NewNavBar />
         <div className="content">
@@ -45,7 +45,7 @@ function App() {
         </div>
       </div>
       <footer> &copy; {new Date().getFullYear()} Copyright: </footer>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
