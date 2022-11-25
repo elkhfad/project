@@ -123,21 +123,6 @@ const Cart = () => {
         </Button>
       </div>
       <div className="cartDate">cart created {moment(new Date(handleTime())).format('DD/MM/YYYY hh:mm:ss')}</div>
-      <div style={{ float: 'left', margin: '1em' }}>
-        <Confirm
-          icon={<BsTrash />}
-          title={`Are you sure ?`}
-          body={`You won't be able to revert deleted item!`}
-          confirm="Yes delete it"
-          cancelColor="success"
-          confirmColor="danger"
-          buttonName="Delete"
-          itemDeleteBtn="cartDeleteBtn"
-          handleClick={() => {
-            handleDelete(id);
-          }}
-        />
-      </div>
 
       <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
@@ -211,9 +196,28 @@ const Cart = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button className="buyCart" onClick={() => handleBuy()}>
-        Buy
-      </Button>
+      <div className="cartButtons">
+        <div>
+          <Button className="buyCart" onClick={() => handleBuy()}>
+            Buy
+          </Button>
+        </div>
+        <div>
+          <Confirm
+            icon={<BsTrash />}
+            title={`Are you sure ?`}
+            body={`You won't be able to revert deleted cart! ${moment(new Date(handleTime())).format('DD/MM/YYYY hh:mm:ss')}`}
+            confirm="Yes delete it"
+            cancelColor="success"
+            confirmColor="danger"
+            buttonName="Delete"
+            itemDeleteBtn="wholecartDeleteBtn"
+            handleClick={() => {
+              handleDelete(id);
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };

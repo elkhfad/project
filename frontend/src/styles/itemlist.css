@@ -187,6 +187,7 @@ table {
   border: 1px solid #af0505 !important;
 }
 
+
 .cartDeleteBtn {
   background-color: #750000 !important;
   font-size: 1em !important;
@@ -197,6 +198,16 @@ table {
 
 }
 
+.wholecartDeleteBtn {
+  outline: none;
+  border: 1px solid #750000 !important;
+  color: #b7b7b7 !important;
+  background-color: #750000 !important;
+  width: 20em;
+  height: 3em;
+}
+
+
 .cartDate {
   font-size: 1.2em;
   text-transform: capitalize;
@@ -205,6 +216,7 @@ table {
   font-weight: 600;
 }
 
+.wholecartDeleteBtn:hover,
 .cartDeleteBtn:hover {
   background-color: #af0505 !important;
   border: 1px solid #af0505 !important;
@@ -271,7 +283,7 @@ textarea {
   background-color: #023d01 !important;
   width: 20em;
   height: 3em;
-  margin-bottom: 3em !important;
+  margin-bottom: 1.5em !important;
 }
 
 .buyCart:hover {

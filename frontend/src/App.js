@@ -16,7 +16,7 @@ import Contact from './pages/Contact';
 function App() {
   const { currentUser } = useCurrentUser();
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <div className="App">
         <NewNavBar />
         <div className="content">
