@@ -6,7 +6,7 @@ import Register from '../modal/Register';
 const SignInForm = ({ error, handleLogin, handlePasswordChange, handleEmailChange, email, password }) => {
   return (
     <div>
-      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
+      <div>{error && <AlertComponent variant="danger" header="Error occurred, Please check details" text={error} />}</div>
       <div className="sigInForm">
         <Form id="sigInForm" onSubmit={handleLogin}>
           <div>
@@ -20,7 +20,7 @@ const SignInForm = ({ error, handleLogin, handlePasswordChange, handleEmailChang
                 <ChooseIcon value={email} min={5} />
               </div>
             </div>
-            {<ErrorHandler min={5} value={email} text="Title length is too short !  required 5 characters" />}
+            {<ErrorHandler min={5} value={email} text="Title is short!  min 5 characters required" />}
 
             <div className="email">
               <label htmlFor="password">password *</label>
@@ -31,11 +31,11 @@ const SignInForm = ({ error, handleLogin, handlePasswordChange, handleEmailChang
                 <ChooseIcon value={password} min={8} />
               </div>
             </div>
-            {<ErrorHandler min={8} value={password} text="Password length is too short !  required 8 characters" />}
+            {<ErrorHandler min={8} value={password} text="Password length is too short !  min 8 characters required" />}
           </div>
 
           <button className="addNewItem" type="submit">
-            Send
+            Submit
           </button>
         </Form>
         <Register />

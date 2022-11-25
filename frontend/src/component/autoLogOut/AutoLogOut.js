@@ -41,7 +41,7 @@ export default function AutoLogOut() {
               <div className="iconStyle warning">
                 <BsExclamationCircle />
               </div>
-              {`You have not been active for 10 min`}
+              {`Loggin period expired, please sign back in`}
             </Modal.Body>
             <Modal.Footer>
               <Button

@@ -116,7 +116,7 @@ const Cart = () => {
   return (
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
-      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
+      <div>{error && <AlertComponent variant="danger" header="Error occurred!" text={error} />}</div>
       <div>
         <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => navigate('/')}>
           Back <IoReturnDownBackOutline />
@@ -158,7 +158,7 @@ const Cart = () => {
                 <TableCell align="right">
                   <Confirm
                     icon={<BsTrash />}
-                    title={`Are you sure ?`}
+                    title={`Are you sure?`}
                     body={`You won't be able to revert deleted item!`}
                     confirm="Yes delete it"
                     cancelColor="success"

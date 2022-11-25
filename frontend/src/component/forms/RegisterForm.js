@@ -11,7 +11,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
     <div>
       <div>
         <button className="addNewItem" style={{ fontSize: '18px' }} onClick={handleShow}>
-          Do you want to register ?
+           Registration Required!
         </button>
       </div>
       <Modal show={show} onHide={handleClose}>
@@ -24,9 +24,9 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
           <div className="registerForm">
             <Form id="registerform" onSubmit={handleSubmit}>
               <div>
-                <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
+                <div>{error && <AlertComponent variant="danger" header="Error occurred!" text={error} />}</div>
 
-                <label htmlFor="firstName">first name *</label>
+                <label htmlFor="firstName">Name *</label>
                 <div className="input-group">
                   <input
                     className="form-control"
@@ -37,15 +37,15 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     onChange={handleChange}
                     required
                     maxLength={50}
-                    placeholder="Write your first name"
+                    placeholder="Enter first name"
                   />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.firstName} min={3} />
                   </div>
                 </div>
-                {<ErrorHandler min={3} value={signUp.firstName} text="First length is too short !  required 3 characters" />}
+                {<ErrorHandler min={3} value={signUp.firstName} text="length is short ! min 3 characters required " />}
 
-                <label htmlFor="lastName">Last name *</label>
+                <label htmlFor="lastName">Surname *</label>
                 <div className="input-group">
                   <input
                     className="form-control"
@@ -56,13 +56,13 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     onChange={handleChange}
                     required
                     maxLength={50}
-                    placeholder="Write your last name"
+                    placeholder="Enter last name"
                   />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.lastName} min={5} />
                   </div>
                 </div>
-                {<ErrorHandler min={5} value={signUp.lastName} text="First length is too short !  required 5 characters" />}
+                {<ErrorHandler min={5} value={signUp.lastName} text="length is short!  min 5 characters required" />}
 
                 <label htmlFor="email">email *</label>
                 <div className="input-group">
@@ -71,7 +71,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.email} min={5} />
                   </div>
                 </div>
-                {<ErrorHandler min={5} value={signUp.email} text="Title length is too short !  required 5 characters" />}
+                {<ErrorHandler min={5} value={signUp.email} text="Title is short ! min 5 characters required" />}
 
                 <label htmlFor="password">password *</label>
                 <div className="input-group">
@@ -80,7 +80,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.password} min={8} />
                   </div>
                 </div>
-                {<ErrorHandler min={8} value={signUp.password} text="Password length is too short !  required 8 characters" />}
+                {<ErrorHandler min={8} value={signUp.password} text="Password is too short!  min  8 characters required" />}
 
                 <label htmlFor="city">City *</label>
                 <div className="input-group">
@@ -89,7 +89,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.city} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={4} value={signUp.city} text="City length is too short !  required 4 characters" />}
+                {<ErrorHandler min={4} value={signUp.city} text="Enter City  !  min 4 characters required" />}
 
                 <label htmlFor="street">Street *</label>
                 <div className="input-group">
@@ -98,7 +98,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.street} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={4} value={signUp.street} text="Street length is too short !  required 4 characters" />}
+                {<ErrorHandler min={4} value={signUp.street} text="Enter Street! min 4 characters required " />}
 
                 <label htmlFor="postalCode">Postal code *</label>
                 <div className="input-group">
@@ -111,13 +111,13 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     value={signUp.postalCode}
                     onChange={handleChange}
                     maxLength={10}
-                    placeholder="Your postal code"
+                    placeholder="Enter postal code"
                   />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.postalCode} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={4} value={signUp.postalCode} text="Postal code length is too short !  required 4 characters" />}
+                {<ErrorHandler min={4} value={signUp.postalCode} text="Enter Postal code!  min 4 characters required" />}
               </div>
               <div className="input-group">
                 <Image src={signUp.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
