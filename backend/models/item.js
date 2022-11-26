@@ -2,7 +2,6 @@ const logger = require('../utils/logger');
 
 logger.info('mongo starting');
 require('dotenv').config();
-const config = require('../utils/config');
 
 const mongoose = require('mongoose');
 
@@ -18,10 +17,6 @@ const itemSchema = new mongoose.Schema({
     minlength: 5,
   },
   price: {
-    type: Number,
-    required: true,
-  },
-  amount: {
     type: Number,
     required: true,
   },

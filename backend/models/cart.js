@@ -2,21 +2,18 @@ const logger = require('../utils/logger');
 
 logger.info('mongo starting');
 require('dotenv').config();
-const config = require('../utils/config');
 
 const mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({
-  items: [
+  buyItems: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Item',
+      buyItem: String,
+      amount: Number,
+      price: Number,
     },
   ],
 
-  amount: {
-    type: Number,
-  },
   time: {
     type: String,
   },

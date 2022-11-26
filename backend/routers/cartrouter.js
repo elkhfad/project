@@ -13,13 +13,21 @@ cartRouter.post('/', async (request, response, next) => {
     return response.status(401).json({ error: 'token missing or invalid' });
   }
   const user = await User.findById(decodedToken.id);
+  const findItem = await Item.find();
+  const cartPrice = findItem.filter((item) => {
+    return item._id.valueOf() === body.buyItem;
+  });
   const cart = new Cart({
-    amount: body.amount,
+    buyItems: {
+      buyItem: body.buyItem,
+      amount: body.amount,
+      price: cartPrice[0].price,
+    },
     user: user._id,
-    items: body.items,
     time: new Date(),
     wish: true,
   });
+
   try {
     const savedCart = await cart.save();
     user.carts = user.carts.concat(savedCart._id);
@@ -86,10 +94,9 @@ cartRouter.get('/:id', async (request, response, next) => {
   } else if (findCart) {
     try {
       const cart = await Cart.findById(request.params.id);
-
       let getItemsByIds = [];
-      for (let i = 0; i < cart.items.length; i++) {
-        let findItem = await Item.findById(cart.items[i].valueOf());
+      for (let i = 0; i < cart.buyItems?.length; i++) {
+        let findItem = await Item.findById(cart.buyItems[i].buyItem);
         getItemsByIds.push(findItem);
       }
       if (cart) {
@@ -130,24 +137,38 @@ cartRouter.put('/buy/:id', async (request, response, next) => {
   }
 });
 
-cartRouter.put('/wishlist', async (request, response, next) => {
+cartRouter.post('/wishlist', async (request, response, next) => {
   const token = getToken.getTokenFrom(request);
+  const body = request.body;
   const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
   const user = await User.findById(decodedToken.id);
   const carts = await Cart.find();
   const cartsByUser = carts.filter((userByCart) => {
     return userByCart.user.valueOf() === user._id.valueOf();
   });
-  if (!token || !decodedToken.id) {
-    return response.status(401).json({ error: 'token missing or invalid' });
-  } else if (cartsByUser) {
+  if (cartsByUser) {
     try {
       const findWishList = cartsByUser.filter((cart) => {
         return cart.wish === true;
       });
-      const wishListUpdate = await Cart.findByIdAndUpdate(findWishList[0]._id.valueOf(), request.body);
-      if (wishListUpdate) {
-        response.json(wishListUpdate);
+      const cartPersist = await Cart.findById(findWishList[0]._id.valueOf());
+      const findItem = await Item.find();
+      const cartPrice = findItem.filter((item) => {
+        return item._id.valueOf() === body.buyItems.buyItem;
+      });
+      const cart = {
+        buyItem: body.buyItems.buyItem,
+        amount: body.buyItems.amount,
+        price: cartPrice[0].price,
+      };
+      cartPersist.buyItems = findWishList[0].buyItems.concat(cart);
+      await cartPersist.save();
+
+      if (cartPersist) {
+        response.json(cartPersist);
       } else {
         response.status(404).end();
       }
