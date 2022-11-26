@@ -15,14 +15,12 @@ const EditItem = () => {
     title: '',
     comment: '',
     price: '',
-    amount: '',
     pic: '',
   });
   const [itemOriginal, setItemOriginal] = useState({
     title: '',
     comment: '',
     price: '',
-    amount: '',
     pic: '',
   });
   const { id } = useParams();
@@ -67,7 +65,6 @@ const EditItem = () => {
           title: item.title,
           comment: item.comment,
           price: item.price,
-          amount: item.amount,
           pic: reader.result,
         });
       });
@@ -80,7 +77,6 @@ const EditItem = () => {
       title: item.title,
       comment: item.comment,
       price: item.price,
-      amount: item.amount,
       pic: item.pic,
     };
 
@@ -104,7 +100,6 @@ const EditItem = () => {
       title: itemOriginal.title,
       comment: itemOriginal.comment,
       price: itemOriginal.price,
-      amount: itemOriginal.amount,
       pic: itemOriginal.pic,
     });
   };
@@ -113,7 +108,6 @@ const EditItem = () => {
       title: item.title,
       comment: item.comment,
       price: item.price,
-      amount: item.amount,
       pic: '',
     });
   };
@@ -177,11 +171,6 @@ const EditItem = () => {
               <label htmlFor="price">Price {'\u20AC'} *</label>
               <div className="input-group">
                 <input className="form-control" id="price" name="price" type="number" step="0.001" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
-              </div>
-
-              <label htmlFor="amount">Amount *</label>
-              <div className="input-group">
-                <input className="form-control" id="amount" style={{ width: '12px' }} name="amount" type="number" value={item.amount} onChange={handleChange} required placeholder="Amount of pieces" />
               </div>
 
               <div className="input-group">

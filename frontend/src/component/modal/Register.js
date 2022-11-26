@@ -2,11 +2,10 @@ import registerServices from '../../services/registerService';
 import RegisterForm from '../forms/RegisterForm';
 import { useEffect, useState } from 'react';
 
-const Register = () => {
+const Register = ({ image, setImage }) => {
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
   const [show, setShow] = useState(false);
-  const [image, setImage] = useState('');
   const [signUp, setSignUp] = useState({
     firstName: '',
     lastName: '',

@@ -7,7 +7,6 @@ const SignIn = () => {
   const [valid, setValid] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   useEffect(() => {
     const validation = () => {
       if (email.length > 4 && password.length > 7) {
@@ -26,7 +25,6 @@ const SignIn = () => {
           password,
         });
         sessionStorage.setItem('currenUser', JSON.stringify(newUser));
-        sessionStorage.setItem('image', JSON.stringify(newUser.pic));
         setEmail('');
         setPassword('');
         window.location.href = '/';

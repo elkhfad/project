@@ -29,7 +29,6 @@ const Items = ({ data }) => {
                 <ListGroup.Item className="listGroupItem">
                   <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
                 </ListGroup.Item>
-                <ListGroup.Item className="listGroupItem">Amount: {data.amount}</ListGroup.Item>
               </ListGroup>
             </Card>
           </div>

@@ -11,9 +11,8 @@ import { BsTrash } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import services from '../services/registerService';
 
-const Account = () => {
+const Account = ({ image, setImage, newImage }) => {
   const navigate = useNavigate();
-  const [image, setImage] = useState('');
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -39,7 +38,6 @@ const Account = () => {
   });
   const removeImage = () => {
     setImage('');
-    sessionStorage.setItem('image', JSON.stringify(''));
   };
   useEffect(() => {
     setIsPending(true);
@@ -56,7 +54,7 @@ const Account = () => {
         setError(err.response.data.error);
         setIsPending(false);
       });
-  }, [url]);
+  }, [url, setImage]);
 
   const handleChange = (e) => {
     setAccount({ ...account, [e.target.name]: e.target.value });
@@ -105,7 +103,7 @@ const Account = () => {
         .update(url, updateAccount)
         .then((res) => {
           setAccount(res);
-          sessionStorage.setItem('image', JSON.stringify(image));
+          setImage(res.pic);
           handleClose();
           setError(null);
           setIsPending(false);
@@ -115,6 +113,7 @@ const Account = () => {
           setError(err.message);
           setIsPending(false);
         });
+      newImage();
     }
   };
   const handleClose = () => {

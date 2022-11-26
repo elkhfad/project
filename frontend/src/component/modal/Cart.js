@@ -28,7 +28,9 @@ const Cart = () => {
   const url = '/api/carts';
   const urlBuy = '/api/carts/buy';
   const cartWishUrl = '/api/carts/wishlist';
-
+  const cart = cartdata.filter((cart) => {
+    return cart.id === id;
+  });
   useEffect(() => {
     services
       .getById(url, id)
@@ -61,12 +63,12 @@ const Cart = () => {
   };
   const TAX_RATE = 0.22;
 
-  const ccyFormat = (num) => {
-    return `${num.toFixed(2)}`;
-  };
-
   const subtotal = (items) => {
-    return items?.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+    return items
+      ?.map(({ price, amount }) => {
+        return price * amount;
+      })
+      .reduce((sum, i) => sum + i, 0);
   };
   const getByIdItems = () => {
     services
@@ -81,7 +83,7 @@ const Cart = () => {
         setIsPending(false);
       });
   };
-  const invoiceSubtotal = subtotal(carts);
+  const invoiceSubtotal = subtotal(cart[0]?.buyItems);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
   const handleDelete = (id) => {
@@ -89,10 +91,8 @@ const Cart = () => {
       navigate('/');
     });
   };
+
   const handleTime = () => {
-    const cart = cartdata.filter((cart) => {
-      return cart.id === id;
-    });
     const time = cart[0]?.time;
     return time;
   };
@@ -123,7 +123,6 @@ const Cart = () => {
         </Button>
       </div>
       <div className="cartDate">cart created {moment(new Date(handleTime())).format('DD/MM/YYYY hh:mm:ss')}</div>
-
       <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
@@ -145,7 +144,7 @@ const Cart = () => {
             {carts.map((item, index) => (
               <TableRow key={item.id + index}>
                 <TableCell>{item.title}</TableCell>
-                <TableCell align="right">{1}</TableCell>
+                <TableCell align="right">{cart[0].buyItems[index]?.amount} pcs</TableCell>
                 <TableCell align="right">
                   <img src={item.pic} alt="" width="50" height="50" />
                 </TableCell>
@@ -153,7 +152,7 @@ const Cart = () => {
                   {item.price} {'\u20AC'}
                 </TableCell>
                 <TableCell align="right">
-                  {ccyFormat(1 * item.price)} {'\u20AC'}
+                  {(cart[0].buyItems[index]?.price * cart[0].buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
                 </TableCell>
                 <TableCell align="right">
                   <Confirm
@@ -177,20 +176,20 @@ const Cart = () => {
               <TableCell rowSpan={3} />
               <TableCell colSpan={2}>Subtotal</TableCell>
               <TableCell align="right">
-                {ccyFormat(invoiceSubtotal)} {'\u20AC'}
+                {invoiceSubtotal} {'\u20AC'}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Tax</TableCell>
               <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
               <TableCell align="right">
-                {ccyFormat(invoiceTaxes)} {'\u20AC'}
+                {invoiceTaxes.toFixed(2)} {'\u20AC'}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
               <TableCell align="right">
-                {ccyFormat(invoiceTotal)} {'\u20AC'}
+                {invoiceTotal.toFixed(2)} {'\u20AC'}
               </TableCell>
             </TableRow>
           </TableBody>

@@ -61,11 +61,6 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
                 <div className="input-group">
                   <input className="form-control" id="price" name="price" type="number" step="0.001" value={addItem.price} onChange={handleChange} required placeholder="How much it cost" min="0" />
                 </div>
-
-                <label htmlFor="amount">Amount *</label>
-                <div className="input-group">
-                  <input className="form-control" id="amount" name="amount" type="number" value={addItem.amount} onChange={handleChange} required placeholder="How many pieces do you have" min="0" />
-                </div>
                 <div className="input-group">
                   <img src={image} alt="" style={{ width: '8rem', margin: '0 auto' }} />
                 </div>

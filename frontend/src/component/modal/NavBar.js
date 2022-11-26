@@ -11,25 +11,12 @@ import { FaTasks } from 'react-icons/fa';
 import { MdAccountCircle } from 'react-icons/md';
 import { MdContactSupport } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { useCurrentUser } from '../../services/currenUser';
 import { BsCart4 } from 'react-icons/bs';
 import { RiFileHistoryFill } from 'react-icons/ri';
 
-function NavBar() {
+function NavBar({ image }) {
   const { currentUser } = useCurrentUser();
-  const [image, setImage] = useState([]);
-
-  const handleImageToSession = () => {
-    const avatar = sessionStorage.getItem('image');
-    const avatarImage = JSON.parse(avatar);
-    setImage(avatarImage);
-  };
-  useEffect(() => {
-    window.addEventListener('mouseover', () => {
-      handleImageToSession();
-    });
-  }, [image]);
   const handleLockOut = () => {
     logInService.logout();
   };

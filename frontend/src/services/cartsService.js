@@ -39,12 +39,12 @@ const buyUpdate = async (baseUrl, newObject, id) => {
   const response = await axios.put(`${baseUrl}/${id}`, newObject, config);
   return response.data;
 };
-const update = async (baseUrl, newObject) => {
+const addItemToCart = async (baseUrl, newObject) => {
   setToken();
   const config = {
     headers: { Authorization: token },
   };
-  const response = await axios.put(`${baseUrl}`, newObject, config);
+  const response = await axios.post(`${baseUrl}`, newObject, config);
   return response.data;
 };
 const getById = (baseUrl, id) => {
@@ -65,7 +65,7 @@ const deleteCart = async (baseUrl, id) => {
 //eslint-disable-next-line
 export default {
   create,
-  update,
+  addItemToCart,
   getAllCartByUser,
   getById,
   getCartWishIsTrue,

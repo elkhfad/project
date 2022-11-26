@@ -12,13 +12,27 @@ import Cart from './component/modal/Cart';
 import CartsListHistory from './component/modal/cartsListHistory';
 import CartHistory from './component/modal/CartHistory';
 import Contact from './pages/Contact';
+import { useEffect, useState } from 'react';
+import services from './services/registerService';
 
 function App() {
   const { currentUser } = useCurrentUser();
+  const [image, setImage] = useState('');
+
+  const url = `/api/users`;
+
+  const newImage = () => {
+    services.getUser(url).then((res) => {
+      setImage(res.pic);
+    });
+  };
+  useEffect(() => {
+    if (currentUser && setImage(currentUser?.pic));
+  }, [currentUser]);
   return (
     <HashRouter basename="/">
       <div className="App">
-        <NewNavBar />
+        <NewNavBar image={image} setImage={setImage} />
         <div className="content">
           <Routes>
             <Route extact path="/" element={<Shopping />} />
@@ -26,7 +40,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             {currentUser && <Route path="/items/:id" element={<EditItem />} />}
             {currentUser && <Route path="/itemList" element={<ItemList />} />}
-            {currentUser && <Route path="/accounts" element={<Account />} />}
+            {currentUser && <Route path="/accounts" element={<Account image={image} setImage={setImage} newImage={newImage} />} />}
             {currentUser && <Route path="/cartList" element={<CartList />} />}
             {currentUser && <Route path="/cartsListHistory" element={<CartsListHistory />} />}
             {currentUser && <Route path="/cartList/:id" element={<Cart />} />}

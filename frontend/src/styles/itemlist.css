@@ -11,6 +11,39 @@
   text-transform: capitalize !important;
 }
 
+.btnMinus,
+.btnPlus {
+  outline: none;
+  color: #145713 !important;
+  background-color: #b7b7b7 !important;
+  border: 1px solid #f7f7f7 !important;
+  margin-bottom: 0.2em;
+  font-size: 18px;
+  margin-right: 1em;
+}
+
+.btnPlus,
+.btnMinus {
+  outline: none;
+  color: #145713 !important;
+  background-color: #b7b7b7 !important;
+  border: 1px solid #f7f7f7 !important;
+  margin-bottom: 0.2em;
+  font-size: 18px;
+  margin-left: 1em;
+}
+
+.btnPlus:hover,
+.btnMinus:hover {
+  background-color: #145713 !important;
+  color: #b7b7b7 !important;
+}
+
+.btnCartAddAmount {
+  text-align: center;
+  font-size: 2em;
+}
+
 label {
   text-transform: capitalize;
   font-size: 14px;
@@ -473,6 +506,12 @@ textarea {
   border: 2px solid #b7b7b7 !important;
   margin-bottom: 0.5em;
   margin-left: 0.5em;
+}
+
+.addToShoppingCart {
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 0.5em;
 }
 
 textarea {

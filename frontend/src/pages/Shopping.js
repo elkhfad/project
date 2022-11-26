@@ -5,24 +5,21 @@ import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useGetAllItems } from '../component/control/itemsControll';
-import { MdAddShoppingCart } from 'react-icons/md';
 import cartService from '../services/cartsService';
-import { Button } from 'react-bootstrap';
 import AlertComponent from '../component/Alert/AlertComponent';
-import { useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../services/currenUser';
+import CartComponent from '../component/modal/CartComponent';
 
 const Shopping = () => {
-  const navigate = useNavigate();
   const { currentUser } = useCurrentUser();
   const url = '/api/items/all';
   const cartUrl = '/api/carts';
-  const cartWishUrl = '/api/carts/wishlist';
   const { data, isPending } = useGetAllItems(url);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(6);
   const [error, setError] = useState(null);
+  const [cartdata, setCartData] = useState({});
   const results = data.filter((result) => {
     return result.title.toUpperCase().includes(search.toUpperCase());
   });
@@ -30,7 +27,6 @@ const Shopping = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = results.slice(indexOfFirstPost, indexOfLastPost);
   const pageSizes = [3, 6, 9, 12, 20, 50, 100];
-  const [cartdata, setCartData] = useState({});
 
   useEffect(() => {
     const getWishList = () => {
@@ -63,34 +59,6 @@ const Shopping = () => {
   const handlePageSizeChange = (event) => {
     setPostPerPage(event.target.value);
     setCurrentPage(1);
-  };
-
-  const buyItems = async (itemId) => {
-    if (Object.keys(cartdata || {}).length > 0) {
-      const itemsList = (cartdata.items || []).concat(itemId);
-      const cart = {
-        items: itemsList,
-        time: cartdata.time,
-        user: cartdata.user,
-      };
-      setCartData(cartdata);
-      await cartService
-        .update(cartWishUrl, cart)
-        .then((res) => {
-          setCartData(res);
-          setError(null);
-          navigate('/');
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
-    } else if (Object.keys(cartdata || {}).length === 0) {
-      setCartData(itemId);
-      const createCart = {
-        items: itemId,
-      };
-      cartService.create(cartUrl, createCart);
-    }
   };
 
   return (
@@ -127,21 +95,11 @@ const Shopping = () => {
                       <Card.Body>
                         <Card.Title className="cardTitleStyle">{data.title}</Card.Title>
                       </Card.Body>
-                      {currentUser && (
-                        <Button
-                          className="addToShoppingCart"
-                          onClick={() => {
-                            buyItems(data.id);
-                          }}
-                        >
-                          <MdAddShoppingCart style={{ fontSize: '2em' }} />
-                        </Button>
-                      )}
+                      {currentUser && <CartComponent id={data.id} setError={setError} cartUrl={cartUrl} setCartData={setCartData} cartdata={cartdata} />}
                       <ListGroup className="list-group-flush">
                         <ListGroup.Item className="listGroupItem">
                           <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>
                         </ListGroup.Item>
-                        <ListGroup.Item className="listGroupItem">{data.amount} pcs</ListGroup.Item>
                         <ListGroup.Item className="listGroupItem">{data.comment}</ListGroup.Item>
                       </ListGroup>
                     </Card>

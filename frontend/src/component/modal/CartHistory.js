@@ -12,8 +12,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useGetCartList } from '../control/useGetCardList';
 
 const CartHistory = () => {
+  const cartUrl = '/api/carts/all';
+  const { cartdata } = useGetCartList(cartUrl);
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -35,16 +38,19 @@ const CartHistory = () => {
   }, [id, url]);
 
   const TAX_RATE = 0.22;
-
-  const ccyFormat = (num) => {
-    return `${num.toFixed(2)}`;
-  };
+  const cart = cartdata.filter((cart) => {
+    return cart.id === id;
+  });
 
   const subtotal = (items) => {
-    return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+    return items
+      ?.map(({ price, amount }) => {
+        return price * amount;
+      })
+      .reduce((sum, i) => sum + i, 0);
   };
 
-  const invoiceSubtotal = subtotal(carts);
+  const invoiceSubtotal = subtotal(cart[0]?.buyItems);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
@@ -79,7 +85,7 @@ const CartHistory = () => {
             {carts.map((item, index) => (
               <TableRow key={item.id + index}>
                 <TableCell>{item.title}</TableCell>
-                <TableCell align="right">{1}</TableCell>
+                <TableCell align="right">{cart[0].buyItems[index]?.amount} pcs</TableCell>
                 <TableCell align="right">
                   <img src={item.pic} alt="" width="50" height="50" />
                 </TableCell>
@@ -87,7 +93,7 @@ const CartHistory = () => {
                   {item.price} {'\u20AC'}
                 </TableCell>
                 <TableCell align="right">
-                  {ccyFormat(1 * item.price)} {'\u20AC'}
+                  {(cart[0].buyItems[index]?.price * cart[0].buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
                 </TableCell>
               </TableRow>
             ))}
@@ -96,20 +102,20 @@ const CartHistory = () => {
               <TableCell rowSpan={3} />
               <TableCell colSpan={2}>Subtotal</TableCell>
               <TableCell align="right">
-                {ccyFormat(invoiceSubtotal)} {'\u20AC'}
+                {invoiceSubtotal} {'\u20AC'}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Tax</TableCell>
               <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
               <TableCell align="right">
-                {ccyFormat(invoiceTaxes)} {'\u20AC'}
+                {invoiceTaxes} {'\u20AC'}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
               <TableCell align="right">
-                {ccyFormat(invoiceTotal)} {'\u20AC'}
+                {invoiceTotal} {'\u20AC'}
               </TableCell>
             </TableRow>
           </TableBody>
