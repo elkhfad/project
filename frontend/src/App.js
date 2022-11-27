@@ -18,7 +18,7 @@ import services from './services/registerService';
 function App() {
   const { currentUser } = useCurrentUser();
   const [image, setImage] = useState('');
-
+  const [itemInCart, setItemInCart] = useState(0);
   const url = `/api/users`;
 
   const newImage = () => {
@@ -26,16 +26,19 @@ function App() {
       setImage(res.pic);
     });
   };
+  const handleCartAdd = () => {
+    setItemInCart(itemInCart + 1);
+  };
   useEffect(() => {
     if (currentUser && setImage(currentUser?.pic));
   }, [currentUser]);
   return (
     <HashRouter basename="/">
       <div className="App">
-        <NewNavBar image={image} setImage={setImage} />
+        <NewNavBar image={image} setImage={setImage} itemInCart={itemInCart} />
         <div className="content">
           <Routes>
-            <Route extact path="/" element={<Shopping />} />
+            <Route extact path="/" element={<Shopping handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/contact" element={<Contact />} />
             {currentUser && <Route path="/items/:id" element={<EditItem />} />}

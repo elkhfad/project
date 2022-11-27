@@ -4,7 +4,7 @@ import { MdAddShoppingCart } from 'react-icons/md';
 import { useState } from 'react';
 import cartService from '../../services/cartsService';
 
-const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData }) => {
+const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData, handleCartAdd, setItemInCart }) => {
   const [amount, setAmount] = useState(0);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -17,6 +17,7 @@ const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData }) => {
         buyItem: id,
         amount: amount,
       };
+
       const cart = {
         buyItems: newItemToCart,
         time: cartdata.time,
@@ -28,6 +29,7 @@ const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData }) => {
           setCartData(res);
           setError(null);
           handleClose();
+          handleCartAdd();
         })
         .catch((err) => {
           setError(err.message);
@@ -41,6 +43,7 @@ const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData }) => {
         setCartData(res);
         handleClose();
         setError(null);
+        setItemInCart(1);
       });
     }
   };
@@ -48,6 +51,7 @@ const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData }) => {
     <div>
       <Button variant="primary" onClick={handleShow} className="addToShoppingCart">
         <MdAddShoppingCart style={{ fontSize: '2em' }} />
+        {amount > 0 && amount}
       </Button>
 
       <Modal show={show} onHide={handleClose}>

@@ -10,7 +10,7 @@ import AlertComponent from '../component/Alert/AlertComponent';
 import { useCurrentUser } from '../services/currenUser';
 import CartComponent from '../component/modal/CartComponent';
 
-const Shopping = () => {
+const Shopping = ({ setItemInCart, handleCartAdd }) => {
   const { currentUser } = useCurrentUser();
   const url = '/api/items/all';
   const cartUrl = '/api/carts';
@@ -40,6 +40,7 @@ const Shopping = () => {
             return r.wish === true;
           });
           setCartData(wishCard);
+          setItemInCart(wishCard?.buyItems.length);
           setError(null);
         })
         .catch((err) => {
@@ -47,7 +48,7 @@ const Shopping = () => {
         });
     };
     getWishList();
-  }, []);
+  }, [setItemInCart]);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -95,7 +96,9 @@ const Shopping = () => {
                       <Card.Body>
                         <Card.Title className="cardTitleStyle">{data.title}</Card.Title>
                       </Card.Body>
-                      {currentUser && <CartComponent id={data.id} setError={setError} cartUrl={cartUrl} setCartData={setCartData} cartdata={cartdata} />}
+                      {currentUser && (
+                        <CartComponent id={data.id} setError={setError} cartUrl={cartUrl} setCartData={setCartData} cartdata={cartdata} handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} />
+                      )}
                       <ListGroup className="list-group-flush">
                         <ListGroup.Item className="listGroupItem">
                           <div style={{ display: 'flex' }}>Price: {`${data.price} \u20AC`}</div>

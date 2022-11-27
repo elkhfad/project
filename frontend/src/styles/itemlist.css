@@ -11,6 +11,20 @@
   text-transform: capitalize !important;
 }
 
+.avatarButton {
+  outline: none;
+  border: 1px solid #ffffff !important;
+  margin-right: 1.5em !important;
+  background-color: #ffffff !important;
+}
+
+.avatarButton:hover {
+  outline: none;
+  border: 1px solid #145713 !important;
+  background-color: #145713 !important;
+  color: #b7b7b7;
+}
+
 .btnMinus,
 .btnPlus {
   outline: none;

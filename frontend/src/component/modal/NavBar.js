@@ -14,15 +14,24 @@ import { Link } from 'react-router-dom';
 import { useCurrentUser } from '../../services/currenUser';
 import { BsCart4 } from 'react-icons/bs';
 import { RiFileHistoryFill } from 'react-icons/ri';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import { green } from '@mui/material/colors';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
-function NavBar({ image }) {
+function NavBar({ image, itemInCart }) {
   const { currentUser } = useCurrentUser();
+  const navigate = useNavigate();
+
   const handleLockOut = () => {
     logInService.logout();
   };
-
+  const handleCart = () => {
+    navigate('/cartList');
+  };
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="sm">
       <Container fluid>
         <Navbar.Brand className="navBarHeader">Leebstore </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -43,6 +52,17 @@ function NavBar({ image }) {
               </div>
             )}
           </Nav>
+          {currentUser && (
+            <div className="me-2" aria-label="Search">
+              <Button className="avatarButton" onClick={() => handleCart()}>
+                <Stack direction="row" spacing={2}>
+                  <Avatar sx={{ width: 40, height: 40, bgcolor: green[900], fontSize: '1em' }}>
+                    <BsCart4 /> {itemInCart}
+                  </Avatar>
+                </Stack>
+              </Button>
+            </div>
+          )}
 
           {currentUser && (
             <div className="me-2" aria-label="Search">
@@ -56,9 +76,6 @@ function NavBar({ image }) {
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/itemList">
                   My items <FaTasks />
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/cartList">
-                  Cart <BsCart4 />
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/cartsListHistory">
                   Review your order history <RiFileHistoryFill />
