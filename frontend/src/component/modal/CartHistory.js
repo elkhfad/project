@@ -55,7 +55,7 @@ const CartHistory = () => {
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
   return (
-    <div>
+    <div >
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div>
@@ -63,7 +63,6 @@ const CartHistory = () => {
           Back <IoReturnDownBackOutline />
         </Button>
       </div>
-
       <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>

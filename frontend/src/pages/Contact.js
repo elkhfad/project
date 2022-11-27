@@ -12,7 +12,7 @@ const Contact = () => {
           address: metropolia university of applied sciences <br /> Karaportti 2, 02610 Espoo
         </div>
       </div>
-      <MapContainer center={positionValue} zoom={15} scrollWheelZoom={false} style={{ height: '50em', width: '50em', margin: '0 auto', marginTop: '10em' }}>
+      <MapContainer center={positionValue} zoom={18} scrollWheelZoom={false} style={{ height: '30em', width: '30em', margin: '0 auto', marginTop: '10em' }}>
         <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <Marker position={positionValue}>
           <Tooltip permanent>

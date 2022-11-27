@@ -17,7 +17,6 @@ import { RiFileHistoryFill } from 'react-icons/ri';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { green } from '@mui/material/colors';
-import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 
 function NavBar({ image, itemInCart }) {
@@ -54,13 +53,11 @@ function NavBar({ image, itemInCart }) {
           </Nav>
           {currentUser && (
             <div className="me-2" aria-label="Search">
-              <Button className="avatarButton" onClick={() => handleCart()}>
-                <Stack direction="row" spacing={2}>
+                <Stack direction="row" spacing={2} className="avatarButton" onClick={() => handleCart()}>
                   <Avatar sx={{ width: 40, height: 40, bgcolor: green[900], fontSize: '1em' }}>
-                    <BsCart4 /> {itemInCart}
+                    <BsCart4 /> {itemInCart} 
                   </Avatar>
                 </Stack>
-              </Button>
             </div>
           )}
 
@@ -68,7 +65,7 @@ function NavBar({ image, itemInCart }) {
             <div className="me-2" aria-label="Search">
               <NavDropdown
                 className="me-5"
-                title={image !== '' ? <Image src={image} alt="" style={{ width: '2em' }} roundedCircle /> : <MdAccountCircle style={{ fontSize: '2em' }} />}
+                title={image !== '' || image !== undefined ? <Image src={image} alt="" style={{ width: '2em' }} roundedCircle /> : <MdAccountCircle style={{ fontSize: '2em' }} />}
                 id="navbarScrollingDropdown"
               >
                 <NavDropdown.Item as={Link} to="/accounts">

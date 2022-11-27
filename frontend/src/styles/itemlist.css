@@ -12,18 +12,10 @@
 }
 
 .avatarButton {
-  outline: none;
-  border: 1px solid #ffffff !important;
   margin-right: 1.5em !important;
-  background-color: #ffffff !important;
+  cursor: pointer;
 }
 
-.avatarButton:hover {
-  outline: none;
-  border: 1px solid #145713 !important;
-  background-color: #145713 !important;
-  color: #b7b7b7;
-}
 
 .btnMinus,
 .btnPlus {
@@ -252,6 +244,7 @@ table {
   background-color: #750000 !important;
   width: 20em;
   height: 3em;
+  margin-bottom: 3em;
 }
 
 
@@ -362,15 +355,15 @@ textarea {
 
 .contactAddress,
 .contactEmail {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   font-weight: 600;
 
 }
 
 .contactHeader {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   text-decoration: 2px underline #023d01;
   font-style: italic;
   padding: 0.5em;
@@ -423,6 +416,7 @@ textarea {
   margin: 0 auto;
   text-align: left;
   border-radius: 10px 10px 10px 10px;
+  margin-bottom: 3em;
 }
 
 #search {
