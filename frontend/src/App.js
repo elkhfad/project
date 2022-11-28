@@ -14,36 +14,54 @@ import CartHistory from './component/modal/CartHistory';
 import Contact from './pages/Contact';
 import { useEffect, useState } from 'react';
 import services from './services/registerService';
-
+import cartService from './services/cartsService';
 function App() {
   const { currentUser } = useCurrentUser();
   const [image, setImage] = useState('');
   const [itemInCart, setItemInCart] = useState(0);
   const url = `/api/users`;
-
-  const newImage = () => {
-    services.getUser(url).then((res) => {
-      setImage(res.pic);
-    });
-  };
+  const [cartdata, setCartData] = useState({});
+  const [error, setError] = useState(null);
+  const cartUrl = '/api/carts';
   const handleCartAdd = () => {
     setItemInCart(itemInCart + 1);
   };
   useEffect(() => {
-    if (currentUser && setImage(currentUser?.pic));
-  }, [currentUser]);
+    services.getUser(url).then((res) => {
+      setImage(res.pic);
+    });
+    const getWishList = () => {
+      cartService
+        .getAllCartByUser(cartUrl)
+        .then((res) => {
+          if (!res.status === 'OK') {
+            throw Error('could not load data');
+          }
+          const wishCard = res.find((r) => {
+            return r.wish === true;
+          });
+          setCartData(wishCard);
+          setItemInCart(wishCard?.buyItems.length);
+          setError(null);
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    };
+    getWishList();
+  }, [currentUser, setItemInCart, url]);
   return (
     <HashRouter basename="/">
       <div className="App">
-        <NewNavBar image={image} setImage={setImage} itemInCart={itemInCart} />
+        <NewNavBar image={image} itemInCart={itemInCart} />
         <div className="content">
           <Routes>
-            <Route extact path="/" element={<Shopping handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} />} />
+            <Route extact path="/" element={<Shopping handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} cartdata={cartdata} error={error} />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/contact" element={<Contact />} />
             {currentUser && <Route path="/items/:id" element={<EditItem />} />}
             {currentUser && <Route path="/itemList" element={<ItemList />} />}
-            {currentUser && <Route path="/accounts" element={<Account image={image} setImage={setImage} newImage={newImage} />} />}
+            {currentUser && <Route path="/accounts" element={<Account image={image} setImage={setImage} newImage={image} />} />}
             {currentUser && <Route path="/cartList" element={<CartList />} />}
             {currentUser && <Route path="/cartsListHistory" element={<CartsListHistory />} />}
             {currentUser && <Route path="/cartList/:id" element={<Cart />} />}

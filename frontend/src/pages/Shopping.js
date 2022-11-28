@@ -1,16 +1,15 @@
 import '../styles/itemlist.css';
 import Spinner from 'react-bootstrap/Spinner';
 import Pagination from '../component/Pagination';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useGetAllItems } from '../component/control/itemsControll';
-import cartService from '../services/cartsService';
 import AlertComponent from '../component/Alert/AlertComponent';
 import { useCurrentUser } from '../services/currenUser';
 import CartComponent from '../component/modal/CartComponent';
 
-const Shopping = ({ setItemInCart, handleCartAdd }) => {
+const Shopping = ({ setItemInCart, handleCartAdd, setCartData, cartdata, error, setError }) => {
   const { currentUser } = useCurrentUser();
   const url = '/api/items/all';
   const cartUrl = '/api/carts';
@@ -18,8 +17,6 @@ const Shopping = ({ setItemInCart, handleCartAdd }) => {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(6);
-  const [error, setError] = useState(null);
-  const [cartdata, setCartData] = useState({});
   const results = data.filter((result) => {
     return result.title.toUpperCase().includes(search.toUpperCase());
   });
@@ -27,28 +24,6 @@ const Shopping = ({ setItemInCart, handleCartAdd }) => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = results.slice(indexOfFirstPost, indexOfLastPost);
   const pageSizes = [3, 6, 9, 12, 20, 50, 100];
-
-  useEffect(() => {
-    const getWishList = () => {
-      cartService
-        .getAllCartByUser(cartUrl)
-        .then((res) => {
-          if (!res.status === 'OK') {
-            throw Error('could not load data');
-          }
-          const wishCard = res.find((r) => {
-            return r.wish === true;
-          });
-          setCartData(wishCard);
-          setItemInCart(wishCard?.buyItems.length);
-          setError(null);
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
-    };
-    getWishList();
-  }, [setItemInCart]);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);

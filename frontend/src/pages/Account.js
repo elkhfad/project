@@ -11,7 +11,7 @@ import { BsTrash } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import services from '../services/registerService';
 
-const Account = ({ image, setImage, newImage }) => {
+const Account = ({ image, setImage }) => {
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
@@ -77,6 +77,11 @@ const Account = ({ image, setImage, newImage }) => {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+  const updateUserImage = () => {
+    services.getUser(url).then((res) => {
+      setImage(res.pic);
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsPending(true);
@@ -108,12 +113,12 @@ const Account = ({ image, setImage, newImage }) => {
           setError(null);
           setIsPending(false);
           navigate('/');
+          updateUserImage();
         })
         .catch((err) => {
           setError(err.message);
           setIsPending(false);
         });
-      newImage();
     }
   };
   const handleClose = () => {

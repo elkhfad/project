@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 
 function NavBar({ image, itemInCart }) {
   const { currentUser } = useCurrentUser();
+
   const navigate = useNavigate();
 
   const handleLockOut = () => {
@@ -53,11 +54,11 @@ function NavBar({ image, itemInCart }) {
           </Nav>
           {currentUser && (
             <div className="me-2" aria-label="Search">
-                <Stack direction="row" spacing={2} className="avatarButton" onClick={() => handleCart()}>
-                  <Avatar sx={{ width: 40, height: 40, bgcolor: green[900], fontSize: '1em' }}>
-                    <BsCart4 /> {itemInCart} 
-                  </Avatar>
-                </Stack>
+              <Stack direction="row" spacing={2} className="avatarButton" onClick={() => handleCart()}>
+                <Avatar sx={{ width: 40, height: 40, bgcolor: green[900], fontSize: '1em' }}>
+                  <BsCart4 /> {itemInCart}
+                </Avatar>
+              </Stack>
             </div>
           )}
 
@@ -65,7 +66,7 @@ function NavBar({ image, itemInCart }) {
             <div className="me-2" aria-label="Search">
               <NavDropdown
                 className="me-5"
-                title={image !== '' || image !== undefined ? <Image src={image} alt="" style={{ width: '2em' }} roundedCircle /> : <MdAccountCircle style={{ fontSize: '2em' }} />}
+                title={image !== '' ? <Image src={image} alt="" style={{ width: '2em' }} roundedCircle /> : <MdAccountCircle style={{ fontSize: '2em' }} />}
                 id="navbarScrollingDropdown"
               >
                 <NavDropdown.Item as={Link} to="/accounts">
