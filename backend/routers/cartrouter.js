@@ -154,7 +154,7 @@ cartRouter.post('/wishlist', async (request, response, next) => {
       const findWishList = cartsByUser.filter((cart) => {
         return cart.wish === true;
       });
-      const cartPersist = await Cart.findById(findWishList[0]._id.valueOf());
+      const cartPersist = await Cart.findById(findWishList[0]?._id.valueOf());
       const findItem = await Item.find();
       const cartPrice = findItem.filter((item) => {
         return item._id.valueOf() === body.buyItems.buyItem;

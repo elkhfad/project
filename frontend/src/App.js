@@ -56,7 +56,7 @@ function App() {
         <NewNavBar image={image} itemInCart={itemInCart} />
         <div className="content">
           <Routes>
-            <Route extact path="/" element={<Shopping handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} cartdata={cartdata} error={error} />} />
+            <Route extact path="/" element={<Shopping handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} setError={setError} cartdata={cartdata} error={error} setCartData={setCartData} />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/contact" element={<Contact />} />
             {currentUser && <Route path="/items/:id" element={<EditItem />} />}
@@ -64,7 +64,7 @@ function App() {
             {currentUser && <Route path="/accounts" element={<Account image={image} setImage={setImage} newImage={image} />} />}
             {currentUser && <Route path="/cartList" element={<CartList />} />}
             {currentUser && <Route path="/cartsListHistory" element={<CartsListHistory />} />}
-            {currentUser && <Route path="/cartList/:id" element={<Cart />} />}
+            {currentUser && <Route path="/cartList/:id" element={<Cart setItemInCart={setItemInCart} />} />}
             {currentUser && <Route path="/cartsListHistory/:id" element={<CartHistory />} />}
           </Routes>
         </div>

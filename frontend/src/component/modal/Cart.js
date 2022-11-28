@@ -17,7 +17,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const Cart = () => {
+const Cart = ({ setItemInCart }) => {
   const navigate = useNavigate();
   const cartUrl = '/api/carts/all';
   const [isPending, setIsPending] = useState(true);
@@ -55,7 +55,8 @@ const Cart = () => {
       .buyUpdate(urlBuy, updateCart, id)
       .then(() => {
         setError(null);
-        navigate('/');
+        setItemInCart(0);
+        window.location.href = '/';
       })
       .catch((err) => {
         setError(err.message);
@@ -88,7 +89,8 @@ const Cart = () => {
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
   const handleDelete = (id) => {
     services.deleteCart(url, id).then((res) => {
-      navigate('/');
+      setItemInCart(0);
+      window.location.href = '/';
     });
   };
 

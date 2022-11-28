@@ -52,7 +52,7 @@ function NavBar({ image, itemInCart }) {
               </div>
             )}
           </Nav>
-          {currentUser && (
+          {currentUser && itemInCart && (
             <div className="me-2" aria-label="Search">
               <Stack direction="row" spacing={2} className="avatarButton" onClick={() => handleCart()}>
                 <Avatar sx={{ width: 40, height: 40, bgcolor: green[900], fontSize: '1em' }}>

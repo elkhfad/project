@@ -26,6 +26,7 @@ const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData, handleCar
       await cartService
         .addItemToCart(cartWishUrl, cart)
         .then((res) => {
+          console.log(res);
           setCartData(res);
           setError(null);
           handleClose();
