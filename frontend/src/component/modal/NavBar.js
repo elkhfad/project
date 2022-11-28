@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 
 function NavBar({ image, itemInCart }) {
   const { currentUser } = useCurrentUser();
+
   const navigate = useNavigate();
 
   const handleLockOut = () => {
