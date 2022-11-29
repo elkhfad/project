@@ -27,11 +27,10 @@ function App() {
     setItemInCart(itemInCart + 1);
   };
   useEffect(() => {
-    if (currentUser?.length > 0) {
-      services.getUser(url).then((res) => {
-        setImage(res.pic);
-      });
-    }
+    services.getUser(url).then((res) => {
+      setImage(res.pic);
+    });
+
     const getWishList = () => {
       cartService
         .getAllCartByUser(cartUrl)
