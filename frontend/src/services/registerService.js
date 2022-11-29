@@ -1,8 +1,8 @@
 import axios from 'axios';
 let token = null;
 
+const current = sessionStorage.getItem('currenUser');
 const setToken = () => {
-  const current = sessionStorage.getItem('currenUser');
   const currentUserData = JSON.parse(current);
   token = `bearer ${currentUserData.token}`;
 };
