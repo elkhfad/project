@@ -13,14 +13,14 @@ import CartsListHistory from './component/modal/cartsListHistory';
 import CartHistory from './component/modal/CartHistory';
 import Contact from './pages/Contact';
 import { useEffect, useState } from 'react';
-import services from './services/registerService';
 import cartService from './services/cartsService';
 import PrivateRoute from './component/autoLogOut/PrivateRoute';
+import { useImage } from './component/control/useImage';
 function App() {
   const { currentUser } = useCurrentUser();
-  const [image, setImage] = useState('');
   const [itemInCart, setItemInCart] = useState(0);
   const url = `/api/users`;
+  const { image, setImage } = useImage(url);
   const [cartdata, setCartData] = useState({});
   const [error, setError] = useState(null);
   const cartUrl = '/api/carts';
@@ -28,10 +28,6 @@ function App() {
     setItemInCart(itemInCart + 1);
   };
   useEffect(() => {
-    services.getUser(url).then((res) => {
-      setImage(res.pic);
-    });
-
     const getWishList = () => {
       cartService
         .getAllCartByUser(cartUrl)
@@ -81,7 +77,7 @@ function App() {
               path="/accounts"
               element={
                 <PrivateRoute>
-                  <Account image={image} setImage={setImage} newImage={image} />
+                  <Account image={image} setImage={setImage} />
                 </PrivateRoute>
               }
             />
