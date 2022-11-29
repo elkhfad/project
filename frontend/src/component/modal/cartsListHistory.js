@@ -1,7 +1,6 @@
 import { useGetCartList } from '../control/useGetCardList';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import moment from 'moment';
 import Spinner from 'react-bootstrap/Spinner';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
 import Confirm from './Confirm';
@@ -41,7 +40,7 @@ const CartsListHistory = () => {
           return (
             <div key={d.id + index} className="cartStyle" style={{ marginBottom: '1em', marginTop: '2em' }}>
               <Button onClick={() => seeList(d.id)} className="cartHistoryBtn">
-                cart created {moment(new Date(d.time)).format('DD/MM/YYYY hh:mm:ss')}
+                cart created {d.time}
               </Button>
               <Confirm
                 icon={<BsTrash />}

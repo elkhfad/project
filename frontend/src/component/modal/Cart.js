@@ -7,7 +7,6 @@ import Spinner from 'react-bootstrap/Spinner';
 import AlertComponent from '../Alert/AlertComponent';
 import Confirm from './Confirm';
 import { BsTrash } from 'react-icons/bs';
-import moment from 'moment';
 import { useGetCartList } from '../control/useGetCardList';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -124,7 +123,7 @@ const Cart = ({ setItemInCart }) => {
           Back <IoReturnDownBackOutline />
         </Button>
       </div>
-      <div className="cartDate">cart created {moment(new Date(handleTime())).format('DD/MM/YYYY hh:mm:ss')}</div>
+      <div className="cartDate">cart created {handleTime()} </div>
       <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
@@ -207,7 +206,7 @@ const Cart = ({ setItemInCart }) => {
           <Confirm
             icon={<BsTrash />}
             title={`Are you sure ?`}
-            body={`You won't be able to revert deleted cart! ${moment(new Date(handleTime())).format('DD/MM/YYYY hh:mm:ss')}`}
+            body={`You won't be able to revert deleted cart! ${handleTime()}`}
             confirm="Yes delete it"
             cancelColor="success"
             confirmColor="danger"
