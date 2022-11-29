@@ -51,11 +51,23 @@ export const useGetAllItems = (url) => {
     data,
     error,
     isPending,
+    setIsPending,
   };
 };
 
 export const useGetItemById = (url, id) => {
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState({
+    title: '',
+    comment: '',
+    price: '',
+    pic: '',
+  });
+  const [itemOriginal, setItemOriginal] = useState({
+    title: '',
+    comment: '',
+    price: '',
+    pic: '',
+  });
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -67,6 +79,7 @@ export const useGetItemById = (url, id) => {
         }
         setIsPending(false);
         setItem(res.data);
+        setItemOriginal(res);
         setError(null);
       })
       .catch((err) => {
@@ -75,8 +88,10 @@ export const useGetItemById = (url, id) => {
       });
   }, [id, url]);
   return {
-    error,
-    isPending,
     item,
+    itemOriginal,
+    isPending,
+    error,
+    setItem,
   };
 };

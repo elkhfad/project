@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import AlertComponent from '../Alert/AlertComponent';
 import { Spinner } from 'react-bootstrap';
 import Confirm from './Confirm';
@@ -10,41 +10,14 @@ import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
 import Button from 'react-bootstrap/Button';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
+import { useGetItemById } from '../control/itemsControll';
 const EditItem = () => {
-  const [item, setItem] = useState({
-    title: '',
-    comment: '',
-    price: '',
-    pic: '',
-  });
-  const [itemOriginal, setItemOriginal] = useState({
-    title: '',
-    comment: '',
-    price: '',
-    pic: '',
-  });
   const { id } = useParams();
-  const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-
   const navigate = useNavigate();
   const url = `/api/items`;
-
-  useEffect(() => {
-    services
-      .getById(url, id)
-      .then((res) => {
-        setIsPending(false);
-        setItem(res.data);
-        setItemOriginal(res);
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.response.data.error);
-        setIsPending(false);
-      });
-  }, [id, url]);
+  const { item, itemOriginal, setItem, isPending } = useGetItemById(url, id);
 
   const handleDelete = () => {
     setSuccess(null);
