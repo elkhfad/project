@@ -70,6 +70,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       })
       .reduce((sum, i) => sum + i, 0);
   };
+
   const invoiceSubtotal = subtotal(cart[0]?.buyItems);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
@@ -93,6 +94,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       itemId: itemId,
     };
     setCart(cartItem);
+    setItemInCart(itemInCart - 1);
     await services.removeAndUpdate(cartWishUrl, id, newObject);
   };
 
