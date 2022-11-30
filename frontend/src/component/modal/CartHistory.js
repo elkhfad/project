@@ -55,7 +55,7 @@ const CartHistory = () => {
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
   return (
-    <div >
+    <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div>
@@ -82,7 +82,7 @@ const CartHistory = () => {
           </TableHead>
           <TableBody>
             {carts.map((item, index) => (
-              <TableRow key={item.id + index}>
+              <TableRow key={item.id}>
                 <TableCell>{item.title}</TableCell>
                 <TableCell align="right">{cart[0].buyItems[index]?.amount} pcs</TableCell>
                 <TableCell align="right">

@@ -16,7 +16,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const Cart = ({ setItemInCart }) => {
+const Cart = ({ setItemInCart, itemInCart }) => {
   const navigate = useNavigate();
   const cartUrl = '/api/carts/all';
   const [isPending, setIsPending] = useState(true);
@@ -70,19 +70,6 @@ const Cart = ({ setItemInCart }) => {
       })
       .reduce((sum, i) => sum + i, 0);
   };
-  const getByIdItems = () => {
-    services
-      .getById(url, id)
-      .then((res) => {
-        setCart(res.data);
-        setIsPending(false);
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.response.data.error);
-        setIsPending(false);
-      });
-  };
   const invoiceSubtotal = subtotal(cart[0]?.buyItems);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
@@ -98,20 +85,15 @@ const Cart = ({ setItemInCart }) => {
     return time;
   };
 
-  const deleteItem = async (itemId, index) => {
-    const cartItem = carts.filter((cart, i) => {
-      return cart.id + i !== itemId + index;
+  const deleteItem = async (itemId) => {
+    const cartItem = carts.filter((cart) => {
+      return cart.id !== itemId;
     });
-    const itemsList = cartItem.map((cart) => {
-      return cart.id;
-    });
-    const cart = {
-      items: itemsList,
-      time: cartdata.time,
-      user: cartdata.user,
+    const newObject = {
+      itemId: itemId,
     };
-    await services.update(cartWishUrl, cart);
-    getByIdItems();
+    setCart(cartItem);
+    await services.removeAndUpdate(cartWishUrl, id, newObject);
   };
 
   return (
@@ -156,19 +138,21 @@ const Cart = ({ setItemInCart }) => {
                   {(cart[0].buyItems[index]?.price * cart[0].buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
                 </TableCell>
                 <TableCell align="right">
-                  <Confirm
-                    icon={<BsTrash />}
-                    title={`Are you sure ?`}
-                    body={`You won't be able to revert deleted item!`}
-                    confirm="Yes delete it"
-                    cancelColor="success"
-                    confirmColor="danger"
-                    buttonName="Delete"
-                    itemDeleteBtn="itemDeleteBtn"
-                    handleClick={() => {
-                      deleteItem(item.id, index);
-                    }}
-                  />
+                  {carts.length > 1 && (
+                    <Confirm
+                      icon={<BsTrash />}
+                      title={`Are you sure ?`}
+                      body={`You won't be able to revert deleted item!`}
+                      confirm="Yes delete it"
+                      cancelColor="success"
+                      confirmColor="danger"
+                      buttonName="Delete"
+                      itemDeleteBtn="itemDeleteBtn"
+                      handleClick={() => {
+                        deleteItem(item.id, index);
+                      }}
+                    />
+                  )}
                 </TableCell>
               </TableRow>
             ))}

@@ -102,7 +102,7 @@ function App() {
               path="/cartList/:id"
               element={
                 <PrivateRoute>
-                  <Cart setItemInCart={setItemInCart} />
+                  <Cart setItemInCart={setItemInCart} itemInCart={itemInCart} />
                 </PrivateRoute>
               }
             />

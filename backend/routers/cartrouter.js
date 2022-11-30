@@ -5,6 +5,7 @@ const cartRouter = require('express').Router();
 const jwt = require('jsonwebtoken');
 const getToken = require('../utils/token');
 const moment = require('moment');
+ObjectId = require('mongodb').ObjectID;
 
 cartRouter.post('/', async (request, response, next) => {
   const body = request.body;
@@ -175,6 +176,41 @@ cartRouter.post('/wishlist', async (request, response, next) => {
       } else {
         response.status(404).end();
       }
+    } catch (exception) {
+      next(exception);
+    }
+  } else {
+    return response.status(401).json({ error: 'unauthorized' });
+  }
+});
+
+cartRouter.put('/wishlist/:id', async (request, response, next) => {
+  const token = getToken.getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
+  const user = await User.findById(decodedToken.id);
+  const carts = await Cart.find();
+  const cartsByUser = carts.filter((userByCart) => {
+    return userByCart.user.valueOf() === user._id.valueOf();
+  });
+  const existInUser = cartsByUser.filter((cart) => {
+    return cart._id?.valueOf() === request.params.id;
+  });
+
+  if (existInUser) {
+    try {
+      await Cart.updateOne(
+        { wish: true },
+        {
+          $pull: {
+            buyItems: {
+              buyItem: request.body.itemId,
+            },
+          },
+        }
+      );
     } catch (exception) {
       next(exception);
     }
