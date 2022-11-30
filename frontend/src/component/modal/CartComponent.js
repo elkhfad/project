@@ -10,7 +10,6 @@ const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData, handleCar
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const cartWishUrl = '/api/carts/wishlist';
-
   const buyItems = async () => {
     if (Object.keys(cartdata?.buyItems || {}).length > 0) {
       const newItemToCart = {
@@ -26,7 +25,6 @@ const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData, handleCar
       await cartService
         .addItemToCart(cartWishUrl, cart)
         .then((res) => {
-          console.log(res);
           setCartData(res);
           setError(null);
           handleClose();
@@ -79,7 +77,7 @@ const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData, handleCar
               buyItems();
             }}
           >
-            Save Changes
+            Add
           </Button>
         </Modal.Footer>
       </Modal>
