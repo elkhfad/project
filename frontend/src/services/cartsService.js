@@ -14,14 +14,7 @@ const getAllCartByUser = async (baseUrl) => {
   const response = await axios.get(baseUrl, config);
   return response.data;
 };
-const getCartWishIsTrue = async (baseUrl) => {
-  setToken();
-  const config = {
-    headers: { Authorization: token },
-  };
-  const response = await axios.get(baseUrl, config);
-  return response.data;
-};
+
 const create = async (baseUrl, newObject) => {
   setToken();
   const config = {
@@ -68,7 +61,6 @@ export default {
   addItemToCart,
   getAllCartByUser,
   getById,
-  getCartWishIsTrue,
   buyUpdate,
   deleteCart,
 };

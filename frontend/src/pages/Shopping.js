@@ -8,11 +8,11 @@ import { useGetAllItems } from '../component/control/itemsControll';
 import AlertComponent from '../component/Alert/AlertComponent';
 import { useCurrentUser } from '../services/currenUser';
 import CartComponent from '../component/modal/CartComponent';
+import { Button } from 'react-bootstrap';
 
 const Shopping = ({ setItemInCart, handleCartAdd, setCartData, cartdata, error, setError }) => {
   const { currentUser } = useCurrentUser();
   const url = '/api/items/all';
-  const cartUrl = '/api/carts';
   const { data, isPending } = useGetAllItems(url);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +20,9 @@ const Shopping = ({ setItemInCart, handleCartAdd, setCartData, cartdata, error, 
   const results = data.filter((result) => {
     return result.title.toUpperCase().includes(search.toUpperCase());
   });
+  const exist = (id) => {
+    return cartdata?.buyItems?.some((item) => item.buyItem.includes(id));
+  };
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = results.slice(indexOfFirstPost, indexOfLastPost);
@@ -71,8 +74,14 @@ const Shopping = ({ setItemInCart, handleCartAdd, setCartData, cartdata, error, 
                       <Card.Body>
                         <Card.Title className="cardTitleStyle">{data.title}</Card.Title>
                       </Card.Body>
-                      {currentUser && (
-                        <CartComponent id={data.id} setError={setError} cartUrl={cartUrl} setCartData={setCartData} cartdata={cartdata} handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} />
+                      {!exist(data.id) ? (
+                        <CartComponent id={data.id} setError={setError} setCartData={setCartData} cartdata={cartdata} handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} />
+                      ) : (
+                        <div>
+                          <Button disabled variant="primary" className="addToShoppingCart">
+                            Item already exist in cart
+                          </Button>
+                        </div>
                       )}
                       <ListGroup className="list-group-flush">
                         <ListGroup.Item className="listGroupItem">

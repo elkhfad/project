@@ -3,13 +3,17 @@ import { Button } from 'react-bootstrap';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { useState } from 'react';
 import cartService from '../../services/cartsService';
+import { useCurrentUser } from '../../services/currenUser';
 
-const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData, handleCartAdd, setItemInCart }) => {
+const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, setItemInCart }) => {
+  const cartUrl = '/api/carts';
   const [amount, setAmount] = useState(0);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const cartWishUrl = '/api/carts/wishlist';
+  const { currentUser } = useCurrentUser();
+
   const buyItems = async () => {
     if (Object.keys(cartdata?.buyItems || {}).length > 0) {
       const newItemToCart = {
@@ -49,7 +53,7 @@ const CartComponent = ({ id, setError, cartUrl, cartdata, setCartData, handleCar
   };
   return (
     <div>
-      <Button variant="primary" onClick={handleShow} className="addToShoppingCart">
+      <Button variant="primary" onClick={handleShow} className="addToShoppingCart" disabled={!currentUser}>
         <MdAddShoppingCart style={{ fontSize: '2em' }} />
         {amount > 0 && amount}
       </Button>
