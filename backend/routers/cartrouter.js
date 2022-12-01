@@ -190,16 +190,35 @@ cartRouter.put('/wishlist/:id', async (request, response, next) => {
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' });
   }
-  const user = await User.findById(decodedToken.id);
   try {
     await Cart.updateOne(
-      { user: user._id.valueOf(), wish: true },
+      { user: decodedToken.id, _id: request.params.id },
       {
         $pull: {
           buyItems: {
             buyItem: request.body.itemId,
           },
         },
+      }
+    );
+  } catch (exception) {
+    next(exception);
+  }
+});
+cartRouter.put('/amount/:id', async (request, response, next) => {
+  const token = getToken.getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
+  try {
+    await Cart.updateOne(
+      { 'buyItems._id': request.body.itemId },
+      {
+        $set: {
+          'buyItems.$.amount': request.body.amount,
+        },
+        multi: false,
       }
     );
   } catch (exception) {

@@ -32,6 +32,14 @@ const buyUpdate = async (baseUrl, newObject, id) => {
   const response = await axios.put(`${baseUrl}/${id}`, newObject, config);
   return response.data;
 };
+const amountUpdate = async (baseUrl, newObject, id) => {
+  setToken();
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.put(`${baseUrl}/${id}`, newObject, config);
+  return response.data;
+};
 const addItemToCart = async (baseUrl, newObject) => {
   setToken();
   const config = {
@@ -72,4 +80,5 @@ export default {
   buyUpdate,
   deleteCart,
   removeAndUpdate,
+  amountUpdate,
 };

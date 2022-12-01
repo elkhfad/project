@@ -15,6 +15,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CartAmountUpdateComponent from './CartAmountUpdateComponent';
 
 const Cart = ({ setItemInCart, itemInCart }) => {
   const navigate = useNavigate();
@@ -71,9 +72,6 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       .reduce((sum, i) => sum + i, 0);
   };
 
-  const invoiceSubtotal = subtotal(cart?.buyItems);
-  const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-  const invoiceTotal = invoiceTaxes + invoiceSubtotal;
   const handleDelete = (id) => {
     services.deleteCart(url, id).then((res) => {
       setItemInCart(0);
@@ -90,9 +88,13 @@ const Cart = ({ setItemInCart, itemInCart }) => {
     const cartItem = carts.filter((cart) => {
       return cart.id !== itemId;
     });
+    const shoppinCartItems = cart.buyItems.filter((item) => {
+      return item.buyItem !== itemId;
+    });
     const newObject = {
       itemId: itemId,
     };
+    cart.buyItems = shoppinCartItems;
     setCart(cartItem);
     setItemInCart(itemInCart - 1);
     await services.removeAndUpdate(cartWishUrl, id, newObject);
@@ -115,7 +117,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
               <TableCell align="center" colSpan={4}>
                 Details
               </TableCell>
-              <TableCell align="right">Price</TableCell>
+              <TableCell align="left">Price</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Title</TableCell>
@@ -123,60 +125,67 @@ const Cart = ({ setItemInCart, itemInCart }) => {
               <TableCell align="right">Picture</TableCell>
               <TableCell align="right">Unit</TableCell>
               <TableCell align="right">Sum</TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {carts.map((item, index) => (
-              <TableRow key={item.id + index}>
-                <TableCell>{item.title}</TableCell>
-                <TableCell align="right">{cart?.buyItems[index]?.amount} pcs</TableCell>
-                <TableCell align="right">
-                  <img src={item.pic} alt="" width="50" height="50" />
-                </TableCell>
-                <TableCell align="right">
-                  {item.price} {'\u20AC'}
-                </TableCell>
-                <TableCell align="right">
-                  {(cart?.buyItems[index]?.price * cart.buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
-                </TableCell>
-                <TableCell align="right">
-                  {carts.length > 1 && (
-                    <Confirm
-                      icon={<BsTrash />}
-                      title={`Are you sure ?`}
-                      body={`You won't be able to revert deleted item!`}
-                      confirm="Yes delete it"
-                      cancelColor="success"
-                      confirmColor="danger"
-                      buttonName="Delete"
-                      itemDeleteBtn="itemDeleteBtn"
-                      handleClick={() => {
-                        deleteItem(item.id, index);
-                      }}
-                    />
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
+            {cart?.buyItems
+              ?.filter((item) => item !== null)
+              .map((item, index) => (
+                <TableRow key={item._id}>
+                  <TableCell>{carts?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
+                  <TableCell align="right">{item?.amount} pcs</TableCell>
+                  <TableCell align="right">
+                    <img src={carts?.filter((p) => p.id === item.buyItem).shift()?.pic} alt="" width="50" height="50" />
+                  </TableCell>
+                  <TableCell align="right">
+                    {item.price} {'\u20AC'}
+                  </TableCell>
+                  <TableCell align="right">
+                    {(item?.price * item.amount).toFixed(2)} {'\u20AC'}
+                  </TableCell>
+                  <TableCell>
+                    <CartAmountUpdateComponent unit={item.amount} id={id} itemId={item._id} />
+                  </TableCell>
+                  <TableCell align="right">
+                    {carts.length > 1 && (
+                      <Confirm
+                        icon={<BsTrash />}
+                        title={`Are you sure ?`}
+                        body={`You won't be able to revert deleted item!`}
+                        confirm="Yes delete it"
+                        cancelColor="success"
+                        confirmColor="danger"
+                        buttonName="Delete"
+                        itemDeleteBtn="itemDeleteBtn"
+                        handleClick={() => {
+                          deleteItem(item.buyItem, index);
+                        }}
+                      />
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
 
             <TableRow>
               <TableCell rowSpan={3} />
               <TableCell colSpan={2}>Subtotal</TableCell>
               <TableCell align="right">
-                {invoiceSubtotal} {'\u20AC'}
+                {subtotal(cart?.buyItems?.filter((item) => item !== null))} {'\u20AC'}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Tax</TableCell>
               <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
               <TableCell align="right">
-                {invoiceTaxes.toFixed(2)} {'\u20AC'}
+                {(TAX_RATE * subtotal(cart?.buyItems?.filter((item) => item !== null))).toFixed(2)} {'\u20AC'}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
               <TableCell align="right">
-                {invoiceTotal.toFixed(2)} {'\u20AC'}
+                {(subtotal(cart?.buyItems?.filter((item) => item !== null)) + subtotal(cart?.buyItems?.filter((item) => item !== null)) * TAX_RATE).toFixed(2)} {'\u20AC'}
               </TableCell>
             </TableRow>
           </TableBody>

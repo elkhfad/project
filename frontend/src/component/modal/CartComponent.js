@@ -1,19 +1,17 @@
-import Modal from 'react-bootstrap/Modal';
-import { Button } from 'react-bootstrap';
-import { MdAddShoppingCart } from 'react-icons/md';
-import { useState } from 'react';
 import cartService from '../../services/cartsService';
-import { useCurrentUser } from '../../services/currenUser';
+import CartAmountComponent from '../forms/CartAmountComponent';
+import { useState } from 'react';
+import { useCartsContext } from '../contexts/useCartsContext';
 
 const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, setItemInCart }) => {
+  const { dispatch } = useCartsContext();
+
   const cartUrl = '/api/carts';
+  const cartWishUrl = '/api/carts/wishlist';
   const [amount, setAmount] = useState(0);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const cartWishUrl = '/api/carts/wishlist';
-  const { currentUser } = useCurrentUser();
-
   const buyItems = async () => {
     if (Object.keys(cartdata?.buyItems || {}).length > 0) {
       const newItemToCart = {
@@ -44,6 +42,7 @@ const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, set
         time: Date.now(),
       };
       cartService.create(cartUrl, createCart).then((res) => {
+        dispatch({ type: 'CREATE_CART', payload: { res } });
         setCartData(res);
         handleClose();
         setError(null);
@@ -53,38 +52,7 @@ const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, set
   };
   return (
     <div>
-      <Button variant="primary" onClick={handleShow} className="addToShoppingCart" disabled={!currentUser}>
-        <MdAddShoppingCart style={{ fontSize: '2em' }} />
-        {amount > 0 && amount}
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>How many</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="btnCartAddAmount">
-            <Button className="btnMinus" disabled={amount === 0} onClick={() => setAmount(amount - 1)}>
-              -
-            </Button>
-            {amount}
-            <Button className="btnPlus" disabled={amount === 10} onClick={() => setAmount(amount + 1)}>
-              +
-            </Button>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            className="addToShoppingCart"
-            disabled={amount === 0}
-            onClick={() => {
-              buyItems();
-            }}
-          >
-            Add
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <CartAmountComponent amount={amount} setAmount={setAmount} handle={buyItems} handleShow={handleShow} handleClose={handleClose} show={show} />
     </div>
   );
 };

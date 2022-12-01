@@ -21,7 +21,7 @@ const Shopping = ({ setItemInCart, handleCartAdd, setCartData, cartdata, error, 
     return result.title.toUpperCase().includes(search.toUpperCase());
   });
   const exist = (id) => {
-    return cartdata?.buyItems?.some((item) => item.buyItem.includes(id));
+    return (cartdata?.buyItems || []).some((item) => (item.buyItem ?? '').includes(id));
   };
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
