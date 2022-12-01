@@ -20,7 +20,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
   const navigate = useNavigate();
   const cartUrl = '/api/carts/all';
   const [isPending, setIsPending] = useState(true);
-  const { cartdata, setCartData } = useGetCartList(cartUrl);
+  const { cartdata } = useGetCartList(cartUrl);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const [carts, setCart] = useState([]);
@@ -129,7 +129,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
             {carts.map((item, index) => (
               <TableRow key={item.id + index}>
                 <TableCell>{item.title}</TableCell>
-                <TableCell align="right">{cart.buyItems[index]?.amount} pcs</TableCell>
+                <TableCell align="right">{cart?.buyItems[index]?.amount} pcs</TableCell>
                 <TableCell align="right">
                   <img src={item.pic} alt="" width="50" height="50" />
                 </TableCell>
@@ -137,7 +137,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
                   {item.price} {'\u20AC'}
                 </TableCell>
                 <TableCell align="right">
-                  {(cart.buyItems[index]?.price * cart.buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
+                  {(cart?.buyItems[index]?.price * cart.buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
                 </TableCell>
                 <TableCell align="right">
                   {carts.length > 1 && (
