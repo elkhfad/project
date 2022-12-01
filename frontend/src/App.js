@@ -20,7 +20,7 @@ function App() {
   const { currentUser } = useCurrentUser();
   const [itemInCart, setItemInCart] = useState(0);
   const url = `/api/users`;
-  const { image, setImage } = useImage(url);
+  const { image, setImage } = useImage(url, currentUser);
   const [cartdata, setCartData] = useState({});
   const [error, setError] = useState(null);
   const cartUrl = '/api/carts';

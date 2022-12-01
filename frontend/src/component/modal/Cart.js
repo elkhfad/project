@@ -129,7 +129,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
             {carts.map((item, index) => (
               <TableRow key={item.id + index}>
                 <TableCell>{item.title}</TableCell>
-                <TableCell align="right">{cart[0].buyItems[index]?.amount} pcs</TableCell>
+                <TableCell align="right">{cart[0]?.buyItems[index]?.amount} pcs</TableCell>
                 <TableCell align="right">
                   <img src={item.pic} alt="" width="50" height="50" />
                 </TableCell>
