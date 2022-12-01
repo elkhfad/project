@@ -191,31 +191,19 @@ cartRouter.put('/wishlist/:id', async (request, response, next) => {
     return response.status(401).json({ error: 'token missing or invalid' });
   }
   const user = await User.findById(decodedToken.id);
-  const carts = await Cart.find();
-  const cartsByUser = carts.filter((userByCart) => {
-    return userByCart.user.valueOf() === user._id.valueOf();
-  });
-  const existInUser = cartsByUser.filter((cart) => {
-    return cart._id?.valueOf() === request.params.id;
-  });
-
-  if (existInUser) {
-    try {
-      await Cart.updateOne(
-        { user: user._id.valueOf(), wish: true },
-        {
-          $pull: {
-            buyItems: {
-              buyItem: request.body.itemId,
-            },
+  try {
+    await Cart.updateOne(
+      { user: user._id.valueOf(), wish: true },
+      {
+        $pull: {
+          buyItems: {
+            buyItem: request.body.itemId,
           },
-        }
-      );
-    } catch (exception) {
-      next(exception);
-    }
-  } else {
-    return response.status(401).json({ error: 'unauthorized' });
+        },
+      }
+    );
+  } catch (exception) {
+    next(exception);
   }
 });
 
