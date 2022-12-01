@@ -160,7 +160,7 @@ cartRouter.post('/wishlist', async (request, response, next) => {
       });
       const cartPersist = await Cart.findById(findWishList?._id.valueOf());
       const findItem = await Item.find();
-      const cartPrice = findItem.filter((item) => {
+      const cartPrice = findItem.find((item) => {
         return item._id.valueOf() === body.buyItems.buyItem;
       });
       const cart = {
