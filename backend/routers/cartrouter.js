@@ -202,7 +202,7 @@ cartRouter.put('/wishlist/:id', async (request, response, next) => {
   if (existInUser) {
     try {
       await Cart.updateOne(
-        { wish: true },
+        { user: user._id.valueOf(), wish: true },
         {
           $pull: {
             buyItems: {
