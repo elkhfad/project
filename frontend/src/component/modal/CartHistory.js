@@ -38,7 +38,7 @@ const CartHistory = () => {
   }, [id, url]);
 
   const TAX_RATE = 0.22;
-  const cart = cartdata.filter((cart) => {
+  const cart = cartdata.find((cart) => {
     return cart.id === id;
   });
 
@@ -50,7 +50,7 @@ const CartHistory = () => {
       .reduce((sum, i) => sum + i, 0);
   };
 
-  const invoiceSubtotal = subtotal(cart[0]?.buyItems);
+  const invoiceSubtotal = subtotal(cart?.buyItems);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
@@ -84,7 +84,7 @@ const CartHistory = () => {
             {carts.map((item, index) => (
               <TableRow key={item.id}>
                 <TableCell>{item.title}</TableCell>
-                <TableCell align="right">{cart[0].buyItems[index]?.amount} pcs</TableCell>
+                <TableCell align="right">{cart.buyItems[index]?.amount} pcs</TableCell>
                 <TableCell align="right">
                   <img src={item.pic} alt="" width="50" height="50" />
                 </TableCell>
@@ -92,7 +92,7 @@ const CartHistory = () => {
                   {item.price} {'\u20AC'}
                 </TableCell>
                 <TableCell align="right">
-                  {(cart[0].buyItems[index]?.price * cart[0].buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
+                  {(cart.buyItems[index]?.price * cart.buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
                 </TableCell>
               </TableRow>
             ))}

@@ -20,14 +20,14 @@ const Cart = ({ setItemInCart, itemInCart }) => {
   const navigate = useNavigate();
   const cartUrl = '/api/carts/all';
   const [isPending, setIsPending] = useState(true);
-  const { cartdata } = useGetCartList(cartUrl);
+  const { cartdata, setCartData } = useGetCartList(cartUrl);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const [carts, setCart] = useState([]);
   const url = '/api/carts';
   const urlBuy = '/api/carts/buy';
   const cartWishUrl = '/api/carts/wishlist';
-  const cart = cartdata.filter((cart) => {
+  const cart = cartdata.find((cart) => {
     return cart.id === id;
   });
   useEffect(() => {
@@ -71,7 +71,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       .reduce((sum, i) => sum + i, 0);
   };
 
-  const invoiceSubtotal = subtotal(cart[0]?.buyItems);
+  const invoiceSubtotal = subtotal(cart?.buyItems);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
   const handleDelete = (id) => {
@@ -82,7 +82,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
   };
 
   const handleTime = () => {
-    const time = cart[0]?.time;
+    const time = cart?.time;
     return time;
   };
 
@@ -129,7 +129,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
             {carts.map((item, index) => (
               <TableRow key={item.id + index}>
                 <TableCell>{item.title}</TableCell>
-                <TableCell align="right">{cart[0]?.buyItems[index]?.amount} pcs</TableCell>
+                <TableCell align="right">{cart.buyItems[index]?.amount} pcs</TableCell>
                 <TableCell align="right">
                   <img src={item.pic} alt="" width="50" height="50" />
                 </TableCell>
@@ -137,7 +137,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
                   {item.price} {'\u20AC'}
                 </TableCell>
                 <TableCell align="right">
-                  {(cart[0].buyItems[index]?.price * cart[0].buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
+                  {(cart.buyItems[index]?.price * cart.buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
                 </TableCell>
                 <TableCell align="right">
                   {carts.length > 1 && (

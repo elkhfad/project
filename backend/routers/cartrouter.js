@@ -16,7 +16,7 @@ cartRouter.post('/', async (request, response, next) => {
   }
   const user = await User.findById(decodedToken.id);
   const findItem = await Item.find();
-  const cartPrice = findItem.filter((item) => {
+  const cartPrice = findItem.find((item) => {
     return item._id.valueOf() === body.buyItem;
   });
   const localTime = moment(body.time).format('YYYY-MM-DD HH:mm:ss');
@@ -25,7 +25,7 @@ cartRouter.post('/', async (request, response, next) => {
     buyItems: {
       buyItem: body.buyItem,
       amount: body.amount,
-      price: cartPrice[0].price,
+      price: cartPrice.price,
     },
     user: user._id,
     time: localTime,
@@ -75,7 +75,7 @@ cartRouter.get('/all', async (request, response, next) => {
   const user = await User.findById(decodedToken.id);
   try {
     const carts = await Cart.find();
-    const cartsByUser = carts.filter((userByCart) => {
+    const cartsByUser = carts?.filter((userByCart) => {
       return userByCart.user.valueOf() === user._id.valueOf();
     });
 
@@ -155,10 +155,10 @@ cartRouter.post('/wishlist', async (request, response, next) => {
   });
   if (cartsByUser) {
     try {
-      const findWishList = cartsByUser.filter((cart) => {
+      const findWishList = cartsByUser.find((cart) => {
         return cart.wish === true;
       });
-      const cartPersist = await Cart.findById(findWishList[0]?._id.valueOf());
+      const cartPersist = await Cart.findById(findWishList?._id.valueOf());
       const findItem = await Item.find();
       const cartPrice = findItem.filter((item) => {
         return item._id.valueOf() === body.buyItems.buyItem;
@@ -166,9 +166,9 @@ cartRouter.post('/wishlist', async (request, response, next) => {
       const cart = {
         buyItem: body.buyItems.buyItem,
         amount: body.buyItems.amount,
-        price: cartPrice[0].price,
+        price: cartPrice.price,
       };
-      cartPersist.buyItems = findWishList[0].buyItems.concat(cart);
+      cartPersist.buyItems = findWishList.buyItems.concat(cart);
       await cartPersist.save();
 
       if (cartPersist) {

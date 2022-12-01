@@ -1,6 +1,3 @@
-const logger = require('../utils/logger');
-
-logger.info('mongo starting');
 require('dotenv').config();
 
 const mongoose = require('mongoose');
