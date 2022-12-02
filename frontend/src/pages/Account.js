@@ -11,12 +11,14 @@ import { BsTrash } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import services from '../services/registerService';
 
-const Account = ({ image, setImage }) => {
+const Account = () => {
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const url = `/api/users`;
+  const [image, setImage] = useState('');
+
   const [account, setAccount] = useState({
     firstName: '',
     lastName: '',
@@ -38,6 +40,7 @@ const Account = ({ image, setImage }) => {
   });
   const removeImage = () => {
     setImage('');
+    sessionStorage.setItem('image', JSON.stringify(''));
   };
   useEffect(() => {
     setIsPending(true);
@@ -109,6 +112,7 @@ const Account = ({ image, setImage }) => {
         .then((res) => {
           setAccount(res);
           setImage(res.pic);
+          sessionStorage.setItem('image', JSON.stringify(image));
           handleClose();
           setError(null);
           setIsPending(false);

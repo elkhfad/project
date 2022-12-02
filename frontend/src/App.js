@@ -15,12 +15,10 @@ import Contact from './pages/Contact';
 import { useEffect, useState } from 'react';
 import cartService from './services/cartsService';
 import PrivateRoute from './component/autoLogOut/PrivateRoute';
-import { useImage } from './component/control/useImage';
 function App() {
   const { currentUser } = useCurrentUser();
   const [itemInCart, setItemInCart] = useState(0);
   const url = `/api/users`;
-  const { image, setImage } = useImage(url, currentUser);
   const [cartdata, setCartData] = useState({});
   const [error, setError] = useState(null);
   const cartUrl = '/api/carts';
@@ -51,7 +49,7 @@ function App() {
   return (
     <HashRouter basename="/">
       <div className="App">
-        <NewNavBar image={image} itemInCart={itemInCart} />
+        <NewNavBar itemInCart={itemInCart} />
         <div className="content">
           <Routes>
             <Route extact path="/" element={<Shopping handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} setError={setError} cartdata={cartdata} error={error} setCartData={setCartData} />} />
@@ -77,7 +75,7 @@ function App() {
               path="/accounts"
               element={
                 <PrivateRoute>
-                  <Account image={image} setImage={setImage} />
+                  <Account />
                 </PrivateRoute>
               }
             />

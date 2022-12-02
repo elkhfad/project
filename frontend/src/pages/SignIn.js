@@ -25,6 +25,7 @@ const SignIn = () => {
           password,
         });
         sessionStorage.setItem('currenUser', JSON.stringify(newUser));
+        sessionStorage.setItem('image', JSON.stringify(newUser.pic));
         setEmail('');
         setPassword('');
         window.location.href = '/';

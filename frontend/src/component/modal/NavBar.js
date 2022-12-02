@@ -18,9 +18,11 @@ import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { green } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-function NavBar({ image, itemInCart }) {
+function NavBar({ itemInCart }) {
   const { currentUser } = useCurrentUser();
+  const [image, setImage] = useState('');
   const navigate = useNavigate();
   const handleLockOut = () => {
     logInService.logout();
@@ -28,6 +30,17 @@ function NavBar({ image, itemInCart }) {
   const handleCart = () => {
     navigate('/cartList');
   };
+  const handleImageToSession = () => {
+    const avatar = sessionStorage.getItem('image');
+    const avatarImage = JSON.parse(avatar);
+    setImage(avatarImage);
+  };
+  useEffect(() => {
+    window.addEventListener('mouseover', () => {
+      handleImageToSession();
+    });
+  }, [image]);
+
   return (
     <Navbar bg="light" expand="sm">
       <Container fluid>
