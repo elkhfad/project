@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import services from '../../services/cartsService';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
 import Button from 'react-bootstrap/Button';
@@ -18,32 +18,40 @@ import Paper from '@mui/material/Paper';
 import CartAmountUpdateComponent from './CartAmountUpdateComponent';
 
 const Cart = ({ setItemInCart, itemInCart }) => {
-  const navigate = useNavigate();
   const cartUrl = '/api/carts/all';
   const [isPending, setIsPending] = useState(true);
-  const { cartdata } = useGetCartList(cartUrl);
+  const { cartdata, setCartData } = useGetCartList(cartUrl);
   const [error, setError] = useState(null);
   const { id } = useParams();
-  const [carts, setCart] = useState([]);
+  const [carts, setCarts] = useState([]);
   const url = '/api/carts';
   const urlBuy = '/api/carts/buy';
   const cartWishUrl = '/api/carts/wishlist';
-  const cart = cartdata.find((cart) => {
-    return cart.id === id;
+  const [cart, setCart] = useState({
+    buyItems: [{ buyItem: '', amount: 0, price: 0, _id: '' }],
+    id: '',
+    time: '',
+    user: '',
+    wish: false,
   });
   useEffect(() => {
     services
       .getById(url, id)
       .then((res) => {
-        setCart(res.data);
+        setCarts(res.data);
         setIsPending(false);
+        setCart(
+          cartdata.find((cart) => {
+            return cart.id === id;
+          })
+        );
         setError(null);
       })
       .catch((err) => {
         setError(err.response.data.error);
         setIsPending(false);
       });
-  }, [id, url]);
+  }, [id, url, cart, cartdata]);
   const handleBuy = () => {
     const updateCart = {
       items: carts.items,
@@ -78,23 +86,46 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       window.location.href = '/';
     });
   };
-
+  const handleAmount = () => {
+    services
+      .getAllCartByUser(cartUrl)
+      .then((res) => {
+        if (!res.status === 'OK') {
+          throw Error('could not load data');
+        }
+        setIsPending(false);
+        setCartData(res);
+        setError(null);
+        setCart(
+          cartdata.find((cart) => {
+            return cart.id === id;
+          })
+        );
+      })
+      .catch((err) => {
+        setError(err.message);
+        setIsPending(false);
+      });
+  };
   const handleTime = () => {
     const time = cart?.time;
     return time;
   };
-
+  const reload = () => {
+    window.location.href = '/';
+  };
   const deleteItem = async (itemId) => {
-    const cartItem = carts.filter((cart) => {
+    const cartItem = carts?.filter((cart) => {
       return cart.id !== itemId;
     });
-    const shoppinCartItems = cart.buyItems.filter((item) => {
+    const shoppinCartItems = cart?.buyItems?.filter((item) => {
       return item.buyItem !== itemId;
     });
     const newObject = {
       itemId: itemId,
     };
     cart.buyItems = shoppinCartItems;
+    setCarts(cartItem);
     setCart(cartItem);
     setItemInCart(itemInCart - 1);
     await services.removeAndUpdate(cartWishUrl, id, newObject);
@@ -105,7 +136,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div>
-        <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => navigate('/')}>
+        <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => reload()}>
           Back <IoReturnDownBackOutline />
         </Button>
       </div>
@@ -121,7 +152,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
             </TableRow>
             <TableRow>
               <TableCell>Title</TableCell>
-              <TableCell align="right">Amount</TableCell>
+              <TableCell align="left">Amount</TableCell>
               <TableCell align="right">Picture</TableCell>
               <TableCell align="right">Unit</TableCell>
               <TableCell align="right">Sum</TableCell>
@@ -135,7 +166,9 @@ const Cart = ({ setItemInCart, itemInCart }) => {
               .map((item, index) => (
                 <TableRow key={item._id}>
                   <TableCell>{carts?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
-                  <TableCell align="right">{item?.amount} pcs</TableCell>
+                  <TableCell align="left">
+                    <CartAmountUpdateComponent unit={item.amount} id={id} itemId={item._id} handleAmount={handleAmount} />
+                  </TableCell>
                   <TableCell align="right">
                     <img src={carts?.filter((p) => p.id === item.buyItem).shift()?.pic} alt="" width="50" height="50" />
                   </TableCell>
@@ -145,9 +178,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
                   <TableCell align="right">
                     {(item?.price * item.amount).toFixed(2)} {'\u20AC'}
                   </TableCell>
-                  <TableCell>
-                    <CartAmountUpdateComponent unit={item.amount} id={id} itemId={item._id} />
-                  </TableCell>
+
                   <TableCell align="right">
                     {carts.length > 1 && (
                       <Confirm
