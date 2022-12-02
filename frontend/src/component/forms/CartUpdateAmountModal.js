@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { useCurrentUser } from '../../services/currenUser';
 
-const CartAmountModal = ({ amount, setAmount, handle, handleClose, handleShow, show, handleAmount }) => {
+const CartAmountModal = ({ amount, setAmount, handle, handleClose, handleShow, show }) => {
   const { currentUser } = useCurrentUser();
 
   return (
@@ -34,8 +34,6 @@ const CartAmountModal = ({ amount, setAmount, handle, handleClose, handleShow, s
             disabled={amount === 0}
             onClick={() => {
               handle();
-              handleAmount();
-              handleClose();
             }}
           >
             Add

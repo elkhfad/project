@@ -27,6 +27,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
   const url = '/api/carts';
   const urlBuy = '/api/carts/buy';
   const cartWishUrl = '/api/carts/wishlist';
+  const [newAmount, setNewAmount] = useState();
   const [cart, setCart] = useState({
     buyItems: [{ buyItem: '', amount: 0, price: 0, _id: '' }],
     id: '',
@@ -54,9 +55,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
   }, [id, url, cart, cartdata]);
   const handleBuy = () => {
     const updateCart = {
-      items: carts.items,
-      time: carts.time,
-      user: carts.user,
+      ...carts,
       wish: false,
     };
     services
@@ -108,6 +107,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
         setIsPending(false);
       });
   };
+
   const handleTime = () => {
     const time = cart?.time;
     return time;
@@ -167,7 +167,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
                 <TableRow key={item._id}>
                   <TableCell>{carts?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
                   <TableCell align="left">
-                    <CartAmountUpdateComponent unit={item.amount} id={id} itemId={item._id} handleAmount={handleAmount} />
+                    <CartAmountUpdateComponent unit={item.amount} index={index} id={id} itemId={item._id} handleAmount={handleAmount} />
                   </TableCell>
                   <TableCell align="right">
                     <img src={carts?.filter((p) => p.id === item.buyItem).shift()?.pic} alt="" width="50" height="50" />

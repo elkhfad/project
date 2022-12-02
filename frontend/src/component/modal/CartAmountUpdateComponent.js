@@ -14,7 +14,10 @@ const CartAmountUpdateComponent = ({ id, itemId, unit, handleAmount }) => {
       itemId: itemId,
       amount: amount,
     };
-    await services.amountUpdate(url, newObject, id);
+    await services.amountUpdate(url, newObject, id).then(() => {
+      handleAmount(itemId, amount);
+      handleClose();
+    });
   };
 
   return (

@@ -75,7 +75,18 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
 
                 <label htmlFor="password">password *</label>
                 <div className="input-group">
-                  <input className="form-control" id="password" name="password" type="password" value={signUp.password} onChange={handleChange} required maxLength={50} placeholder="Password" />
+                  <input
+                    className="form-control"
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={signUp.password}
+                    onChange={handleChange}
+                    required
+                    maxLength={50}
+                    placeholder="Password"
+                    autoComplete="on"
+                  />
                   <div className="input-group-addon">
                     <ChooseIcon value={signUp.password} min={8} />
                   </div>
