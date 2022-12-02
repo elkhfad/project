@@ -32,7 +32,7 @@ function NavBar({ itemInCart }) {
   };
   const handleImageToSession = () => {
     const avatar = sessionStorage.getItem('image');
-    if (avatar.length !== '') {
+    if (avatar?.length !== '' || avatar?.length !== null) {
       const avatarImage = JSON.parse(avatar);
       setImage(avatarImage);
     }
