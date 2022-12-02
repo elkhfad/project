@@ -27,7 +27,6 @@ const Cart = ({ setItemInCart, itemInCart }) => {
   const url = '/api/carts';
   const urlBuy = '/api/carts/buy';
   const cartWishUrl = '/api/carts/wishlist';
-  const [newAmount, setNewAmount] = useState();
   const [cart, setCart] = useState({
     buyItems: [{ buyItem: '', amount: 0, price: 0, _id: '' }],
     id: '',
