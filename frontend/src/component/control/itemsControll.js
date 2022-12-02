@@ -62,12 +62,6 @@ export const useGetItemById = (url, id) => {
     price: '',
     pic: '',
   });
-  const [itemOriginal, setItemOriginal] = useState({
-    title: '',
-    comment: '',
-    price: '',
-    pic: '',
-  });
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -79,7 +73,6 @@ export const useGetItemById = (url, id) => {
         }
         setIsPending(false);
         setItem(res.data);
-        setItemOriginal(res);
         setError(null);
       })
       .catch((err) => {
@@ -89,7 +82,6 @@ export const useGetItemById = (url, id) => {
   }, [id, url]);
   return {
     item,
-    itemOriginal,
     isPending,
     error,
     setItem,

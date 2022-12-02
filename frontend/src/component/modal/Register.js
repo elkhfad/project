@@ -2,10 +2,11 @@ import registerServices from '../../services/registerService';
 import RegisterForm from '../forms/RegisterForm';
 import { useEffect, useState } from 'react';
 
-const Register = ({ image, setImage }) => {
+const Register = () => {
   const [error, setError] = useState(null);
   const [valid, setValid] = useState(false);
   const [show, setShow] = useState(false);
+  const [image, setImage] = useState('');
   const [signUp, setSignUp] = useState({
     firstName: '',
     lastName: '',
@@ -36,13 +37,7 @@ const Register = ({ image, setImage }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newUser = {
-      firstName: signUp.firstName,
-      lastName: signUp.lastName,
-      email: signUp.email,
-      password: signUp.password,
-      street: signUp.street,
-      postalCode: signUp.postalCode,
-      city: signUp.city,
+      ...signUp,
       pic: image,
     };
     if (valid) {
@@ -63,16 +58,6 @@ const Register = ({ image, setImage }) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
   };
   const handleClose = () => {
-    setSignUp({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      street: '',
-      postalCode: '',
-      city: '',
-      pic: '',
-    });
     setError('');
     setShow(false);
   };

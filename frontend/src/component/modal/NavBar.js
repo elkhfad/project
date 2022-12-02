@@ -32,14 +32,18 @@ function NavBar({ itemInCart }) {
   };
   const handleImageToSession = () => {
     const avatar = sessionStorage.getItem('image');
-    const avatarImage = JSON.parse(avatar);
-    setImage(avatarImage);
+    if (avatar.length !== '') {
+      const avatarImage = JSON.parse(avatar);
+      setImage(avatarImage);
+    }
   };
   useEffect(() => {
-    window.addEventListener('mouseover', () => {
-      handleImageToSession();
-    });
-  }, [image]);
+    if (currentUser) {
+      window.addEventListener('mouseover', () => {
+        handleImageToSession();
+      });
+    }
+  }, [image, currentUser]);
 
   return (
     <Navbar bg="light" expand="sm">

@@ -17,7 +17,7 @@ const EditItem = () => {
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
   const url = `/api/items`;
-  const { item, itemOriginal, setItem, isPending } = useGetItemById(url, id);
+  const { item, setItem, isPending } = useGetItemById(url, id);
 
   const handleDelete = () => {
     setSuccess(null);
@@ -35,9 +35,7 @@ const EditItem = () => {
       const reader = new FileReader();
       reader.addEventListener('load', () => {
         setItem({
-          title: item.title,
-          comment: item.comment,
-          price: item.price,
+          ...item,
           pic: reader.result,
         });
       });
@@ -47,9 +45,7 @@ const EditItem = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const updateItem = {
-      title: item.title,
-      comment: item.comment,
-      price: item.price,
+      ...item,
       pic: item.pic,
     };
 
@@ -59,7 +55,6 @@ const EditItem = () => {
         .update(url, id, updateItem)
         .then((res) => {
           setItem(res);
-          handleClose();
           setError(null);
           navigate('/itemList');
         })
@@ -68,19 +63,9 @@ const EditItem = () => {
         });
     }
   };
-  const handleClose = () => {
-    setItem({
-      title: itemOriginal.title,
-      comment: itemOriginal.comment,
-      price: itemOriginal.price,
-      pic: itemOriginal.pic,
-    });
-  };
   const removeImage = () => {
     setItem({
-      title: item.title,
-      comment: item.comment,
-      price: item.price,
+      ...item,
       pic: '',
     });
   };

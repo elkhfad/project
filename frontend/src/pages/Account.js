@@ -29,15 +29,7 @@ const Account = () => {
     city: '',
     pic: '',
   });
-  const [accountOriginal, setAccountOriginal] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    street: '',
-    postalCode: '',
-    city: '',
-    pic: '',
-  });
+
   const removeImage = () => {
     setImage('');
     sessionStorage.setItem('image', JSON.stringify(''));
@@ -50,7 +42,6 @@ const Account = () => {
         setIsPending(false);
         setAccount(res);
         setImage(res.pic);
-        setAccountOriginal(res);
         setError(null);
       })
       .catch((err) => {
@@ -68,12 +59,7 @@ const Account = () => {
       reader.addEventListener('load', () => {
         setImage(reader.result);
         setAccount({
-          firstName: account.firstName,
-          lastName: account.lastName,
-          email: account.email,
-          street: account.street,
-          postalCode: account.postalCode,
-          city: account.city,
+          ...account,
           pic: image,
         });
       });
@@ -89,12 +75,7 @@ const Account = () => {
     e.preventDefault();
     setIsPending(true);
     const updateAccount = {
-      firstName: account.firstName,
-      lastName: account.lastName,
-      email: account.email,
-      street: account.street,
-      postalCode: account.postalCode,
-      city: account.city,
+      ...account,
       pic: image,
     };
     setImage(account.pic);
@@ -113,7 +94,6 @@ const Account = () => {
           setAccount(res);
           setImage(res.pic);
           sessionStorage.setItem('image', JSON.stringify(image));
-          handleClose();
           setError(null);
           setIsPending(false);
           navigate('/');
@@ -124,18 +104,6 @@ const Account = () => {
           setIsPending(false);
         });
     }
-  };
-  const handleClose = () => {
-    setAccount({
-      firstName: accountOriginal.firstName,
-      lastName: accountOriginal.lastName,
-      email: accountOriginal.email,
-      password: accountOriginal.password,
-      street: accountOriginal.street,
-      postalCode: accountOriginal.postalCode,
-      city: accountOriginal.city,
-      pic: accountOriginal.pic,
-    });
   };
 
   return (
