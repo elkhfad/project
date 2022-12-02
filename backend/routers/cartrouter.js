@@ -201,6 +201,7 @@ cartRouter.put('/wishlist/:id', async (request, response, next) => {
         },
       }
     );
+    response.status(204).end();
   } catch (exception) {
     next(exception);
   }
@@ -221,6 +222,7 @@ cartRouter.put('/amount/:id', async (request, response, next) => {
         multi: false,
       }
     );
+    response.status(204).end();
   } catch (exception) {
     next(exception);
   }

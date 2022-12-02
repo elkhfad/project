@@ -34,8 +34,8 @@ const CartAmountModal = ({ amount, setAmount, handle, handleClose, handleShow, s
             disabled={amount === 0}
             onClick={() => {
               handle();
-              handleClose();
               handleAmount();
+              handleClose();
             }}
           >
             Add

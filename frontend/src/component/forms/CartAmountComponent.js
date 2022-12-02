@@ -34,7 +34,6 @@ const CartAmountComponent = ({ amount, setAmount, handle, handleClose, handleSho
             disabled={amount === 0}
             onClick={() => {
               handle();
-              handleAmount();
               handleClose();
             }}
           >

@@ -101,6 +101,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
             return cart.id === id;
           })
         );
+        cart.buyItems = res.buyItems;
       })
       .catch((err) => {
         setError(err.message);
@@ -126,7 +127,6 @@ const Cart = ({ setItemInCart, itemInCart }) => {
     };
     cart.buyItems = shoppinCartItems;
     setCarts(cartItem);
-    setCart(cartItem);
     setItemInCart(itemInCart - 1);
     await services.removeAndUpdate(cartWishUrl, id, newObject);
   };
