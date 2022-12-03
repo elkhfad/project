@@ -16,6 +16,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CartAmountUpdateComponent from './CartAmountUpdateComponent';
+import servicesUser from '../../services/registerService';
 
 const Cart = ({ setItemInCart, itemInCart }) => {
   const cartUrl = '/api/carts/all';
@@ -27,14 +28,24 @@ const Cart = ({ setItemInCart, itemInCart }) => {
   const url = '/api/carts';
   const urlBuy = '/api/carts/buy';
   const cartWishUrl = '/api/carts/wishlist';
+  const urlUser = `/api/users`;
+  const [user, setUser] = useState({});
+
   const [cart, setCart] = useState({
     buyItems: [{ buyItem: '', amount: 0, price: 0, _id: '' }],
     id: '',
     time: '',
     user: '',
     wish: false,
+    address: '',
   });
   useEffect(() => {
+    servicesUser.getUser(urlUser).then((res) => {
+      setIsPending(false);
+      setUser(res);
+      setError(null);
+    });
+
     services
       .getById(url, id)
       .then((res) => {
@@ -51,11 +62,12 @@ const Cart = ({ setItemInCart, itemInCart }) => {
         setError(err.response.data.error);
         setIsPending(false);
       });
-  }, [id, url, cart, cartdata]);
+  }, [id, url, cart, cartdata, urlUser]);
   const handleBuy = () => {
     const updateCart = {
       ...carts,
       wish: false,
+      address: user,
     };
     services
       .buyUpdate(urlBuy, updateCart, id)
@@ -100,7 +112,6 @@ const Cart = ({ setItemInCart, itemInCart }) => {
             return cart.id === id;
           })
         );
-        //cart.buyItems = res.buyItems;
       })
       .catch((err) => {
         setError(err.message);

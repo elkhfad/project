@@ -23,8 +23,7 @@ cartRouter.post('/', async (request, response, next) => {
 
   const cart = new Cart({
     buyItems: {
-      buyItem: body.buyItem,
-      amount: body.amount,
+      ...body,
       price: cartPrice.price,
     },
     user: user._id,

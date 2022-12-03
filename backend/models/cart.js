@@ -3,6 +3,15 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({
+  address: {
+    firstName: String,
+    lastName: String,
+    email: String,
+    city: String,
+    street: String,
+    postalCode: String,
+  },
+
   buyItems: [
     {
       buyItem: String,
