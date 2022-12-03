@@ -74,12 +74,20 @@ const Shopping = ({ setItemInCart, handleCartAdd, setCartData, cartdata, error, 
                       <Card.Body>
                         <Card.Title className="cardTitleStyle">{data.title}</Card.Title>
                       </Card.Body>
-                      {!exist(data.id) ? (
-                        <CartComponent id={data.id} setError={setError} setCartData={setCartData} cartdata={cartdata} handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} />
+                      {currentUser ? (
+                        !exist(data.id) ? (
+                          <CartComponent id={data.id} setError={setError} setCartData={setCartData} cartdata={cartdata} handleCartAdd={handleCartAdd} setItemInCart={setItemInCart} />
+                        ) : (
+                          <div>
+                            <Button disabled variant="primary" className="addToShoppingCart">
+                              Item already exist in cart
+                            </Button>
+                          </div>
+                        )
                       ) : (
                         <div>
                           <Button disabled variant="primary" className="addToShoppingCart">
-                            Item already exist in cart
+                            Sign in to start shopping
                           </Button>
                         </div>
                       )}
