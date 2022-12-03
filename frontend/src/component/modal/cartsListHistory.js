@@ -16,7 +16,10 @@ const CartsListHistory = () => {
   const cartHistory = cartdata.filter((cart) => {
     return cart.wish === false;
   });
-
+  const handleTime = (time) => {
+    const newTime = new Date(time);
+    return newTime.toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' });
+  };
   const seeList = (id) => {
     navigate(`${id}`);
   };
@@ -40,7 +43,7 @@ const CartsListHistory = () => {
           return (
             <div key={d.id + index} className="cartStyle" style={{ marginBottom: '1em', marginTop: '2em' }}>
               <Button onClick={() => seeList(d.id)} className="cartHistoryBtn">
-                cart created {d.time}
+                cart created {handleTime(d.time)}
               </Button>
               <Confirm
                 icon={<BsTrash />}

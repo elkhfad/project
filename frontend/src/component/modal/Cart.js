@@ -119,9 +119,9 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       });
   };
 
-  const handleTime = () => {
-    const time = cart?.time;
-    return time;
+  const handleTime = (time) => {
+    const newTime = new Date(time);
+    return newTime.toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' });
   };
   const reload = () => {
     window.location.href = '/';
@@ -151,7 +151,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
           Back <IoReturnDownBackOutline />
         </Button>
       </div>
-      <div className="cartDate">cart created {handleTime()} </div>
+      <div className="cartDate">cart created {handleTime(cart?.time)} </div>
       <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>

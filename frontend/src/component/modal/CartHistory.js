@@ -62,7 +62,6 @@ const Cart = () => {
       })
       .reduce((sum, i) => sum + i, 0);
   };
-
   return (
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
@@ -83,9 +82,8 @@ const Cart = () => {
             </div>
             <div className="cartEmail">email: {cart?.address.email}</div>
             <div className="cartaddress">street: {cart?.address.street}</div>
-            <div className="cartCityAndPostalCode">
-              postal code and city: {cart?.address.postalCode}, {cart?.address.city}
-            </div>
+            <div className="cartCityAndPostalCode">postal code: {cart?.address.postalCode}</div>
+            <div className="cartCityAndPostalCode">city: {cart?.address.city}</div>
           </div>
         </div>
         <div className="cartInformation">Cart information</div>

@@ -18,7 +18,6 @@ cartRouter.post('/', async (request, response, next) => {
   const cartPrice = findItem.find((item) => {
     return item._id.valueOf() === body.buyItem;
   });
-
   const cart = new Cart({
     buyItems: {
       ...body,
