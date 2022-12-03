@@ -20,7 +20,7 @@ const SignInForm = ({ error, handleLogin, handlePasswordChange, handleEmailChang
                 <ChooseIcon value={email} min={5} />
               </div>
             </div>
-            {<ErrorHandler min={5} value={email} text="Title length is too short !  required 5 characters" />}
+            {<ErrorHandler min={5} value={email} text="Title length is too short" />}
 
             <div className="email">
               <label htmlFor="password">password *</label>
@@ -42,7 +42,7 @@ const SignInForm = ({ error, handleLogin, handlePasswordChange, handleEmailChang
                 <ChooseIcon value={password} min={8} />
               </div>
             </div>
-            {<ErrorHandler min={8} value={password} text="Password length is too short !  required 8 characters" />}
+            {<ErrorHandler min={8} value={password} text="Password length is too short" />}
           </div>
 
           <button className="addNewItem" type="submit">

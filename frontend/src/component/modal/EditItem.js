@@ -105,7 +105,7 @@ const EditItem = () => {
                   <ChooseIcon value={item.title} min={5} />
                 </div>
               </div>
-              <div className="errorHandle"> {<ErrorHandler min={5} value={item.title} text="Title length is too short !  required 5 characters" />}</div>
+              <div className="errorHandle"> {<ErrorHandler min={5} value={item.title} text="Title length is too short" />}</div>
               <label htmlFor="comment">comment *</label>
               <div className="input-group">
                 <textarea
@@ -125,7 +125,7 @@ const EditItem = () => {
                 </div>
               </div>
 
-              <ErrorHandler min={10} value={item.comment} text="Comment is too short ! required 10 characters" />
+              <ErrorHandler min={10} value={item.comment} text="Comment is too short" />
               <label htmlFor="price">Price {'\u20AC'} *</label>
               <div className="input-group">
                 <input className="form-control" id="price" name="price" type="number" step="0.001" value={item.price} onChange={handleChange} required placeholder="How much it cost" />
