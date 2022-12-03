@@ -208,9 +208,11 @@ const Account = () => {
             </div>
             <div className="input-group">
               <Image src={image} alt="" style={{ width: '8rem', margin: '0 auto' }} />
-              <Button onClick={removeImage} className="removeImage">
-                <BsTrash />
-              </Button>
+              {image && (
+                <Button onClick={removeImage} className="removeImage">
+                  <BsTrash />
+                </Button>
+              )}
             </div>
             <div className="input-group">
               <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />

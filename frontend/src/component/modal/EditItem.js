@@ -133,9 +133,11 @@ const EditItem = () => {
 
               <div className="input-group">
                 <img src={item.pic} alt="" style={{ width: '8rem', margin: '0 auto' }} />
-                <Button onClick={removeImage} className="removeImage">
-                  <BsTrash />
-                </Button>
+                {item.pic && (
+                  <Button onClick={removeImage} className="removeImage">
+                    <BsTrash />
+                  </Button>
+                )}
               </div>
               <div className="input-group">
                 <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />

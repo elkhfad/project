@@ -48,11 +48,20 @@ const Register = () => {
           setImage(null);
           setError(null);
           setValid(false);
+          sessionStorage.setItem('image', JSON.stringify(image));
         })
         .catch((err) => {
           setError(err.response.data.error);
         });
     }
+  };
+  const removeImage = () => {
+    setImage('');
+    setSignUp({
+      ...signUp,
+      pic: image,
+    });
+    sessionStorage.setItem('image', JSON.stringify(''));
   };
   const handleChange = (e) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
@@ -67,13 +76,28 @@ const Register = () => {
       const reader = new FileReader();
       reader.addEventListener('load', () => {
         setImage(reader.result);
+        setSignUp({
+          ...signUp,
+          pic: image,
+        });
       });
       reader.readAsDataURL(e.target.files[0]);
     }
   };
   return (
     <div>
-      <RegisterForm handleChange={handleChange} signUp={signUp} error={error} handleSubmit={handleSubmit} handleClose={handleClose} handleShow={handleShow} show={show} handleImage={handleImage} />
+      <RegisterForm
+        handleChange={handleChange}
+        signUp={signUp}
+        error={error}
+        handleSubmit={handleSubmit}
+        handleClose={handleClose}
+        handleShow={handleShow}
+        show={show}
+        handleImage={handleImage}
+        removeImage={removeImage}
+        image={image}
+      />
     </div>
   );
 };

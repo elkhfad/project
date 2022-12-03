@@ -3,10 +3,12 @@ import ChooseIcon from '../Alert/ChooseIcon';
 import ErrorHandler from '../Alert/ErrorHandler';
 import Modal from 'react-bootstrap/Modal';
 import Spinner from 'react-bootstrap/Spinner';
-
+import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
+import { BsTrash } from 'react-icons/bs';
 import { IoAddCircleOutline } from 'react-icons/io5';
 import AlertComponent from '../Alert/AlertComponent';
-const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, handleShow, handleClose, show, image, success, isPending, error }) => {
+const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, handleShow, handleClose, show, image, success, isPending, error, removeImage }) => {
   return (
     <div>
       <div>{success && <AlertComponent variant="success" header="" text={success} />}</div>
@@ -62,7 +64,12 @@ const CreateItemForm = ({ handleSubmit, addItem, handleChange, handleImage, hand
                   <input className="form-control" id="price" name="price" type="number" step="0.001" value={addItem.price} onChange={handleChange} required placeholder="How much it cost" min="0" />
                 </div>
                 <div className="input-group">
-                  <img src={image} alt="" style={{ width: '8rem', margin: '0 auto' }} />
+                  <Image src={image} alt="" style={{ width: '8rem', margin: '0 auto' }} />
+                  {image && (
+                    <Button onClick={removeImage} className="removeImage">
+                      <BsTrash />
+                    </Button>
+                  )}
                 </div>
                 <div className="input-group">
                   <input className="form-control" type="file" name="image" onChange={handleImage} accept="image/*" />

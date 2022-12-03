@@ -23,7 +23,13 @@ const CreateItem = ({ data, setData }) => {
     };
     validation();
   });
-
+  const removeImage = () => {
+    setImage('');
+    addItem({
+      ...addItem,
+      pic: image,
+    });
+  };
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const handleSubmit = (e) => {
@@ -76,6 +82,7 @@ const CreateItem = ({ data, setData }) => {
         handleShow={handleShow}
         handleClose={handleClose}
         show={show}
+        removeImage={removeImage}
       />
     </div>
   );
