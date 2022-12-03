@@ -140,7 +140,7 @@ const Account = () => {
                   <ChooseIcon value={account.firstName} min={3} />
                 </div>
               </div>
-              {<ErrorHandler min={3} value={account.firstName} text="First length is too short !  required 3 characters" />}
+              {<ErrorHandler min={3} value={account.firstName} text="First name length is too short" />}
               <label htmlFor="lastName">Last name *</label>
               <div className="input-group">
                 <input
@@ -159,7 +159,7 @@ const Account = () => {
                   <ChooseIcon value={account.lastName} min={3} />
                 </div>
               </div>
-              {<ErrorHandler min={5} value={account.lastName} text="First length is too short !  required 5 characters" />}
+              {<ErrorHandler min={5} value={account.lastName} text="Last name length is too short" />}
               <label htmlFor="email">email *</label>
               <div className="input-group">
                 <input className="form-control" id="email" name="email" type="email" value={account.email} onChange={handleChange} required maxLength={50} placeholder="Your_email@email.com" />
@@ -167,7 +167,7 @@ const Account = () => {
                   <ChooseIcon value={account.email} min={5} />
                 </div>
               </div>
-              {<ErrorHandler min={5} value={account.email} text="Title length is too short !  required 5 characters" />}
+              {<ErrorHandler min={5} value={account.email} text="Title length is too short" />}
 
               <label htmlFor="city">City *</label>
               <div className="input-group">
@@ -176,7 +176,7 @@ const Account = () => {
                   <ChooseIcon value={account.city} min={4} />
                 </div>
               </div>
-              {<ErrorHandler min={4} value={account.city} text="City length is too short !  required 4 characters" />}
+              {<ErrorHandler min={4} value={account.city} text="City length is too short" />}
 
               <label htmlFor="street">Street *</label>
               <div className="input-group">
@@ -185,7 +185,7 @@ const Account = () => {
                   <ChooseIcon value={account.street} min={4} />
                 </div>
               </div>
-              {<ErrorHandler min={4} value={account.street} text="Street length is too short !  required 4 characters" />}
+              {<ErrorHandler min={4} value={account.street} text="Street length is too short" />}
 
               <label htmlFor="postalCode">Postal code *</label>
               <div className="input-group">
@@ -204,7 +204,7 @@ const Account = () => {
                   <ChooseIcon value={account.postalCode} min={4} />
                 </div>
               </div>
-              {<ErrorHandler min={4} value={account.postalCode} text="Postal code length is too short !  required 4 characters" />}
+              {<ErrorHandler min={4} value={account.postalCode} text="Postal code length is too short" />}
             </div>
             <div className="input-group">
               <Image src={image} alt="" style={{ width: '8rem', margin: '0 auto' }} />

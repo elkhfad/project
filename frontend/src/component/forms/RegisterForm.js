@@ -44,7 +44,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.firstName} min={3} />
                   </div>
                 </div>
-                {<ErrorHandler min={3} value={signUp.firstName} text="First length is too short !  required 3 characters" />}
+                {<ErrorHandler min={3} value={signUp.firstName} text="First length is too short" />}
 
                 <label htmlFor="lastName">Last name *</label>
                 <div className="input-group">
@@ -63,7 +63,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.lastName} min={5} />
                   </div>
                 </div>
-                {<ErrorHandler min={5} value={signUp.lastName} text="First length is too short !  required 5 characters" />}
+                {<ErrorHandler min={5} value={signUp.lastName} text="First length is too short" />}
 
                 <label htmlFor="email">email *</label>
                 <div className="input-group">
@@ -72,7 +72,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.email} min={5} />
                   </div>
                 </div>
-                {<ErrorHandler min={5} value={signUp.email} text="Title length is too short !  required 5 characters" />}
+                {<ErrorHandler min={5} value={signUp.email} text="Title length is too short" />}
 
                 <label htmlFor="password">password *</label>
                 <div className="input-group">
@@ -92,7 +92,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.password} min={8} />
                   </div>
                 </div>
-                {<ErrorHandler min={8} value={signUp.password} text="Password length is too short !  required 8 characters" />}
+                {<ErrorHandler min={8} value={signUp.password} text="Password length is too short" />}
 
                 <label htmlFor="city">City *</label>
                 <div className="input-group">
@@ -101,7 +101,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.city} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={4} value={signUp.city} text="City length is too short !  required 4 characters" />}
+                {<ErrorHandler min={4} value={signUp.city} text="City length is too short" />}
 
                 <label htmlFor="street">Street *</label>
                 <div className="input-group">
@@ -110,7 +110,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.street} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={4} value={signUp.street} text="Street length is too short !  required 4 characters" />}
+                {<ErrorHandler min={4} value={signUp.street} text="Street length is too short" />}
 
                 <label htmlFor="postalCode">Postal code *</label>
                 <div className="input-group">
@@ -129,7 +129,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.postalCode} min={4} />
                   </div>
                 </div>
-                {<ErrorHandler min={4} value={signUp.postalCode} text="Postal code length is too short !  required 4 characters" />}
+                {<ErrorHandler min={4} value={signUp.postalCode} text="Postal code length is too short" />}
               </div>
               <div className="input-group">
                 <Image src={image} alt="" style={{ width: '8rem', margin: '0 auto' }} />
