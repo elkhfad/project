@@ -39,7 +39,7 @@ const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, set
       const createCart = {
         buyItem: id,
         amount: amount,
-        time: Date.now(),
+        time: new Date().toISOString(),
       };
       cartService.create(cartUrl, createCart).then((res) => {
         dispatch({ type: 'CREATE_CART', payload: { res } });
