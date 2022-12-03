@@ -13,17 +13,27 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useGetCartList } from '../control/useGetCardList';
+import servicesUser from '../../services/registerService';
 
 const CartHistory = () => {
   const cartUrl = '/api/carts/all';
+  const urlUser = `/api/users`;
   const { cartdata } = useGetCartList(cartUrl);
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const [carts, setCart] = useState([]);
+  const [user, setUser] = useState({});
   const url = '/api/carts';
   useEffect(() => {
+    setIsPending(true);
+    servicesUser.getUser(urlUser).then((res) => {
+      setIsPending(false);
+      setUser(res);
+      setError(null);
+    });
+
     services
       .getById(url, id)
       .then((res) => {
@@ -35,7 +45,7 @@ const CartHistory = () => {
         setError(err.response.data.error);
         setIsPending(false);
       });
-  }, [id, url]);
+  }, [id, url, urlUser]);
 
   const TAX_RATE = 0.22;
   const cart = cartdata.find((cart) => {
@@ -58,68 +68,90 @@ const CartHistory = () => {
     <div>
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
-      <div>
-        <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => navigate('/cartsListHistory')}>
-          Back <IoReturnDownBackOutline />
-        </Button>
-      </div>
-      <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
-        <Table sx={{ minWidth: 700 }} aria-label="spanning table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center" colSpan={4}>
-                Details
-              </TableCell>
-              <TableCell align="right">Price</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Title</TableCell>
-              <TableCell align="right">Amount</TableCell>
-              <TableCell align="right">Picture</TableCell>
-              <TableCell align="right">Unit</TableCell>
-              <TableCell align="right">Sum</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {carts.map((item, index) => (
-              <TableRow key={item.id}>
-                <TableCell>{item.title}</TableCell>
-                <TableCell align="right">{cart.buyItems[index]?.amount} pcs</TableCell>
-                <TableCell align="right">
-                  <img src={item.pic} alt="" width="50" height="50" />
-                </TableCell>
-                <TableCell align="right">
-                  {item.price} {'\u20AC'}
-                </TableCell>
-                <TableCell align="right">
-                  {(cart.buyItems[index]?.price * cart.buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
-                </TableCell>
-              </TableRow>
-            ))}
+      <Paper>
+        <div className="paperCart"></div>
+        <div>
+          <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => navigate('/cartsListHistory')}>
+            Back <IoReturnDownBackOutline />
+          </Button>
+        </div>
+        <div>
+          <div className="cartHistoryAddress">
+            <div className="shippingAddress">
+              Shipping Address
+              <div className="cartFullName">
+                full name: {user.firstName} {user.lastName}
+              </div>
+              <div className="cartEmail">email: {user.email}</div>
+              <div className="cartaddress">street: {user.street}</div>
+              <div className="cartCityAndPostalCode">
+                postal code and city: {user.postalCode}, {user.city}
+              </div>
+            </div>
+          </div>
+          <div className="cartInformation">Cart information</div>
+          <div>
+            <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
+              <Table sx={{ minWidth: 700 }}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="center" colSpan={4}>
+                      Details
+                    </TableCell>
+                    <TableCell align="right">Price</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Title</TableCell>
+                    <TableCell align="right">Amount</TableCell>
+                    <TableCell align="right">Picture</TableCell>
+                    <TableCell align="right">Unit</TableCell>
+                    <TableCell align="right">Sum</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {carts.map((item, index) => (
+                    <TableRow key={item.id}>
+                      <TableCell>{item.title}</TableCell>
+                      <TableCell align="right">{cart.buyItems[index]?.amount} pcs</TableCell>
+                      <TableCell align="right">
+                        <img src={item.pic} alt="" width="50" height="50" />
+                      </TableCell>
+                      <TableCell align="right">
+                        {item.price} {'\u20AC'}
+                      </TableCell>
+                      <TableCell align="right">
+                        {(cart.buyItems[index]?.price * cart.buyItems[index]?.amount).toFixed(2)} {'\u20AC'}
+                      </TableCell>
+                    </TableRow>
+                  ))}
 
-            <TableRow>
-              <TableCell rowSpan={3} />
-              <TableCell colSpan={2}>Subtotal</TableCell>
-              <TableCell align="right">
-                {invoiceSubtotal} {'\u20AC'}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Tax</TableCell>
-              <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
-              <TableCell align="right">
-                {invoiceTaxes} {'\u20AC'}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={2}>Total</TableCell>
-              <TableCell align="right">
-                {invoiceTotal} {'\u20AC'}
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  <TableRow>
+                    <TableCell rowSpan={3} />
+                    <TableCell colSpan={2}>Subtotal</TableCell>
+                    <TableCell align="right">
+                      {invoiceSubtotal} {'\u20AC'}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Tax</TableCell>
+                    <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
+                    <TableCell align="right">
+                      {invoiceTaxes} {'\u20AC'}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={2}>Total</TableCell>
+                    <TableCell align="right">
+                      {invoiceTotal} {'\u20AC'}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+          <div className="paperBottom"></div>
+        </div>
+      </Paper>
     </div>
   );
 };

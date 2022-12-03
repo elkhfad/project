@@ -39,6 +39,53 @@
   margin-left: 1em;
 }
 
+.cartInformation {
+  font-size: 1.8em;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #145713;
+  margin-top: 1em;
+  margin-bottom: 3em;
+}
+
+
+.shippingAddress {
+  margin-top: 2em;
+  font-size: 1em;
+  font-weight: 800;
+  text-align: left;
+  margin-bottom: 5em;
+  color: #145713;
+
+}
+
+.paperCart {
+  height: 4em !important;
+  margin-left: 4em !important;
+
+}
+
+.paperBottom {
+  height: 5em;
+}
+
+
+.cartFullName,
+.cartEmail,
+.cartaddress,
+.cartCityAndPostalCode {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+  color: #7e7e7e;
+  text-transform: capitalize;
+
+}
+
+.cartHistoryAddress {
+  margin-left: 5em;
+}
+
 .btnPlus:hover,
 .btnMinus:hover {
   background-color: #145713 !important;
