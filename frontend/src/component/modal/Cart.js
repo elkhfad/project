@@ -84,8 +84,9 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       window.location.href = '/';
     });
   };
-  const handleAmount = () => {
-    services
+  const handleAmount = async () => {
+    setIsPending(true);
+    await services
       .getAllCartByUser(cartUrl)
       .then((res) => {
         if (!res.status === 'OK') {
@@ -99,7 +100,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
             return cart.id === id;
           })
         );
-        cart.buyItems = res.buyItems;
+        //cart.buyItems = res.buyItems;
       })
       .catch((err) => {
         setError(err.message);
@@ -163,7 +164,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
             {cart?.buyItems
               ?.filter((item) => item !== null)
               .map((item, index) => (
-                <TableRow key={item._id}>
+                <TableRow key={item._id + index}>
                   <TableCell>{carts?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
                   <TableCell align="left">
                     <CartAmountUpdateComponent unit={item.amount} index={index} id={id} itemId={item._id} handleAmount={handleAmount} />
