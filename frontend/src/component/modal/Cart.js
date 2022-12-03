@@ -40,8 +40,8 @@ const Cart = ({ setItemInCart, itemInCart }) => {
     address: '',
   });
   useEffect(() => {
+    setIsPending(true);
     servicesUser.getUser(urlUser).then((res) => {
-      setIsPending(false);
       setUser(res);
       setError(null);
     });
@@ -60,7 +60,6 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       })
       .catch((err) => {
         setError(err.response.data.error);
-        setIsPending(false);
       });
   }, [id, url, cart, cartdata, urlUser]);
   const handleBuy = () => {
@@ -69,10 +68,12 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       wish: false,
       address: user,
     };
+    setIsPending(true);
     services
       .buyUpdate(urlBuy, updateCart, id)
       .then(() => {
         setError(null);
+        setIsPending(false);
         setItemInCart(0);
         window.location.href = '/';
       })
@@ -144,14 +145,16 @@ const Cart = ({ setItemInCart, itemInCart }) => {
 
   return (
     <div>
-      <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
-      <div>{error && <AlertComponent variant="danger" header="You got an error!" text={error} />}</div>
       <div>
         <Button style={{ float: 'right', marginRight: '2em' }} className="returnToList" onClick={() => reload()}>
           Back <IoReturnDownBackOutline />
         </Button>
       </div>
-      <div className="cartDate">cart created {handleTime(cart?.time)} </div>
+      <div className="cartDate">
+        cart created {handleTime(cart?.time)}
+        {isPending && <Spinner animation="border" variant="primary" />}
+        {error && <AlertComponent variant="danger" header="You got an error!" text={error} />}
+      </div>
       <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
@@ -243,7 +246,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
           <Confirm
             icon={<BsTrash />}
             title={`Are you sure ?`}
-            body={`You won't be able to revert deleted cart! ${handleTime()}`}
+            body={`You won't be able to revert deleted cart! ${handleTime(cart?.time)}`}
             confirm="Yes delete it"
             cancelColor="success"
             confirmColor="danger"

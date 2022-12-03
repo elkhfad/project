@@ -156,11 +156,11 @@ table {
 
 .cartHistoryBtn {
   background-color: #676767 !important;
-  font-size: 14px !important;
+  font-size: 2em !important;
   outline: none;
   border: 2px solid #676767 !important;
-  width: 18em;
-  word-spacing: 1em;
+  width: 20em;
+  word-spacing: 0.5em;
   text-transform: capitalize;
   font-style: italic;
 

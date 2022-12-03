@@ -38,7 +38,7 @@ const CartsListHistory = () => {
       </div>
       <br />
       <div className="carthistory">
-        <div className="reviewHistory">Review your order history</div>
+        <div className="reviewHistory">{cartHistory.length > 0 ? 'Review your orders' : 'You have no previous orders'}</div>
         {cartHistory.map((d, index) => {
           return (
             <div key={d.id + index} className="cartStyle" style={{ marginBottom: '1em', marginTop: '2em' }}>
