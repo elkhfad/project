@@ -6,30 +6,37 @@ import { IoReturnDownBackOutline } from 'react-icons/io5';
 import Confirm from './Confirm';
 import { BsTrash } from 'react-icons/bs';
 import services from '../../services/cartsService';
+import { useEffect, useState } from 'react';
 
 const CartsListHistory = () => {
   const cartUrl = '/api/carts/all';
   const url = '/api/carts';
   const { cartdata, isPending } = useGetCartList(cartUrl);
   const navigate = useNavigate();
-
-  const cartHistory = cartdata.filter((cart) => {
-    return cart.wish === false;
-  });
+  const [cartHistory, setCartHistory] = useState([]);
   const handleTime = (time) => {
     const newTime = new Date(time);
     return newTime.toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' });
   };
+  useEffect(() => {
+    const history = cartdata.filter((cart) => {
+      return cart.wish === false;
+    });
+    setCartHistory(history);
+  }, [cartdata]);
   const seeList = (id) => {
     navigate(`${id}`);
   };
   const handleDelete = (id) => {
-    services.deleteCart(url, id).then((res) => {
-      navigate('/');
+    const removeHistory = cartHistory?.filter((cart) => {
+      return cart.id !== id;
     });
+    setCartHistory(removeHistory);
+    services.deleteCart(url, id);
   };
   return (
     <div>
+      {console.log('cart', cartHistory)}
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>
         <Button style={{ float: 'right', marginRight: '4em', marginTop: '1em' }} className="returnToList" onClick={() => navigate('/')}>
