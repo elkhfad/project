@@ -4,7 +4,6 @@ const Cart = require('../models/cart');
 const cartRouter = require('express').Router();
 const jwt = require('jsonwebtoken');
 const getToken = require('../utils/token');
-const moment = require('moment');
 ObjectId = require('mongodb').ObjectID;
 
 cartRouter.post('/', async (request, response, next) => {
@@ -19,7 +18,6 @@ cartRouter.post('/', async (request, response, next) => {
   const cartPrice = findItem.find((item) => {
     return item._id.valueOf() === body.buyItem;
   });
-  const localTime = moment(body.time).format('YYYY-MM-DD HH:mm:ss');
 
   const cart = new Cart({
     buyItems: {
@@ -27,7 +25,7 @@ cartRouter.post('/', async (request, response, next) => {
       price: cartPrice.price,
     },
     user: user._id,
-    time: localTime,
+    time: body.time,
     wish: true,
   });
 

@@ -2,10 +2,9 @@ import cartService from '../../services/cartsService';
 import CartAmountComponent from '../forms/CartAmountComponent';
 import { useState } from 'react';
 import { useCartsContext } from '../contexts/useCartsContext';
-
+import moment from 'moment';
 const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, setItemInCart }) => {
   const { dispatch } = useCartsContext();
-
   const cartUrl = '/api/carts';
   const cartWishUrl = '/api/carts/wishlist';
   const [amount, setAmount] = useState(0);
@@ -36,10 +35,12 @@ const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, set
           setError(err.message);
         });
     } else {
+      const time = new Date().toISOString();
+      const localTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
       const createCart = {
         buyItem: id,
         amount: amount,
-        time: new Date().toISOString(),
+        time: localTime,
       };
       cartService.create(cartUrl, createCart).then((res) => {
         dispatch({ type: 'CREATE_CART', payload: { res } });
