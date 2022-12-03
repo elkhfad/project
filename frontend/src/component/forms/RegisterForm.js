@@ -44,7 +44,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.firstName} min={3} />
                   </div>
                 </div>
-                {<ErrorHandler min={3} value={signUp.firstName} text="First length is too short" />}
+                {<ErrorHandler min={3} value={signUp.firstName} text="First name length is too short" />}
 
                 <label htmlFor="lastName">Last name *</label>
                 <div className="input-group">
@@ -63,7 +63,7 @@ const RegisterForm = ({ error, handleSubmit, handleChange, signUp, handleShow, h
                     <ChooseIcon value={signUp.lastName} min={5} />
                   </div>
                 </div>
-                {<ErrorHandler min={5} value={signUp.lastName} text="First length is too short" />}
+                {<ErrorHandler min={5} value={signUp.lastName} text="Last name length is too short" />}
 
                 <label htmlFor="email">email *</label>
                 <div className="input-group">
