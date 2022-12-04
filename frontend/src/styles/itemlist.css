@@ -252,14 +252,6 @@ table {
 }
 
 
-.page-link {
-
-  color: #7b7a7a !important;
-  background-color: #7b7a7a !important;
-  border: #7b7a7a !important;
-
-}
-
 .price {
   font-size: 1.5em;
   font-weight: 800;
@@ -442,6 +434,8 @@ textarea {
   color: #b7b7b7 !important;
 }
 
+
+
 .small {
   font-size: 14px !important;
   padding: 2px
@@ -455,12 +449,21 @@ textarea {
   text-transform: capitalize;
 }
 
+ul.pagination {
+
+  --bs-pagination-focus-box-shadow: 0 0 0 0.1rem #ffffff;
+  --bs-pagination-active-border-color: #ffffff;
+
+
+}
+
 .contactAddress,
 .contactEmail {
   margin-bottom: 0.5em;
   font-weight: 600;
 
 }
+
 
 .contactHeader {
   font-size: 20px;
