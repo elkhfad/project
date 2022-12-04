@@ -115,10 +115,6 @@ export default function CartBuyStepper() {
               <Typography component={'div'} sx={{ mt: 2, mb: 1 }}>
                 All steps completed - you&apos;re finished
               </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                <Box sx={{ flex: '1 1 auto' }} />
-                <Button onClick={goToShopping()}>Buy</Button>
-              </Box>
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -136,7 +132,7 @@ export default function CartBuyStepper() {
                       Step {activeStep + 1} already completed
                     </Typography>
                   ) : (
-                    <Button onClick={handleComplete}>{completedSteps() === totalSteps() - 1 ? 'Send order' : 'Complete Step'}</Button>
+                    <Button onClick={handleComplete}>{completedSteps() === totalSteps() - 1 ? goToShopping() : 'Complete Step'}</Button>
                   ))}
               </Box>
             </React.Fragment>
