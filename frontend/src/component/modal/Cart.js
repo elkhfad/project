@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import services from '../../services/cartsService';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
 import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
 import AlertComponent from '../Alert/AlertComponent';
 import Confirm from './Confirm';
 import { BsTrash } from 'react-icons/bs';
@@ -15,21 +14,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useNavigate } from 'react-router-dom';
 import CartAmountUpdateComponent from './CartAmountUpdateComponent';
-import servicesUser from '../../services/registerService';
-
 const Cart = ({ setItemInCart, itemInCart }) => {
   const cartUrl = '/api/carts/all';
-  const [isPending, setIsPending] = useState(true);
   const { cartdata, setCartData } = useGetCartList(cartUrl);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const [carts, setCarts] = useState([]);
   const url = '/api/carts';
-  const urlBuy = '/api/carts/buy';
   const cartWishUrl = '/api/carts/wishlist';
   const urlUser = `/api/users`;
-  const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
   const [cart, setCart] = useState({
     buyItems: [{ buyItem: '', amount: 0, price: 0, _id: '' }],
@@ -40,17 +36,10 @@ const Cart = ({ setItemInCart, itemInCart }) => {
     address: '',
   });
   useEffect(() => {
-    setIsPending(true);
-    servicesUser.getUser(urlUser).then((res) => {
-      setUser(res);
-      setError(null);
-    });
-
     services
       .getById(url, id)
       .then((res) => {
         setCarts(res.data);
-        setIsPending(false);
         setCart(
           cartdata.find((cart) => {
             return cart.id === id;
@@ -62,24 +51,8 @@ const Cart = ({ setItemInCart, itemInCart }) => {
         setError(err.response.data.error);
       });
   }, [id, url, cart, cartdata, urlUser]);
-  const handleBuy = () => {
-    const updateCart = {
-      ...carts,
-      wish: false,
-      address: user,
-    };
-    setIsPending(true);
-    services
-      .buyUpdate(urlBuy, updateCart, id)
-      .then(() => {
-        setError(null);
-        setIsPending(false);
-        setItemInCart(0);
-        window.location.href = '/';
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
+  const goToShipping = () => {
+    navigate(`/cartList/shipping/${id}`);
   };
   const TAX_RATE = 0.22;
 
@@ -98,14 +71,13 @@ const Cart = ({ setItemInCart, itemInCart }) => {
     });
   };
   const handleAmount = async () => {
-    setIsPending(true);
     await services
       .getAllCartByUser(cartUrl)
       .then((res) => {
         if (!res.status === 'OK') {
           throw Error('could not load data');
         }
-        setIsPending(false);
+
         setCartData(res);
         setError(null);
         setCart(
@@ -116,7 +88,6 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       })
       .catch((err) => {
         setError(err.message);
-        setIsPending(false);
       });
   };
 
@@ -152,7 +123,6 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       </div>
       <div className="cartDate">
         cart created {handleTime(cart?.time)}
-        {isPending && <Spinner animation="border" variant="primary" />}
         {error && <AlertComponent variant="danger" header="You got an error!" text={error} />}
       </div>
       <TableContainer component={Paper} style={{ width: '80%', margin: '0 auto', marginTop: '2em', marginBottom: '2em' }}>
@@ -238,8 +208,8 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       </TableContainer>
       <div className="cartButtons">
         <div>
-          <Button className="buyCart" onClick={() => handleBuy()}>
-            Buy
+          <Button className="buyCart" onClick={() => goToShipping()}>
+            Order
           </Button>
         </div>
         <div>

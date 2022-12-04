@@ -39,7 +39,6 @@ const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, set
         amount: amount,
         time: new Date(),
       };
-      console.log(createCart);
       cartService.create(cartUrl, createCart).then((res) => {
         dispatch({ type: 'CREATE_CART', payload: { res } });
         setCartData(res);

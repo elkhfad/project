@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import { useEffect, useState } from 'react';
 import cartService from './services/cartsService';
 import PrivateRoute from './component/autoLogOut/PrivateRoute';
+import CartBuyStepper from './component/modal/CartBuyStepper';
 function App() {
   const { currentUser } = useCurrentUser();
   const [itemInCart, setItemInCart] = useState(0);
@@ -101,6 +102,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Cart setItemInCart={setItemInCart} itemInCart={itemInCart} />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/cartList/shipping/:id"
+              element={
+                <PrivateRoute>
+                  <CartBuyStepper />
                 </PrivateRoute>
               }
             />

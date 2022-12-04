@@ -28,6 +28,43 @@
   margin-right: 1em;
 }
 
+.valueStyleStepper {
+  font-size: 1.2em;
+  text-transform: capitalize;
+  color: #373737;
+
+}
+
+.stepperStyle div {
+  margin: 5px 10px 0 0;
+  display: inline-block;
+
+}
+
+.textStyleStepper {
+  font-size: 1.2em;
+  text-transform: capitalize;
+  font-weight: 800;
+  color: #145713;
+  float: left;
+  margin-left: 4em !important;
+}
+
+
+
+.cartStepperCityAndPostalCode,
+.cartStepperaddress,
+.cartStepperEmail,
+.cartStepperFullName {
+  font-size: 1em;
+  text-align: center;
+  margin: 2em;
+  color: #7f7f7f;
+  word-spacing: 0.2em;
+  text-transform: capitalize;
+  font-size: 1.5em;
+}
+
 .btnPlus,
 .btnMinus {
   outline: none;

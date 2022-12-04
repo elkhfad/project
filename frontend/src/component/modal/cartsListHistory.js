@@ -36,7 +36,6 @@ const CartsListHistory = () => {
   };
   return (
     <div>
-      {console.log('cart', cartHistory)}
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div>
         <Button style={{ float: 'right', marginRight: '4em', marginTop: '1em' }} className="returnToList" onClick={() => navigate('/')}>
