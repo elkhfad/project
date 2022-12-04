@@ -35,6 +35,24 @@
 
 }
 
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+  color: #145713 !important;
+}
+
+.MuiStepper-root.MuiStepper-horizontal.css-m5vj9m-MuiStepper-root {
+  background-color: #023d01;
+  font-size: 1em;
+}
+
+.MuiStepIcon-text.css-117w1su-MuiStepIcon-text,
+.MuiStepLabel-label.css-1hv8oq8-MuiStepLabel-label,
+.MuiStepLabel-label.Mui-completed.css-1hv8oq8-MuiStepLabel-label {
+  color: #b5b5b5 !important;
+  font-size: 1em;
+}
+
+
 .stepperStyle div {
   margin: 5px 10px 0 0;
   display: inline-block;

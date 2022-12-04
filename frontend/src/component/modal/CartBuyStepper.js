@@ -40,7 +40,7 @@ export default function CartBuyStepper() {
       case 2:
         return <SendOrder />;
       default:
-        return 'Create an ad';
+        return <View />;
     }
   }
   const handleBuy = () => {
@@ -125,7 +125,7 @@ export default function CartBuyStepper() {
               <Typography component={'div'} sx={{ mt: 2, mb: 1, py: 1 }}>
                 {getStepContent(activeStep)}
               </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, marginBottom: '2em' }}>
                 <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
                   Back
                 </Button>
