@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import services from '../../services/cartsService';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import AlertComponent from '../Alert/AlertComponent';
-import { useGetCartList } from '../control/useGetCardList';
+import { useGetCartById } from '../control/useGetCardList';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -16,45 +14,11 @@ import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const cartUrl = '/api/carts/all';
-  const [isPending, setIsPending] = useState(true);
-  const { cartdata } = useGetCartList(cartUrl);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
-  const [carts, setCarts] = useState([]);
   const url = '/api/carts';
-  const urlUser = `/api/users`;
+  const { id } = useParams();
+  const { error, data, cart, isPending } = useGetCartById(url, id);
   const navigate = useNavigate();
-
-  const [cart, setCart] = useState({
-    buyItems: [{ buyItem: '', amount: 0, price: 0, _id: '' }],
-    id: '',
-    time: '',
-    user: '',
-    wish: false,
-    address: '',
-  });
-  useEffect(() => {
-    services
-      .getById(url, id)
-      .then((res) => {
-        setCarts(res.data);
-        setIsPending(false);
-        setCart(
-          cartdata.find((cart) => {
-            return cart.id === id;
-          })
-        );
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.response.data.error);
-        setIsPending(false);
-      });
-  }, [id, url, cart, cartdata, urlUser]);
-
   const TAX_RATE = 0.22;
-
   const subtotal = (items) => {
     return items
       ?.map(({ price, amount }) => {
@@ -112,10 +76,10 @@ const Cart = () => {
                   ?.filter((item) => item !== null)
                   .map((item, index) => (
                     <TableRow key={item._id + index}>
-                      <TableCell>{carts?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
+                      <TableCell>{data?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
                       <TableCell align="left">{item.amount}</TableCell>
                       <TableCell align="left">
-                        <img src={carts?.filter((p) => p.id === item.buyItem).shift()?.pic} alt="" width="50" height="50" />
+                        <img src={data?.filter((p) => p.id === item.buyItem).shift()?.pic} alt="" width="50" height="50" />
                       </TableCell>
                       <TableCell align="right">
                         {item.price} {'\u20AC'}

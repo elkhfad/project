@@ -19,6 +19,7 @@ export default function CartBuyStepper() {
   const { id } = useParams();
   const [completed, setCompleted] = useState({});
   const { user } = useUser();
+
   const urlBuy = '/api/carts/buy';
 
   const totalSteps = () => {
@@ -41,10 +42,12 @@ export default function CartBuyStepper() {
       wish: false,
       address: user,
     };
-    services.buyUpdate(urlBuy, updateCart, id).then(() => {
-      window.location.href = '/';
-      handleReset();
-    });
+
+    setTimeout(() => {
+      services.buyUpdate(urlBuy, updateCart, id).then(() => {
+        window.location.href = '/';
+      });
+    }, 5000);
   };
   const completedSteps = () => {
     return Object.keys(completed).length;

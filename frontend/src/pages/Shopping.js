@@ -45,15 +45,7 @@ const Shopping = ({ setItemInCart, handleCartAdd, setCartData, cartdata, error, 
       <div className="search">
         <input id="search" name="search" placeholder="search by title" onChange={handleSearch} value={search} />
       </div>
-      {currentUser ? (
-        error ? (
-          <AlertComponent variant="danger" header="You got an error!" text={error} />
-        ) : (
-          ''
-        )
-      ) : (
-        <AlertComponent variant="info" header="You need to sign in to start shopping" text={''} />
-      )}
+      {currentUser && error && <AlertComponent variant="danger" header="You got an error!" text={error} />}
       <div>{isPending && <Spinner animation="border" variant="primary" />}</div>
       <div className="container mt-5">
         <div className="mt-3" style={{ float: 'right' }}>

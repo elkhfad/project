@@ -1,9 +1,7 @@
 import cartService from '../../services/cartsService';
 import CartAmountComponent from '../forms/CartAmountComponent';
 import { useState } from 'react';
-import { useCartsContext } from '../contexts/useCartsContext';
 const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, setItemInCart }) => {
-  const { dispatch } = useCartsContext();
   const cartUrl = '/api/carts';
   const cartWishUrl = '/api/carts/wishlist';
   const [amount, setAmount] = useState(0);
@@ -40,7 +38,6 @@ const CartComponent = ({ id, setError, cartdata, setCartData, handleCartAdd, set
         time: new Date(),
       };
       cartService.create(cartUrl, createCart).then((res) => {
-        dispatch({ type: 'CREATE_CART', payload: { res } });
         setCartData(res);
         handleClose();
         setError(null);

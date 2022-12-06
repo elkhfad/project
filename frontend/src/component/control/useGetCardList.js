@@ -29,7 +29,6 @@ export const useGetCartList = (url) => {
 };
 export const useGetCartById = (url, id) => {
   const cartUrl = '/api/carts/all';
-
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
   const { cartdata, setCartData } = useGetCartList(cartUrl);
