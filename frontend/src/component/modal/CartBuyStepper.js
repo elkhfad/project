@@ -7,10 +7,10 @@ import Typography from '@mui/material/Typography';
 import View from './View';
 import ShippingAddress from './ShippinfAddress';
 import { useParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import services from '../../services/cartsService';
-import servicesUser from '../../services/registerService';
 import SendOrder from './SendOrder';
+import { useUser } from '../control/useUser';
 
 const steps = ['View shopping list', 'Shipping address', 'Send order'];
 
@@ -18,15 +18,8 @@ export default function CartBuyStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const { id } = useParams();
   const [completed, setCompleted] = useState({});
-  const [user, setUser] = useState({});
+  const { user } = useUser();
   const urlBuy = '/api/carts/buy';
-  const urlUser = `/api/users`;
-
-  useEffect(() => {
-    servicesUser.getUser(urlUser).then((res) => {
-      setUser(res);
-    });
-  }, [urlUser]);
 
   const totalSteps = () => {
     return steps.length;

@@ -22,7 +22,6 @@ const Cart = ({ setItemInCart, itemInCart }) => {
   const cartWishUrl = '/api/carts/wishlist';
   const navigate = useNavigate();
   const { error, data, setData, cart, setCart, cartdata, setCartData, setError } = useGetCartById(url, id);
-
   const goToShipping = () => {
     navigate(`/cartList/shipping/${id}`);
   };

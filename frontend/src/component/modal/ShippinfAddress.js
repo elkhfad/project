@@ -3,22 +3,15 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
-import servicesUser from '../../services/registerService';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../control/useUser';
 
 const ShippingAddress = () => {
-  const urlUser = `/api/users`;
-  const [user, setUser] = useState({});
+  const { user } = useUser();
   const handleAddress = () => {
     navigate('/accounts');
   };
   const navigate = useNavigate();
-  useEffect(() => {
-    servicesUser.getUser(urlUser).then((res) => {
-      setUser(res);
-    });
-  }, [user, urlUser]);
 
   return (
     <Card sx={{ maxWidth: 800 }} style={{ margin: '0 auto' }}>
