@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import services from '../../services/cartsService';
 import { IoReturnDownBackOutline } from 'react-icons/io5';
@@ -6,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import AlertComponent from '../Alert/AlertComponent';
 import Confirm from './Confirm';
 import { BsTrash } from 'react-icons/bs';
-import { useGetCartList } from '../control/useGetCardList';
+import { useGetCartById } from '../control/useGetCardList';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,39 +17,12 @@ import { useNavigate } from 'react-router-dom';
 import CartAmountUpdateComponent from './CartAmountUpdateComponent';
 const Cart = ({ setItemInCart, itemInCart }) => {
   const cartUrl = '/api/carts/all';
-  const { cartdata, setCartData } = useGetCartList(cartUrl);
-  const [error, setError] = useState(null);
   const { id } = useParams();
-  const [carts, setCarts] = useState([]);
   const url = '/api/carts';
   const cartWishUrl = '/api/carts/wishlist';
-  const urlUser = `/api/users`;
   const navigate = useNavigate();
+  const { error, data, setData, cart, setCart, cartdata, setCartData, setError } = useGetCartById(url, id);
 
-  const [cart, setCart] = useState({
-    buyItems: [{ buyItem: '', amount: 0, price: 0, _id: '' }],
-    id: '',
-    time: '',
-    user: '',
-    wish: false,
-    address: '',
-  });
-  useEffect(() => {
-    services
-      .getById(url, id)
-      .then((res) => {
-        setCarts(res.data);
-        setCart(
-          cartdata.find((cart) => {
-            return cart.id === id;
-          })
-        );
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.response.data.error);
-      });
-  }, [id, url, cart, cartdata, urlUser]);
   const goToShipping = () => {
     navigate(`/cartList/shipping/${id}`);
   };
@@ -99,7 +71,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
     window.location.href = '/';
   };
   const deleteItem = async (itemId) => {
-    const cartItem = carts?.filter((cart) => {
+    const cartItem = data?.filter((cart) => {
       return cart.id !== itemId;
     });
     const shoppinCartItems = cart?.buyItems?.filter((item) => {
@@ -109,7 +81,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
       itemId: itemId,
     };
     cart.buyItems = shoppinCartItems;
-    setCarts(cartItem);
+    setData(cartItem);
     setItemInCart(itemInCart - 1);
     await services.removeAndUpdate(cartWishUrl, id, newObject);
   };
@@ -149,12 +121,12 @@ const Cart = ({ setItemInCart, itemInCart }) => {
               ?.filter((item) => item !== null)
               .map((item, index) => (
                 <TableRow key={item._id + index}>
-                  <TableCell>{carts?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
+                  <TableCell>{data?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
                   <TableCell align="left">
                     <CartAmountUpdateComponent unit={item.amount} index={index} id={id} itemId={item._id} handleAmount={handleAmount} />
                   </TableCell>
                   <TableCell align="right">
-                    <img src={carts?.filter((p) => p.id === item.buyItem).shift()?.pic} alt="" width="50" height="50" />
+                    <img src={data?.filter((p) => p.id === item.buyItem).shift()?.pic} alt="" width="50" height="50" />
                   </TableCell>
                   <TableCell align="right">
                     {item.price} {'\u20AC'}
@@ -164,7 +136,7 @@ const Cart = ({ setItemInCart, itemInCart }) => {
                   </TableCell>
 
                   <TableCell align="right">
-                    {carts.length > 1 && (
+                    {data.length > 1 && (
                       <Confirm
                         icon={<BsTrash />}
                         title={`Are you sure ?`}
