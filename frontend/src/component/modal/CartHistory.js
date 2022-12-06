@@ -94,7 +94,7 @@ const Cart = () => {
                   <TableCell rowSpan={3} />
                   <TableCell colSpan={2}>Subtotal</TableCell>
                   <TableCell align="right">
-                    {subtotal(cart?.buyItems?.filter((item) => item !== null)).toFixed(2)} {'\u20AC'}
+                    {subtotal(cart?.buyItems?.filter((item) => item !== null))?.toFixed(2)} {'\u20AC'}
                   </TableCell>
                 </TableRow>
                 <TableRow>
