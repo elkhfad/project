@@ -40,8 +40,8 @@
 }
 
 .MuiStepper-root.MuiStepper-horizontal.css-m5vj9m-MuiStepper-root {
-  background-color: #124a12;
-  font-size: 1em;
+  background-color: #124a12 !important;
+  font-size: 1em !important;
 }
 
 
@@ -49,7 +49,7 @@
 .MuiStepLabel-label.css-1hv8oq8-MuiStepLabel-label,
 .MuiStepLabel-label.Mui-completed.css-1hv8oq8-MuiStepLabel-label {
   color: #b5b5b5 !important;
-  font-size: 1em;
+  font-size: 1em !important;
 }
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
