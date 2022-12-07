@@ -114,17 +114,19 @@ export default function CartBuyStepper() {
                 {getStepContent(activeStep)}
               </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, marginBottom: '2em' }}>
-                <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+                <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1, color: '#124a12' }}>
                   Back
                 </Button>
                 <Box sx={{ flex: '1 1 auto' }} />
                 {activeStep !== steps.length &&
                   (completed[activeStep] ? (
-                    <Typography component={'div'} variant="caption" sx={{ display: 'inline-block' }}>
+                    <Typography component={'div'} variant="caption" sx={{ display: 'inline-block', color: '#124a12' }}>
                       Step {activeStep + 1} already completed
                     </Typography>
                   ) : (
-                    <Button onClick={handleComplete}>{completedSteps() === totalSteps() - 1 ? goToShopping() : 'Complete Step'}</Button>
+                    <Button sx={{ mr: 1, color: '#124a12' }} onClick={handleComplete}>
+                      {completedSteps() === totalSteps() - 1 ? goToShopping() : 'Complete Step'}
+                    </Button>
                   ))}
               </Box>
             </React.Fragment>
