@@ -73,7 +73,7 @@ const View = () => {
                 .map((item, index) => (
                   <TableRow key={item._id + index}>
                     <TableCell>{carts?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
-                    <TableCell align="right">{item.amount}</TableCell>
+                    <TableCell align="left">{item.amount}</TableCell>
                     <TableCell align="right">
                       <img src={carts?.filter((p) => p.id === item.buyItem).shift()?.pic} alt="" width="50" height="50" />
                     </TableCell>

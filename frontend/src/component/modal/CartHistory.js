@@ -78,7 +78,7 @@ const Cart = () => {
                     <TableRow key={item._id + index}>
                       <TableCell>{data?.filter((p) => p.id === item.buyItem).shift()?.title}</TableCell>
                       <TableCell align="left">{item.amount}</TableCell>
-                      <TableCell align="left">
+                      <TableCell align="right">
                         <img src={data?.filter((p) => p.id === item.buyItem).shift()?.pic} alt="" width="50" height="50" />
                       </TableCell>
                       <TableCell align="right">
