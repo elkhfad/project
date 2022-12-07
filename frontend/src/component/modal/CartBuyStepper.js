@@ -125,7 +125,7 @@ export default function CartBuyStepper() {
                     </Typography>
                   ) : (
                     <Button sx={{ mr: 1, color: '#124a12' }} onClick={handleComplete}>
-                      {completedSteps() === totalSteps() - 1 ? goToShopping() : 'Complete Step'}
+                      {completedSteps() === totalSteps() - 1 ? goToShopping() : 'Next Step'}
                     </Button>
                   ))}
               </Box>
