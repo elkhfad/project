@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import services from '../../services/cartsService';
 import SendOrder from './SendOrder';
 import { useUser } from '../control/useUser';
+import '../../styles/itemlist.css';
 
 const steps = ['View shopping list', 'Shipping address', 'Send order'];
 
@@ -86,11 +87,6 @@ export default function CartBuyStepper() {
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     handleNext();
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
   };
 
   return (
