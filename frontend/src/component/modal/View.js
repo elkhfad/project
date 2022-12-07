@@ -89,9 +89,7 @@ const View = () => {
               <TableRow>
                 <TableCell rowSpan={3} />
                 <TableCell colSpan={2}>Subtotal</TableCell>
-                <TableCell align="right">
-                  {subtotal(cart?.buyItems?.filter((item) => item !== null))} {'\u20AC'}
-                </TableCell>
+                <TableCell align="right">{subtotal(cart?.buyItems?.filter((item) => item !== null))?.toFixed(2)}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Tax</TableCell>
