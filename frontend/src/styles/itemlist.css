@@ -52,7 +52,7 @@
   font-size: 1em !important;
 }
 
-.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
+-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
   color: #124a12 !important;
 }
@@ -65,6 +65,10 @@
   margin: 5px 10px 0 0;
   display: inline-block;
 
+}
+
+.spinner-border.text-primary {
+  color: #124a12 !important;
 }
 
 .textStyleStepper {
