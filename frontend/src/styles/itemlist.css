@@ -35,9 +35,16 @@
 
 }
 
-.css-m5vj9m-MuiStepper-root {
-  background-color: #023d01;
+.MuiStepLabel-label {
+  color: #7f7f7f !important;
+  font-size: 0.8em !important;
+}
 
+.MuiSvgIcon-root {
+  color: #7f7f7f !important;
+  font-size: 1.2em !important;
+  padding: 2px;
+  margin-bottom: 0.2em;
 }
 
 .spinner-border.text-primary {

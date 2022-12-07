@@ -91,7 +91,7 @@ export default function CartBuyStepper() {
 
   return (
     <Box sx={{ width: '80%', margin: '0 auto', marginTop: '10em' }}>
-      <Stepper nonLinear activeStep={activeStep}>
+      <Stepper nonLinear activeStep={activeStep} sx={{ backgroundColor: '#124a12', fontSize: '1.5em' }}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepButton color="inherit" onClick={handleStep(index)}>
@@ -114,17 +114,17 @@ export default function CartBuyStepper() {
                 {getStepContent(activeStep)}
               </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, marginBottom: '2em' }}>
-                <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1, color: '#124a12' }}>
+                <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1, color: '#124a12', fontSize: '0.8em' }}>
                   Back
                 </Button>
                 <Box sx={{ flex: '1 1 auto' }} />
                 {activeStep !== steps.length &&
                   (completed[activeStep] ? (
-                    <Typography component={'div'} variant="caption" sx={{ display: 'inline-block', color: '#124a12' }}>
+                    <Typography component={'div'} variant="caption" sx={{ display: 'inline-block', color: '#124a12', fontSize: '0.8em' }}>
                       Step {activeStep + 1} already completed
                     </Typography>
                   ) : (
-                    <Button sx={{ mr: 1, color: '#124a12' }} onClick={handleComplete}>
+                    <Button sx={{ mr: 1, color: '#124a12', fontSize: '0.8em' }} onClick={handleComplete}>
                       {completedSteps() === totalSteps() - 1 ? goToShopping() : 'Next Step'}
                     </Button>
                   ))}
