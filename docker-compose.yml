@@ -1,0 +1,46 @@
+# docker compose versio on 3.8
+version: "3.8"
+
+# services : lista konteista
+services:
+  # mongodb nimi
+  mymongodb:
+    # since mongo is an offical image we can use it.
+    image: "mongo"
+    restart: always
+
+    # Julkinen mongodb portti
+    ports:
+      - "27017:27017"
+
+    # pitää meidän data
+    volumes:
+      - data:/data/db
+
+  backend:
+    build: ./backend
+
+    ports:
+      - "3001:3001"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - mymongodb
+
+  frontend:
+    build: ./frontend
+    # ui portti julkinen
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+   
+    depends_on:
+      - backend
+
+volumes:
+  data:
