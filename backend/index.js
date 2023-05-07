@@ -13,7 +13,7 @@ const usersRouter = require('./routers/userrouter');
 
 logger.info('connecting to', config.MONGODB_URI);
 mongoose
-  .connect("mongodb://127.0.0.1:27017/leebstore",
+  .connect("mongodb://mymongodb:27017/leebstore",
   {
     authSource: "admin",
     useNewUrlParser: true,
