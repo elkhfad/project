@@ -2,7 +2,8 @@
   "name": "myproject",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://backend:3001",
+  "proxy": "http://backend:4000",
+  "secure":false,
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -15,6 +16,7 @@
     "bootstrap": "^5.2.2",
     "cors": "^2.8.5",
     "leaflet": "^1.9.3",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
@@ -26,7 +28,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts --max-http-header-size=16250 start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

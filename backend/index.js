@@ -13,9 +13,8 @@ const usersRouter = require('./routers/userrouter');
 
 logger.info('connecting to', config.MONGODB_URI);
 mongoose
-  .connect("mongodb://mymongodb:27017/leebstore",
+  .connect(config.MONGODB_URI,
   {
-    authSource: "admin",
     useNewUrlParser: true,
     useUnifiedTopology: true,
   },
@@ -25,7 +24,7 @@ mongoose
       console.error(err);
     } else {
       console.log("mongodb is running and secured");
-      app.listen(3001);
+      app.listen(config.PORT);
     }
   })
  
@@ -40,4 +39,3 @@ app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 app.use(express.static('build'));
 logger.info('ready');
-

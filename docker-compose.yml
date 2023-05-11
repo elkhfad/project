@@ -5,8 +5,7 @@ version: "3.8"
 services:
   # mongodb nimi
   mymongodb:
-    image: mongo
-    restart: always
+    image: "mongo"
     # Julkinen mongodb portti
     ports:
       - 27017:27017
@@ -17,19 +16,23 @@ services:
   backend:
     build: ./backend
     ports:
-      - 3001:3001    
+      - 4000:4000   
     extra_hosts:
       - host.docker.internal:host-gateway
     depends_on:
       - mymongodb
+    environment:
+      - SECRET=0c63a75b845e4f7d01107d852e4c2485c51a50aaaa94fc61995e71bbee983a2ac3713831264adb47fb6bd1e058d5f004
+      - MONGODB_URI=mongodb://mymongodb:27017/leebstores
+      - PORT=4000
 
   frontend:
     build: ./frontend
     ports:
       - 3000:3000
+    stdin_open: true
     volumes:
       - ./frontend/src:/app/src
-    stdin_open: true
     tty: true
     extra_hosts:
       - host.docker.internal:host-gateway
