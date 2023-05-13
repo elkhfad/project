@@ -14,6 +14,7 @@ services:
       - data:/data/db
 
   backend:
+    build: "./backend"
     image: "elkhfad/project-backend"
     ports:
       - 4000:4000   
@@ -27,6 +28,7 @@ services:
       - PORT=4000
 
   frontend:
+    build: "./frontend"
     image: "elkhfad/project-frontend"
     ports:
       - 3000:3000
