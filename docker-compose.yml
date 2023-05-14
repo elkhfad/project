@@ -6,12 +6,13 @@ services:
   # mongodb nimi
   mymongodb:
     image: "mongo"
+    container_name: mymongodb
     # Julkinen mongodb portti
     ports:
       - 27017:27017
     # pitää meidän data
     volumes:
-      - data:/data/db
+      - /home/leebstores/mongodb/database:/data/db
 
   backend:
     build: "./backend"
